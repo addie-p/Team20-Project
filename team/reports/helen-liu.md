@@ -10,8 +10,8 @@
 - link: https://github.com/addie-p/Team20-Project/commit/5c76558a8011d4bd01e950a72adcc50cf04be27b
 ### quality control
 - reviewed problem.md and features.md to make sure they are up to quality standard
-- link: 
+- link: https://github.com/addie-p/Team20-Project/commit/47d35da43a5a74b652dce103f3e0e9e9b176edd6
 ### updated helen-liu.md
 - updated helen-liu.md with progress and links
-- link: 
+- link: https://github.com/addie-p/Team20-Project/commit/7c7f28722fa19025745962b7c642d7e88f9e4c7a
 
