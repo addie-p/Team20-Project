@@ -8,4 +8,9 @@
 ### October 21, 2024
 - **Task**: Created Trello Board for managing project tasks.
 - **Details**: Created and shared team Trello Board containing tasks for Milestone 2. https://trello.com/b/9ORsL2gJ/326-project-trello-board
-- **Link to Commit**: [Commit on Trello Board]()
+- **Link to Commit**: [Commit on Trello Board](https://github.com/addie-p/Team20-Project/commit/29501853070def6ff9160e73d0833b1aced97c9c)
+
+### October 21, 2024
+- **Task**: Created and updated personal reports file: sandra-vishnu.md.
+- **Details**: Created sandra-vishnu.md and updated to include commits for this milestone.
+- **Link to Commit**: [Commit on completed reports file]()
