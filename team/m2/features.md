@@ -36,8 +36,8 @@ This feature will allow users to upload photos of the food they purchased and of
 
 **Assigned to**: Helen Liu
 
-## Feature 7
+## Ranking Bracket System
 
-[feature description here]
+Through this feature, users can participate in head-to-head matchups, where they vote for the restaurants they want to visit the most, as well as restaurants that they have been to, based on personal experiences and ratings. As users progress through the rounds, they narrow down their favorites, creating a personalized ranking of restaurants. The system dynamically updates scores based on their choices and ratings, essentially “gamifying” the decision-making process. This feature will allow users to organize the restaurants that they have saved and rank those that they have been to. 
 
-**Assigned to**: 
+**Assigned to**: Carol Ding
