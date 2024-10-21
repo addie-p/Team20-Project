@@ -8,7 +8,7 @@
 ### October 21, 2024
 - **Task**: Added "Want to Try" and the "Visited" to the UI-Diagrams.md file, 
 - **Details**: Wrote the detials of the "Want To Try" and the "visited" pages in the file. Explaining the UI.
-- **Link to Commit**: 
+- **Link to Commit**: https://github.com/addie-p/Team20-Project/commit/48ff8d7ba6e969dab503624d65edc5cc37d1000d
 
 
 
