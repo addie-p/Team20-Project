@@ -11,5 +11,6 @@ Link to Commit:[Commit] https://github.com/addie-p/Team20-Project/commit/d8c865a
 October 21, 2024
 Task: Recorded notes from the milestone #2 meeting.
 Details: Documented team ideas and suggestions and shared them with the team for feedback. Link to notes: https://docs.google.com/document/d/1bZTw8vBx9y03ScgSV6ADUVFOuWM77aQVCGcoFdPWxls/edit?usp=sharing
-Link to Commit: 
+Link to Commit: https://github.com/addie-p/Team20-Project/commit/d185f94f03e4f1060ad6fab803412d52346a131f
+
 
