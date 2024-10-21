@@ -17,3 +17,10 @@ rating of the restaurant and they have an option to "add" it. If the user clicks
 
 
 ![2](https://github.com/user-attachments/assets/aa5ed886-b499-412b-9d20-9691d1073288)
+
+This is the "Visted" page. Here the users get to see the restaurants they have visted it ( and also added from the "Want To Try!" page) in a carousel type of view. Here you can quick-rate the restaurants:- Write a review and rate the restuarant. The user has an option of enlarging the restuarant, so 
+they can give an in-depth review of the restaurant.
+
+![3](https://github.com/user-attachments/assets/6222fff2-61db-4a45-b123-af2720327c56)
+
+
