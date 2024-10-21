@@ -26,8 +26,8 @@ Commit 3:
 Eva Choudhury - Communication Lead
 Role: Facilitates communication within the team. Eva is responsible for maintaining and managing the team’s Slack workspace and ensuring that all members stay informed and engaged.
 Top 3 Commits:
-Commit 1 : Created roles.md and established all team roles, pushed roles.md
-Commit 2:
+Commit 1: Set up Slack communication channels for the team.
+Commit 2: Created roles.md and established all team roles, pushed roles.md
 Commit 3:
 Helen Liu - Quality Control
 Role: Reviews team submissions and ensures that all deliverables meet the necessary quality standards. Frank is responsible for proofreading and ensuring the accuracy of all documents before submission.
