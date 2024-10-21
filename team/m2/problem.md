@@ -13,3 +13,4 @@ Why this matters:
 
 In today’s world, there are so many amazing food options out there. With so many options, it’s so hard to decide. We don’t want the decision of food to cause anyone any extra stress. Food should bring joy to everyone. By addressing this issue, Plateful helps users decide efficiently where to eat. 
 
+
