@@ -12,7 +12,7 @@
 ### October 21, 2024
 - **Task**: Set up a joint Google Calendar
 - **Details**: Deadlines and the overall timeline of events for the projects will be placed here so that everyone can stay on task and be aware of due dates.
-- **Link to Commit**: [Commit on jada-tu.md](https://github.com/addie-p/Team20-Project/blob/main/team/reports/jada-tu.md)
+- **Link to Commit**: [Commit on jada-tu.md](https://github.com/addie-p/Team20-Project/commit/17da1a49b359ea82ffcccd27a69c488a185415c2)
 
 
 ### October 21, 2024
