@@ -16,4 +16,4 @@
 - link: https://github.com/addie-p/Team20-Project/commit/7c7f28722fa19025745962b7c642d7e88f9e4c7a
 ### quality control ui-diagrams.md and users.md
 - proofread and reformatted ui-diagrams.md and users.md with minor fixes for uniformity and accuracy
-- link:
+- link: https://github.com/addie-p/Team20-Project/commit/bdd7673fb68a0f22c977954457310be919083468
