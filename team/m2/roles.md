@@ -56,9 +56,9 @@
 
 **Top 3 Commits:**
 
-- [Commit 1](https://github.com/addie-p/Team20-Project/commit/5c76558a8011d4bd01e950a72adcc50cf04be27b): Add data.md
+- [Commit 1](https://github.com/addie-p/Team20-Project/commit/b1bdf7da3b90aa9835bf7cd4d7e96b5818685f3f): Add data.md and update with contributions
 - [Commit 2](https://github.com/addie-p/Team20-Project/commit/47d35da43a5a74b652dce103f3e0e9e9b176edd6): Quality control of problem.md
-- [Commit 3](https://github.com/addie-p/Team20-Project/commit/7c7f28722fa19025745962b7c642d7e88f9e4c7a): Update helen-liu.md
+- [Commit 3](https://github.com/addie-p/Team20-Project/commit/bdd7673fb68a0f22c977954457310be919083468): proofread and reformatted ui-diagrams.md and users.md with minor fixes for uniformity and accuracy
 
 ## Aliya Abedeen - Documentation Lead
 
