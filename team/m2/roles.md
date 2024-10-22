@@ -48,7 +48,7 @@
 
 - [Commit 1](https://github.com/addie-p/Team20-Project/commit/9f1668b43e55d3f919cac9c4c8d7afbf570024cb): Set up Slack communication channels for the team. Also Created eva-choudhury.md reports file.
 - [Commit 2](https://github.com/addie-p/Team20-Project/commit/74da504182639e47a58330ebf42bc04aedb27be9): Created `roles.md` and established all team roles, pushed `roles.md`.
-- Commit 3: Updated everyones roles.md top 3 commits and make fixes to roles.md styling with markdown
+- [Commit 3](https://github.com/addie-p/Team20-Project/commit/c95b89e9fe1afd13b5fbbef928d3362e2793bf7a): Updated everyones roles.md top 3 commits and make fixes to roles.md styling with markdown
 
 ## Helen Liu - Quality Control
 
