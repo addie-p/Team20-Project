@@ -23,6 +23,8 @@
   - `location` (tuples): Coordinates of restaurant location.
   - `avg_price` (float): Average price of all menu items.
   - `saved` (boolean): Whether or not the restaurant is saved by user.
+  - `cuisines` (List[string]): List of cuisines the restaurant serves.
+  - `dietary-restrictions` (List[string]): List of dietary restrictions the restaurant is friendly to.
   - `visited_obj` (dictionary): Dictionary containing information after visit.
     - `visited` (boolean): Whether or not the restaurant has been visited.
     - `rating` (integers): Number of stars given to the restaurant.
