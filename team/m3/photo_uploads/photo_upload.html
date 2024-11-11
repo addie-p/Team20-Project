@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script type="module" src="photo_upload.js"></script>
     <body>
         <center>
            <h1>Photo Upload</h1>
            <div>Upload your photo by clicking the icon below!</div>
-           <div><img src="./images/icons8-upload-90.png" alt="upload icon"></div>
+           <div><img id="upload-icon" src="./images/icons8-upload-90.png" alt="upload icon" style="cursor: pointer;"></div>
            <label for="restaurant">Restaurant that image is from:</label>
+
+           <!-- Hidden file input -->
+           <input type="file" id="fileInput" style="display: none;">
+
            <input type="text" id="restaurant" />
         </center>
         
