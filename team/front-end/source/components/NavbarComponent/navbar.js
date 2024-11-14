@@ -24,12 +24,20 @@ export class NavBarComponent {
 
         const navLinks = document.createElement('ul');
         navLinks.classList.add('nav-links');
-        const links = ['Home', 'Your Restaurants', 'Reviews'];
-        links.forEach(text => {
+
+        const links = [
+            { text: 'Home', url: './index.html' },
+            { text: 'Your Restaurants', url: './your-restaurants.html' },
+            { text: 'Reviews', url: './reviews.html' }
+        ];
+        
+        links.forEach(linkInfo => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
-            link.href = `#${text.toLowerCase().replace(/ /g, '-')}`;
-            link.textContent = text;
+        
+            link.href = linkInfo.url;
+            link.textContent = linkInfo.text;
+        
             listItem.appendChild(link);
             navLinks.appendChild(listItem);
         });
