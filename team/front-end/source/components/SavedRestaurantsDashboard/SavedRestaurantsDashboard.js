@@ -4,6 +4,7 @@ export class SavedRestaurantsDashboard {
   #visited = [];
 
   constructor() {
+    // restaurants in want to try section
     this.#wantToTry = JSON.parse(localStorage.getItem("wantToTry")) || [
       {
         id: 1,
@@ -27,6 +28,7 @@ export class SavedRestaurantsDashboard {
           "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/ff/68/3d/teriyaki-salmon-bento.jpg?w=1400&h=-1&s=1",
       },
     ];
+    // restaurants in visited section
     this.#visited = JSON.parse(localStorage.getItem("visited")) || [];
     this.loadCSS();
   }
@@ -39,11 +41,13 @@ export class SavedRestaurantsDashboard {
     document.head.appendChild(styleSheet);
   }
 
+  // data saved so on refresh it is saved
   saveData() {
     localStorage.setItem("wantToTry", JSON.stringify(this.#wantToTry));
     localStorage.setItem("visited", JSON.stringify(this.#visited));
   }
 
+  // function to create restaurant card
   createRestaurantCard(restaurant, isVisited) {
     const card = document.createElement("div");
     card.classList.add("restaurant-card");
@@ -68,14 +72,16 @@ export class SavedRestaurantsDashboard {
     infoContainer.appendChild(name);
     infoContainer.appendChild(rating);
 
+    // link to review system if restaurant is in visited section
     if (isVisited) {
       const reviewLink = document.createElement("a");
-      reviewLink.href = "#"; // for the review system
+      reviewLink.href = "./rating.html"; // for the review system
       reviewLink.classList.add("review-link");
       reviewLink.innerHTML = "&#8599;";
       infoContainer.appendChild(reviewLink);
     }
 
+    // to remove restaurant completely or move back to want to try if user misclicked
     const removeButton = document.createElement("button");
     removeButton.textContent = isVisited ? "-" : "X";
     removeButton.classList.add("remove-button");
@@ -91,6 +97,7 @@ export class SavedRestaurantsDashboard {
     card.appendChild(image);
     card.appendChild(infoContainer);
 
+    // if in want to try add option to move restaurant card to visited section
     if (!isVisited) {
       const addToVisitedButton = document.createElement("button");
       addToVisitedButton.textContent = "+";
@@ -103,15 +110,7 @@ export class SavedRestaurantsDashboard {
     return card;
   }
 
-  setRating(starContainer, restaurant, rating) {
-    restaurant.savedRating = rating;
-    const stars = starContainer.getElementsByClassName("star");
-
-    for (let i = 0; i < stars.length; i++) {
-      stars[i].classList.toggle("selected", i < rating);
-    }
-    this.saveData();
-  }
+  // display all restaurants
 
   displayWantToTryRestaurants() {
     const wantToTryGrid = this.#container.querySelector("#wantToTryGrid");
@@ -133,6 +132,7 @@ export class SavedRestaurantsDashboard {
     });
   }
 
+  // moving restaurants functions
   moveToVisited(id) {
     const index = this.#wantToTry.findIndex((r) => r.id === id);
     if (index > -1) {
@@ -163,7 +163,7 @@ export class SavedRestaurantsDashboard {
       this.displayWantToTryRestaurants();
     }
   }
-
+  // render all
   render() {
     this.#container = document.createElement("div");
     this.#container.classList.add("dashboard-container");
