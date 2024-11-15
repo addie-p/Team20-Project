@@ -190,6 +190,13 @@ export class PhotoUploadsFeature {
 
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
+            const restaurantName = textInput.value.trim(); // Get text input value
+
+            if (!restaurantName) {
+                alert('Please enter the restaurant name before uploading an image.');
+                return;
+            }
+
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -203,7 +210,13 @@ export class PhotoUploadsFeature {
                         const transaction = this.db.transaction('images', 'readwrite');
                         const store = transaction.objectStore('images');
 
-                        const addRequest = store.add({ id: Date.now(), image: e.target.result });
+                        const data = {
+                            id: Date.now(),
+                            image: e.target.result,
+                            restaurant: restaurantName // Add the text input value
+                        };
+
+                        const addRequest = store.add(data);
 
                         addRequest.onsuccess = () => {
                             console.log('Image successfully saved to IndexedDB');
@@ -281,6 +294,12 @@ export class PhotoUploadsFeature {
         //event listener
         submitIcon.addEventListener('click', () => {
             console.log("submit icon clicked");
+            if (imagePreview.style.display === 'none'){
+                alert("Please upload an image and enter a restaurant before submitting.");
+                return;
+            }
+            alert("Successfully saved your image!");
+            this.clearImagePreview();
         });
 
         // back icon
