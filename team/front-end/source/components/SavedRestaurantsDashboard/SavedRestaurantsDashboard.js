@@ -70,7 +70,7 @@ export class SavedRestaurantsDashboard {
 
     if (isVisited) {
       const reviewLink = document.createElement("a");
-      reviewLink.href = "#"; // for the review system
+      reviewLink.href = "./rating.html";
       reviewLink.classList.add("review-link");
       reviewLink.innerHTML = "&#8599;";
       infoContainer.appendChild(reviewLink);
