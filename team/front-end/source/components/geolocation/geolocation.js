@@ -1,4 +1,6 @@
 // components/geolocation/geolocation.js
+
+// initializing a Leaflet map instance, and displaying nearby restaurants using OpenStreetMap data
 export class GeolocationMapComponent {
     #container = null;
   
@@ -17,20 +19,22 @@ export class GeolocationMapComponent {
       document.head.appendChild(styleSheet);
     }
   
+    //fetching restaurant data using the Overpass API and plotting them on the map
     async fetchRestaurants() {
       const overpassUrl = `
         https://overpass-api.de/api/interpreter?data=[out:json];node
         [amenity=restaurant](around:1000,${this.latitude},${this.longitude});
-        out;`;
+        out;`; //Overpass API URL
   
       try {
         const response = await fetch(overpassUrl);
         const data = await response.json();
   
+         // looping through the fetched restaurant data
         data.elements.forEach(element => {
           const { lat, lon, tags } = element;
           const name = tags.name || "Unnamed Restaurant";
-          const marker = L.marker([lat, lon]).addTo(this.map);
+          const marker = L.marker([lat, lon]).addTo(this.map); // adding a marker to the map for each restaurant
           marker.bindPopup(`<b>${name}</b><br>${tags.cuisine || "Cuisine not specified"}`);
         });
       } catch (error) {
@@ -38,6 +42,7 @@ export class GeolocationMapComponent {
       }
     }
   
+    // initializing the Leaflet map
     initMap() {
       // initializng the map and setting up the view
       this.map = L.map(this.elementId).setView([this.latitude, this.longitude], this.zoomLevel);
@@ -52,10 +57,12 @@ export class GeolocationMapComponent {
       this.fetchRestaurants();
     }
   
+
+    //rendering the map component on the page
     render() {
       this.loadCSS();
   
-      // Create a container for the map
+      // creating a container for the map
       const container = document.createElement("div");
       container.id = this.elementId;
   
