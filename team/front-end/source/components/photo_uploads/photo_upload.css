@@ -1,0 +1,11 @@
+.upload-icon {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.upload-icon:hover {
+    transform: scale(1.2);
+    margin-bottom: 10px;
+}
