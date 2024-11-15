@@ -1,6 +1,7 @@
 export class PhotoUploadsFeature {
 
     constructor() {
+        this.db = null;
         this.loadCSS();
         this.initDatabase();
     }
@@ -100,6 +101,39 @@ export class PhotoUploadsFeature {
         reader.readAsArrayBuffer(file);
     }
 
+    clearAllImages() {
+        if (this.db) {
+            const transaction = this.db.transaction('images', 'readwrite');
+            const store = transaction.objectStore('images');
+            const clearRequest = store.clear();
+
+            clearRequest.onsuccess = () => {
+                console.log('All images cleared from IndexedDB');
+                this.clearImagePreview();
+            };
+
+            clearRequest.onerror = (err) => {
+                console.error('Error clearing images from IndexedDB:', err);
+            };
+        } else {
+            console.error('Database is not initialized');
+        }
+    }
+
+    clearImagePreview() {
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewText = document.getElementById('imagePreviewText');
+        
+        if (imagePreview) {
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+        }
+        
+        if (imagePreviewText) {
+            imagePreviewText.style.display = 'none';
+        }
+    }
+
     render() {
         const container = document.createElement('div');
         container.style.display = 'flex';
@@ -138,31 +172,6 @@ export class PhotoUploadsFeature {
         instructionParagraph.textContent = 'Upload your photo by clicking the icon below!';
         container.appendChild(instructionParagraph);
 
-        // image preview container
-        const imagePreviewContainer = document.createElement('div');
-        imagePreviewContainer.id = 'imagePreviewContainer';
-        imagePreviewContainer.style.marginTop = '20px';
-        imagePreviewContainer.style.marginBottom = '20px';
-
-        // preview text
-        const imagePreviewText = document.createElement('p');
-        imagePreviewText.id = 'imagePreviewText';
-        imagePreviewText.style.display = 'none';
-        imagePreviewText.textContent = 'Image Preview:';
-        imagePreviewContainer.appendChild(imagePreviewText);
-
-        // preview image element
-        const imagePreview = document.createElement('img');
-        imagePreview.id = 'imagePreview';
-        imagePreview.alt = 'Image Preview';
-        imagePreview.style.display = 'none';
-        imagePreview.style.maxWidth = '300px';
-        imagePreview.style.maxHeight = '300px';
-        imagePreviewContainer.appendChild(imagePreview);
-
-        // image preview container
-        container.appendChild(imagePreviewContainer);
-
         // upload icon
         const uploadIcon = document.createElement('img');
         uploadIcon.className = 'upload-icon';
@@ -188,10 +197,6 @@ export class PhotoUploadsFeature {
                     imagePreview.style.display = 'block'; // make img visible
     
                     imagePreviewText.style.display = 'block'; // make img preview text visible
-    
-                    //reduce size of upload icon
-                    uploadIcon.style.width = '50px';
-                    uploadIcon.style.height = '50px'; 
 
                     //save file to index db
                     if (this.db) {
@@ -214,9 +219,51 @@ export class PhotoUploadsFeature {
                 };
                 
                 reader.readAsDataURL(file);
-            }
+            } 
         });
         container.appendChild(uploadIcon);
+
+        // image preview container
+        const imagePreviewContainer = document.createElement('div');
+        imagePreviewContainer.id = 'imagePreviewContainer';
+        imagePreviewContainer.style.marginTop = '20px';
+        imagePreviewContainer.style.marginBottom = '20px';
+
+        // preview text
+        const imagePreviewText = document.createElement('p');
+        imagePreviewText.id = 'imagePreviewText';
+        imagePreviewText.style.display = 'none';
+        imagePreviewText.textContent = 'Image Preview:';
+        imagePreviewContainer.appendChild(imagePreviewText);
+
+        // preview image element
+        const imagePreview = document.createElement('img');
+        imagePreview.id = 'imagePreview';
+        imagePreview.alt = 'Image Preview';
+        imagePreview.style.display = 'none';
+        imagePreview.style.maxWidth = '300px';
+        imagePreview.style.maxHeight = '300px';
+        imagePreviewContainer.appendChild(imagePreview);
+
+        // image preview container
+        container.appendChild(imagePreviewContainer);
+
+        // clear icon
+        const clearIcon = document.createElement('img');
+        clearIcon.className = 'clear-icon';
+        clearIcon.id = 'clear-icon';
+        clearIcon.src = './components/photo_uploads/images/cross.png';
+        clearIcon.alt = 'clear icon';
+        clearIcon.style.cursor = 'pointer';
+        clearIcon.style.width = '50px';
+        clearIcon.style.height = '50px';
+
+        //event listener
+        clearIcon.addEventListener('click', () => {
+            this.clearAllImages();
+        });
+
+        container.appendChild(clearIcon);
 
 
         // // add main container
