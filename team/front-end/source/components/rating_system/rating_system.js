@@ -4,12 +4,13 @@ export class rating_system {
   #selectedRating = 0;
 
   constructor() {
-    this.initializeDB();
-    this.loadCSS();
-    this.addBodyClickListener();
+    this.initializeDB(); 
+    this.loadCSS(); 
+    this.addBodyClickListener(); 
   }
 
   loadCSS() {
+    // Load css file for the rating system component
     const styleSheet = document.createElement("link");
     styleSheet.rel = "stylesheet";
     styleSheet.href = "./components/rating_system/rating_system.css"; 
@@ -17,6 +18,7 @@ export class rating_system {
   }
 
   initializeDB() {
+    // Initialize IndexedDB to store reviews
     const request = indexedDB.open("PlatefulDB", 1);
     request.onupgradeneeded = (event) => {
       this.#db = event.target.result;
@@ -32,27 +34,32 @@ export class rating_system {
   }
 
   updateStars(container, rating) {
+    // Update visual of the stars based on the rating
     container.querySelectorAll('.rating span').forEach((star, index) => {
       star.classList.toggle('selected', index < rating);
     });
   }
 
   handleStarClick(container, index) {
+    // Handle clicking on star and update the selected rating
     this.#selectedRating = index + 1;
     this.updateStars(container, this.#selectedRating);
   }
 
   handleSubmit(event) {
+    // Handle form submission to store the review in IndexedDB
     event.preventDefault();
 
     const restaurantName = event.target.querySelector("#restaurantName").value;
     const reviewText = event.target.querySelector("#reviewText").value;
 
+    // Make sure star rating is selected
     if (this.#selectedRating === 0) {
       alert("Please select a star rating.");
       return;
     }
 
+    // Create new transaction to store the review
     const transaction = this.#db.transaction(["reviews"], "readwrite");
     const objectStore = transaction.objectStore("reviews");
     const review = {
@@ -68,8 +75,8 @@ export class rating_system {
     transaction.oncomplete = () => {
       alert("Review added successfully!");
       event.target.reset();
-      this.updateStars(event.target, 0);
-      this.#selectedRating = 0;
+      this.updateStars(event.target, 0); // Reset star rating
+      this.#selectedRating = 0; // Reset selected rating
     };
 
     transaction.onerror = (event) => {
@@ -78,11 +85,13 @@ export class rating_system {
   }
 
   handleMenuClick() {
+    // Toggle visibility of dropdown menu
     const dropdown = document.querySelector(".menu-dropdown");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
   }
 
   handleBodyClick(event) {
+    // Close dropdown menu if clicking outside of it
     const dropdown = document.querySelector(".menu-dropdown");
     const menuButton = document.querySelector(".menu-button");
     if (dropdown.style.display === "block" && !dropdown.contains(event.target) && event.target !== menuButton) {
@@ -91,17 +100,21 @@ export class rating_system {
   }
 
   addBodyClickListener() {
+    // listener to handle clicks outside of the dropdown menu
     document.body.addEventListener("click", (event) => this.handleBodyClick(event));
   }
 
   handleUploadButtonClick() {
+    // Redirect to Helen's upload page when the upload button is clicked
     window.location.href = "./upload.html";
   }
 
   render() {
+    // Render the rating system component
     this.#container = document.createElement("div");
     this.#container.classList.add("container");
 
+    // Render HTML 
     this.#container.innerHTML = `
       <button class="menu-button">&#9776;</button>
       <div class="menu-dropdown">
@@ -140,17 +153,21 @@ export class rating_system {
       </div>
     `;
 
+    // Add event listeners to stars for rating
     const stars = this.#container.querySelectorAll(".rating span");
     stars.forEach((star, index) => {
       star.addEventListener("click", () => this.handleStarClick(this.#container, index));
       star.addEventListener("mouseover", () => this.updateStars(this.#container, index + 1));
     });
 
+    // Reset stars when mouse leaves the rating area
     this.#container.querySelector(".rating").addEventListener("mouseleave", () => {
       this.updateStars(this.#container, this.#selectedRating);
     });
 
+    // event listener for form submission
     this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
+    // event listener for menu button click
     this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
 
     return this.#container;
