@@ -40,11 +40,6 @@ export class RestaurantCard {
         `;
         content.appendChild(details);
 
-        const footer = document.createElement('div');
-        footer.classList.add('restaurant-card-footer');
-        footer.textContent = 'Click for more details';
-        content.appendChild(footer);
-
         card.appendChild(content);
         return card;
     }
