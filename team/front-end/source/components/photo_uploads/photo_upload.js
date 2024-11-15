@@ -335,6 +335,7 @@ export class PhotoUploadsFeature {
         //event listener
         backIcon.addEventListener('click', () => {
             console.log("back icon clicked");
+            window.location.href = "./rating.html";
         });
 
         iconContainer.appendChild(clearIcon);
