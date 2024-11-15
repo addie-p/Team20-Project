@@ -1,5 +1,5 @@
 import { NavBarComponent } from './components/NavBarComponent/navbar.js';
-import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
+// import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
 
 const app = document.getElementById('app');
 if (!app) {
