@@ -45,6 +45,10 @@ export class PhotoUploadsFeature {
                 if (images.length > 0) {
                     const latestImage = images[images.length - 1].image;
                     this.displayImage(latestImage);
+                    //load restaurant too
+                    const latestRestaurant = images[images.length - 1].restaurant;
+                    const textInput = document.getElementById('restaurant');
+                    textInput.value = latestRestaurant;
                 }
             };
 
@@ -63,10 +67,12 @@ export class PhotoUploadsFeature {
         if (imagePreview) {
             imagePreview.src = imageSrc;
             imagePreview.style.display = 'block';
+            imagePreviewContainer.style.display = 'block';
         }
         
         if (imagePreviewText) {
             imagePreviewText.style.display = 'block';
+            imagePreviewContainer.style.display = 'block';
         }
     }
 
@@ -110,6 +116,8 @@ export class PhotoUploadsFeature {
             clearRequest.onsuccess = () => {
                 console.log('All images cleared from IndexedDB');
                 this.clearImagePreview();
+                const textInput = document.getElementById('restaurant');
+                textInput.value = '';
             };
 
             clearRequest.onerror = (err) => {
@@ -127,25 +135,34 @@ export class PhotoUploadsFeature {
         if (imagePreview) {
             imagePreview.src = '';
             imagePreview.style.display = 'none';
+            imagePreviewContainer.style.display = 'block';
         }
         
         if (imagePreviewText) {
             imagePreviewText.style.display = 'none';
+            imagePreviewContainer.style.display = 'none';
         }
     }
 
     render() {
         const container = document.createElement('div');
+        container.id = 'main-container';
         container.style.display = 'flex';
         container.style.flexDirection = 'column';
         container.style.alignItems = 'center'; // center horizontal
         container.style.justifyContent = 'center'; // center vertical
         container.style.textAlign = 'center'; // center align text in container
 
+        const headerBlock = document.createElement('div');
+        headerBlock.id = 'header-block';
+
         // append an photo upload h1
         const header = document.createElement('h1');
+        header.id = 'title'
         header.textContent = 'Photo Upload';
-        container.appendChild(header);
+        headerBlock.appendChild(header);
+
+        container.appendChild(headerBlock)
 
         // label for restaurant input
         const label = document.createElement('label');
@@ -168,7 +185,7 @@ export class PhotoUploadsFeature {
         container.appendChild(fileInput);
 
         // instruction text
-        const instructionParagraph = document.createElement('p');
+        const instructionParagraph = document.createElement('h4');
         instructionParagraph.textContent = 'Upload your photo by clicking the icon below!';
         container.appendChild(instructionParagraph);
 
@@ -204,6 +221,7 @@ export class PhotoUploadsFeature {
                     imagePreview.style.display = 'block'; // make img visible
     
                     imagePreviewText.style.display = 'block'; // make img preview text visible
+                    imagePreviewContainer.style.display = 'block';
 
                     //save file to index db
                     if (this.db) {
@@ -239,11 +257,13 @@ export class PhotoUploadsFeature {
         // image preview container
         const imagePreviewContainer = document.createElement('div');
         imagePreviewContainer.id = 'imagePreviewContainer';
+        imagePreviewContainer.class = 'imagePreviewContainer'
         imagePreviewContainer.style.marginTop = '20px';
         imagePreviewContainer.style.marginBottom = '20px';
+        imagePreviewContainer.style.display = 'none';
 
         // preview text
-        const imagePreviewText = document.createElement('p');
+        const imagePreviewText = document.createElement('h3');
         imagePreviewText.id = 'imagePreviewText';
         imagePreviewText.style.display = 'none';
         imagePreviewText.textContent = 'Image Preview:';
