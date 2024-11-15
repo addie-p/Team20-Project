@@ -6,6 +6,7 @@ export class rating_system {
   constructor() {
     this.initializeDB();
     this.loadCSS();
+    this.addBodyClickListener();
   }
 
   loadCSS() {
@@ -62,6 +63,7 @@ export class rating_system {
     };
 
     objectStore.add(review);
+    console.log(review);
 
     transaction.oncomplete = () => {
       alert("Review added successfully!");
@@ -75,30 +77,67 @@ export class rating_system {
     };
   }
 
+  handleMenuClick() {
+    const dropdown = document.querySelector(".menu-dropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+  }
+
+  handleBodyClick(event) {
+    const dropdown = document.querySelector(".menu-dropdown");
+    const menuButton = document.querySelector(".menu-button");
+    if (dropdown.style.display === "block" && !dropdown.contains(event.target) && event.target !== menuButton) {
+      dropdown.style.display = "none";
+    }
+  }
+
+  addBodyClickListener() {
+    document.body.addEventListener("click", (event) => this.handleBodyClick(event));
+  }
+
+  handleUploadButtonClick() {
+    window.location.href = "./upload.html";
+  }
+
   render() {
     this.#container = document.createElement("div");
     this.#container.classList.add("container");
 
     this.#container.innerHTML = `
-      <h1>Plateful</h1>
-      <h2>Review Your Favorite Restaurants</h2>
-      <form id="reviewForm">
-        <label for="restaurantName">Restaurant Name:</label>
-        <input type="text" id="restaurantName" placeholder="e.g., Miss Saigon" required>
-
-        <label for="reviewText">Review:</label>
-        <textarea id="reviewText" placeholder="Write your review here..." rows="4" required></textarea>
-
-        <div class="rating">
-          <span data-star="5">&#9733;</span>
-          <span data-star="4">&#9733;</span>
-          <span data-star="3">&#9733;</span>
-          <span data-star="2">&#9733;</span>
-          <span data-star="1">&#9733;</span>
+      <button class="menu-button">&#9776;</button>
+      <div class="menu-dropdown">
+        <a href="#">Page 1</a>
+        <a href="#">Page 2</a>
+        <a href="#">Page 3</a>
+      </div>
+      <div class="header-container">
+        <h1>Plateful</h1>
+        <h2>Review Your Favorite Restaurants</h2>
+        <div class="upload-button" onclick="window.location.href='./upload.html'">
+          <div class="upload-button-icon">&#8682;</div>
+          <div class="upload-button-text">Upload your pictures</div>
         </div>
+      </div>
+      <div class="left-content">
+        <form id="reviewForm">
+          <label for="restaurantName">Restaurant Name:</label>
+          <input type="text" id="restaurantName" placeholder="e.g., Miss Saigon" required>
 
-        <button type="submit">Submit Review</button>
-      </form>
+          <label for="reviewText">Review:</label>
+          <textarea id="reviewText" placeholder="Write your review here..." rows="4" required></textarea>
+
+          <div class="rating">
+            <span data-star="5">&#9733;</span>
+            <span data-star="4">&#9733;</span>
+            <span data-star="3">&#9733;</span>
+            <span data-star="2">&#9733;</span>
+            <span data-star="1">&#9733;</span>
+          </div>
+
+          <button type="submit">Submit Review</button>
+        </form>
+      </div>
+      <div class="right-content">
+      </div>
     `;
 
     const stars = this.#container.querySelectorAll(".rating span");
@@ -112,6 +151,7 @@ export class rating_system {
     });
 
     this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
+    this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
 
     return this.#container;
   }
