@@ -118,9 +118,9 @@ export class rating_system {
     this.#container.innerHTML = `
       <button class="menu-button">&#9776;</button>
       <div class="menu-dropdown">
-        <a href="#">Page 1</a>
-        <a href="#">Page 2</a>
-        <a href="#">Page 3</a>
+        <a href="#">Homepage</a>
+        <a href="#">Ranking</a>
+        <a href="#">Saved Restaurants Dashboard</a>
       </div>
       <div class="header-container">
         <h1>Plateful</h1>
