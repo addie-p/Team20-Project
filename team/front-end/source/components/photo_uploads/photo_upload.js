@@ -248,11 +248,16 @@ export class PhotoUploadsFeature {
         // image preview container
         container.appendChild(imagePreviewContainer);
 
+        //icon container for clear, submit, and back
+        const iconContainer = document.createElement('div');
+        iconContainer.style.display = 'flex'; 
+        iconContainer.style.gap = '10px'; //space between images
+
         // clear icon
         const clearIcon = document.createElement('img');
         clearIcon.className = 'clear-icon';
         clearIcon.id = 'clear-icon';
-        clearIcon.src = './components/photo_uploads/images/cross.png';
+        clearIcon.src = './components/photo_uploads/images/cancel.png';
         clearIcon.alt = 'clear icon';
         clearIcon.style.cursor = 'pointer';
         clearIcon.style.width = '50px';
@@ -263,7 +268,41 @@ export class PhotoUploadsFeature {
             this.clearAllImages();
         });
 
-        container.appendChild(clearIcon);
+        // submit icon
+        const submitIcon = document.createElement('img');
+        submitIcon.className = 'submit-icon';
+        submitIcon.id = 'submit-icon';
+        submitIcon.src = './components/photo_uploads/images/checked.png';
+        submitIcon.alt = 'submit icon';
+        submitIcon.style.cursor = 'pointer';
+        submitIcon.style.width = '50px';
+        submitIcon.style.height = '50px';
+
+        //event listener
+        submitIcon.addEventListener('click', () => {
+            console.log("submit icon clicked");
+        });
+
+        // back icon
+        const backIcon = document.createElement('img');
+        backIcon.className = 'back-icon';
+        backIcon.id = 'back-icon';
+        backIcon.src = './components/photo_uploads/images/previous.png';
+        backIcon.alt = 'back icon';
+        backIcon.style.cursor = 'pointer';
+        backIcon.style.width = '50px';
+        backIcon.style.height = '50px';
+
+        //event listener
+        backIcon.addEventListener('click', () => {
+            console.log("back icon clicked");
+        });
+
+        iconContainer.appendChild(clearIcon);
+        iconContainer.appendChild(submitIcon);
+        iconContainer.appendChild(backIcon);
+
+        container.appendChild(iconContainer);
 
 
         // // add main container
