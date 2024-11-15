@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Restaurants Dashboard</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import { SavedRestaurantsDashboard } from './components/SavedRestaurantsDashboard/SavedRestaurantsDashboard.js';
+
+      const app = document.getElementById('app');
+      const savedDashboard = new SavedRestaurantsDashboard();
+
+      app.appendChild(savedDashboard.render());
+    </script>
+  </body>
+</html>

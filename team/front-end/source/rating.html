@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rating System</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import { rating_system } from './components/rating_system/rating_system.js';
+
+      const app = document.getElementById('app');
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const restaurantId = urlParams.get('restaurantId');
+
+
+      const ratingSystem = new rating_system({ id: restaurantId });
+
+
+      ratingSystem.onPhotoUploadClick = () => {
+        window.location.href = `upload.html?restaurantId=${restaurantId}`;
+      };
+
+
+      ratingSystem.onBackToDashboard = () => {
+        window.location.href = 'dashboard.html';
+      };
+
+      app.appendChild(ratingSystem.render());
+    </script>
+  </body>
+</html>

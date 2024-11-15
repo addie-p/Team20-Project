@@ -75,6 +75,7 @@ export class SavedRestaurantsDashboard {
     // link to review system if restaurant is in visited section
     if (isVisited) {
       const reviewLink = document.createElement("a");
+
       reviewLink.href = "./rating.html"; // for the review system
       reviewLink.classList.add("review-link");
       reviewLink.innerHTML = "&#8599;";
