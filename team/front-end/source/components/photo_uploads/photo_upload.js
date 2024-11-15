@@ -2,6 +2,7 @@ export class PhotoUploadsFeature {
 
     constructor() {
         this.loadCSS();
+        this.initDatabase();
     }
 
     loadCSS() {
@@ -9,6 +10,56 @@ export class PhotoUploadsFeature {
         styleSheet.rel = "stylesheet";
         styleSheet.href = "components/photo_uploads/photo_upload.css";
         document.head.appendChild(styleSheet);
+    }
+
+    initDatabase() {
+        const request = indexedDB.open('ImageDB', 1);
+
+        request.onupgradeneeded = function(event) {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('images')) {
+                db.createObjectStore('images', { keyPath: 'id', autoIncrement: true });
+            }
+        };
+
+        request.onsuccess = function(event) {
+            console.log('Database initialized');
+            this.db = event.target.result;
+        }.bind(this);
+
+        request.onerror = function(event) {
+            console.error('Database failed to open', event.target.error);
+        };
+    }
+
+    saveImageToIndexedDB(file) {
+        if (!this.db) {
+            console.error('Database not initialized');
+            return;
+        }
+
+        const transaction = this.db.transaction('images', 'readwrite');
+        const store = transaction.objectStore('images');
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageBlob = new Blob([e.target.result], { type: file.type });
+            const addRequest = store.add({ image: imageBlob, name: file.name, timestamp: Date.now() });
+
+            addRequest.onsuccess = function() {
+                console.log('Image saved successfully.');
+            };
+
+            addRequest.onerror = function() {
+                console.error('Failed to save image:', addRequest.error);
+            };
+        };
+
+        reader.onerror = function() {
+            console.error('Error reading file:', reader.error);
+        };
+
+        reader.readAsArrayBuffer(file);
     }
 
     render() {
@@ -89,11 +140,12 @@ export class PhotoUploadsFeature {
             console.log("icon clicked");
             fileInput.click();
         });
+
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = (e) => {
                     imagePreview.src = e.target.result; // set img source
                     imagePreview.style.display = 'block'; // make img visible
     
@@ -102,7 +154,27 @@ export class PhotoUploadsFeature {
                     //reduce size of upload icon
                     uploadIcon.style.width = '50px';
                     uploadIcon.style.height = '50px'; 
+
+                    //save file to index db
+                    if (this.db) {
+                        const transaction = this.db.transaction('images', 'readwrite');
+                        const store = transaction.objectStore('images');
+
+                        const addRequest = store.add({ id: Date.now(), image: e.target.result });
+
+                        addRequest.onsuccess = () => {
+                            console.log('Image successfully saved to IndexedDB');
+                        };
+
+                        addRequest.onerror = (err) => {
+                            console.error('Error saving image to IndexedDB:', err);
+                        };
+                    } else {
+                        console.error('Database is not initialized');
+                    }
+                    
                 };
+                
                 reader.readAsDataURL(file);
             }
         });
