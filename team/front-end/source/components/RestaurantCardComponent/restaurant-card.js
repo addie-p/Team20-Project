@@ -1,6 +1,7 @@
 export class RestaurantCard {
     constructor(restaurantData) {
         this.restaurantData = restaurantData;
+        this.cardElement = null;
     }
 
     loadCSS() {
@@ -17,7 +18,7 @@ export class RestaurantCard {
         card.classList.add('restaurant-card');
 
         const image = document.createElement('img');
-        image.src = 'https://via.placeholder.com/300x150?text=Restaurant+Image';
+        image.src = 'https://via.placeholder.com/300x150?text=Restaurant+Image'; // Placeholder for restaurant images
         image.alt = `${this.restaurantData.Restaurant}`;
         card.appendChild(image);
 
@@ -41,38 +42,40 @@ export class RestaurantCard {
         content.appendChild(details);
 
         card.appendChild(content);
+        this.cardElement = card; // Store a reference to the card element
         return card;
     }
+
+    addSwipeListeners({ onLike, onDislike }) {
+        if (!this.cardElement) return;
+
+        const cardElement = this.cardElement;
+        let startX = 0;
+        let currentX = 0;
+
+        const handleStart = (e) => {
+            startX = e.touches[0].clientX;
+        };
+
+        const handleMove = (e) => {
+            currentX = e.touches[0].clientX - startX;
+            cardElement.style.transform = `translateX(${currentX}px)`;
+        };
+
+        const handleEnd = () => {
+            if (currentX > 150) {
+                onLike(); // Swiped right
+            } else if (currentX < -150) {
+                onDislike(); // Swiped left
+            } else {
+                cardElement.style.transform = ''; // Reset position
+            }
+            startX = 0;
+            currentX = 0;
+        };
+
+        cardElement.addEventListener('touchstart', handleStart);
+        cardElement.addEventListener('touchmove', handleMove);
+        cardElement.addEventListener('touchend', handleEnd);
+    }
 }
-
-async function fetchCSV() {
-    const response = await fetch('components/restaurants.csv');
-    const data = await response.text();
-    return parseCSV(data);
-}
-
-function parseCSV(data) {
-    const rows = data.split('\n').map(row => row.trim());
-    const headers = rows[0].split(',');
-
-    return rows.slice(1).map(row => {
-        const values = row.split(',');
-        return headers.reduce((obj, header, index) => {
-            obj[header.trim()] = values[index]?.trim();
-            return obj;
-        }, {});
-    });
-}
-
-async function renderRestaurantCards(containerId) {
-    const restaurantData = await fetchCSV();
-    const container = document.getElementById(containerId);
-
-    restaurantData.forEach(data => {
-        const card = new RestaurantCard(data);
-        container.appendChild(card.render());
-    });
-}
-
-renderRestaurantCards('restaurant-container');
-

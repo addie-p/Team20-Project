@@ -1,5 +1,5 @@
 import { NavBarComponent } from './components/NavBarComponent/navbar.js';
-// import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
+import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
 
 const app = document.getElementById('app');
 if (!app) {
@@ -8,8 +8,14 @@ if (!app) {
     const navBar = new NavBarComponent();
     app.appendChild(navBar.render());
 
+    const restaurantContainer = document.createElement('div');
+    restaurantContainer.id = 'restaurant-container';
+    app.appendChild(restaurantContainer);
+
     renderRestaurantCards('restaurant-container');
 }
+
+const savedRestaurants = []; // Array to store liked restaurants
 
 async function renderRestaurantCards(containerId) {
     try {
@@ -21,10 +27,37 @@ async function renderRestaurantCards(containerId) {
             return;
         }
 
-        restaurantData.forEach(data => {
-            const card = new RestaurantCard(data);
+        let currentIndex = 0;
+
+        function displayNextCard() {
+            if (currentIndex >= restaurantData.length) {
+                container.textContent = 'No more restaurants to show.';
+                return;
+            }
+
+            const cardData = restaurantData[currentIndex];
+            const card = new RestaurantCard(cardData);
+
+            // Clear previous card
+            container.innerHTML = '';
             container.appendChild(card.render());
-        });
+
+            // Attach swipe functionality
+            card.addSwipeListeners({
+                onLike: () => {
+                    savedRestaurants.push(cardData); // Save liked restaurant
+                    currentIndex++;
+                    displayNextCard(); // Show next card
+                },
+                onDislike: () => {
+                    currentIndex++;
+                    displayNextCard(); // Show next card
+                }
+            });
+        }
+
+        // Start displaying cards
+        displayNextCard();
     } catch (error) {
         console.error('Error rendering restaurant cards:', error);
     }
