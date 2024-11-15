@@ -25,12 +25,50 @@ export class PhotoUploadsFeature {
         request.onsuccess = function(event) {
             console.log('Database initialized');
             this.db = event.target.result;
+            this.loadSavedImage();
         }.bind(this);
 
         request.onerror = function(event) {
             console.error('Database failed to open', event.target.error);
         };
     }
+
+    loadSavedImage() {
+        if (this.db) {
+            const transaction = this.db.transaction('images', 'readonly');
+            const store = transaction.objectStore('images');
+            const getRequest = store.getAll();
+
+            getRequest.onsuccess = () => {
+                const images = getRequest.result;
+                if (images.length > 0) {
+                    const latestImage = images[images.length - 1].image;
+                    this.displayImage(latestImage);
+                }
+            };
+
+            getRequest.onerror = (err) => {
+                console.error('Error retrieving images from IndexedDB:', err);
+            };
+        } else {
+            console.error('Database is not initialized');
+        }
+    }
+
+    displayImage(imageSrc) {
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewText = document.getElementById('imagePreviewText');
+        
+        if (imagePreview) {
+            imagePreview.src = imageSrc;
+            imagePreview.style.display = 'block';
+        }
+        
+        if (imagePreviewText) {
+            imagePreviewText.style.display = 'block';
+        }
+    }
+
 
     saveImageToIndexedDB(file) {
         if (!this.db) {
