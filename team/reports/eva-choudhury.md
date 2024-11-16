@@ -35,3 +35,9 @@
 **Task:** Add IndexedDB to my Saved Dashboard Component
 **Details:** Originally the restaurants were hard coded into my component for testing purposes, now I have integrated IndexedDB into my component such that the Saved Restaurants Dashboard has the correct restaurants displaying in Want To Try based on the liked restaurants in the main page.
 **Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/4a31b26c29b4ff89bb8b05f9d3d5f62c8ab91c35)
+
+### November 16, 2024
+
+**Task:** Fixing images for restaurant card and adding to CSV (integrate_main #88)
+**Details:** This commit is adding our three chosen restaurants images in the CSV file and pulling that data to display the pictures in our restaurant cards. This fixes this styling.
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/ec2867462a3fe8def7f12eae28414557574c1215)
