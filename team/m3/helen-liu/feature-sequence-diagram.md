@@ -3,18 +3,19 @@ The photo uploads feature allows users to upload and save photos to a restaurant
 
 ## Sequence Diagram
 ``` mermaid
-photo upload sequence;
-    rating system page's upload icon --> photo upload page;
-    photo upload page --> restaurant name field;
-    restaurant name field --> indexDB;
-    photo upload page --> upload icon;
-    photo upload page --> clear icon;
-    photo upload page --> submit icon;
-    photo upload page --> back icon;
-    upload icon --> file access to user directory;
-    image from user directory --> image preview;
-    image from user directory --> indexDB;
-    back icon --> rating system page;
-    clear icon --> indexDB;
-    submit icon --> image preview;
+flowchart TD
+    A[rating system page] -->|redirect| B{photo upload page}
+    B -->|component| D[restaurant name field]
+    B -->|component| E[upload icon]
+    B -->|component| F[submit icon]
+    B -->|component| G[clear icon]
+    B -->|component| H[back icon]
+    B -->|component| I[image preview]
+    E -->|access and opens| I[user files]
+    I -->|choose image| J[image preview]
+    I -->|add image to| K[indexDB]
+    H --> A
+    G --> |clears|K
+    G --> |clears|H
+    F --> |clears|H
 ```
