@@ -14,14 +14,9 @@ export class SavedRestaurantsDashboard {
   }
 
   async initialize() {
-    // restaurants in want to try section
-
     const allRestaurants = await getSavedRestaurants();
 
-    this.#wantToTry = allRestaurants.filter(
-      (restaurant) => !restaurant.visited
-    );
-    // restaurants in visited section
+    this.#wantToTry = allRestaurants.filter((restaurant) => !restaurant.visited);
     this.#visited = allRestaurants.filter((restaurant) => restaurant.visited);
 
     this.displayWantToTryRestaurants();
@@ -44,48 +39,44 @@ export class SavedRestaurantsDashboard {
     document.head.appendChild(styleSheet);
   }
 
-  // data saved so on refresh it is saved
-  saveData() {
+  // Save data to local storage for persistence
+  saveDataToLocalStorage() {
     localStorage.setItem("wantToTry", JSON.stringify(this.#wantToTry));
     localStorage.setItem("visited", JSON.stringify(this.#visited));
   }
 
-  // function to create restaurant card
   createRestaurantCard(restaurant, isVisited) {
     const card = document.createElement("div");
     card.classList.add("restaurant-card");
     if (isVisited) card.classList.add("visited-card");
 
     const image = document.createElement("img");
-    image.src = restaurant.imageUrl;
-    image.alt = restaurant.name;
+    image.src = restaurant.imageUrl || "https://via.placeholder.com/150";
+    image.alt = restaurant.name || "Restaurant Image";
     image.classList.add("restaurant-image");
 
     const infoContainer = document.createElement("div");
     infoContainer.classList.add("info-container");
 
     const name = document.createElement("h3");
-    name.textContent = restaurant.name;
+    name.textContent = restaurant.name || "Unknown Restaurant";
     name.classList.add("restaurant-name");
 
     const rating = document.createElement("p");
-    rating.textContent = `⭐ ${restaurant.rating}`;
+    rating.textContent = `⭐ ${restaurant.rating || "N/A"}`;
     rating.classList.add("restaurant-rating");
 
     infoContainer.appendChild(name);
     infoContainer.appendChild(rating);
 
-    // link to review system if restaurant is in visited section
     if (isVisited) {
       const reviewLink = document.createElement("a");
-
-      reviewLink.href = "./rating.html"; // for the review system
+      reviewLink.href = "./rating.html";
       reviewLink.classList.add("review-link");
       reviewLink.innerHTML = "&#8599;";
       infoContainer.appendChild(reviewLink);
     }
 
-    // to remove restaurant completely or move back to want to try if user misclicked
     const removeButton = document.createElement("button");
     removeButton.textContent = isVisited ? "-" : "X";
     removeButton.classList.add("remove-button");
@@ -101,7 +92,6 @@ export class SavedRestaurantsDashboard {
     card.appendChild(image);
     card.appendChild(infoContainer);
 
-    // if in want to try add option to move restaurant card to visited section
     if (!isVisited) {
       const addToVisitedButton = document.createElement("button");
       addToVisitedButton.textContent = "+";
@@ -113,8 +103,6 @@ export class SavedRestaurantsDashboard {
 
     return card;
   }
-
-  // display all restaurants
 
   displayWantToTryRestaurants() {
     const wantToTryGrid = this.#container.querySelector("#wantToTryGrid");
@@ -136,7 +124,6 @@ export class SavedRestaurantsDashboard {
     });
   }
 
-  // moving restaurants functions
   async moveToVisited(id) {
     const index = this.#wantToTry.findIndex((r) => r.id === id);
     if (index > -1) {
@@ -155,7 +142,7 @@ export class SavedRestaurantsDashboard {
       const [restaurant] = this.#visited.splice(index, 1);
       restaurant.visited = false;
       this.#wantToTry.push(restaurant);
-      await this.saveData(restaurant); // save updated data
+      await this.saveData(restaurant);
       this.displayWantToTryRestaurants();
       this.displayVisitedRestaurants();
     }
@@ -165,12 +152,11 @@ export class SavedRestaurantsDashboard {
     const index = this.#wantToTry.findIndex((r) => r.id === id);
     if (index > -1) {
       this.#wantToTry.splice(index, 1);
-      await this.removeData(id); // remove from IndexedDB
+      await this.removeData(id);
       this.displayWantToTryRestaurants();
     }
   }
 
-  // render all
   render() {
     this.#container = document.createElement("div");
     this.#container.classList.add("dashboard-container");
