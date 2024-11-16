@@ -1,5 +1,6 @@
 import { NavBarComponent } from './components/NavBarComponent/navbar.js';
 import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
+import { GeolocationMapComponent } from './components/geolocation/geolocation.js';
 
 const app = document.getElementById('app');
 if (!app) {
@@ -14,6 +15,13 @@ if (!app) {
 
     renderRestaurantCards('restaurant-container');
 }
+
+const geolocationMap = new GeolocationMapComponent('map', 42.376800, -72.519444, 15);
+
+
+const mapContainer = geolocationMap.render();
+app.appendChild(mapContainer);
+
 
 // create an array of saved restaurants
 const savedRestaurants = [];
