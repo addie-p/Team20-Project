@@ -1,4 +1,4 @@
-export class FilterComponent {
+export class FilterComponent { //exports FilterComponent class
   constructor(restaurants) {
     this.restaurants = restaurants; //restaraunts from main.js
   }
