@@ -1,27 +1,18 @@
-import { NavBarComponent } from './components/NavBarComponent/navbar.js';
+//import { NavBarComponent } from './components/NavBarComponent/navbar.js';
 import { RankingBracketSystem } from './components/ranking_bracket_system/ranking_bracket_system.js';
 
 
-const app = document.getElementById('app');
-
-const navBar = new NavBarComponent();
-app.appendChild(navBar.render());
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    const initialRestaurants = [
-        { name: 'Arigato', votes: 0 },
-        { name: 'Antonios', votes: 0 },
-        { name: 'Miss Saigon', votes: 0 },
-        { name: 'Chipotle', votes: 0 },
-        { name: 'McDonalds', votes: 0 },
-        { name: 'House of Teriyaki', votes: 0 },
-        { name: 'Bueno y Sano', votes: 0 },
-        { name: 'The Works', votes: 0 }
-    ];
- 
- 
-    const app = document.getElementById('app');
-    const rankingBracketSystem = new RankingBracketSystem(initialRestaurants);
-    app.appendChild(rankingBracketSystem.render());
- });
+    // Create an instance of the RankingBracketSystem
+    const rankingSystem = new RankingBracketSystem();
+
+    // Append the rendered component to an existing element in your HTML
+    // Make sure there is an element with an ID of "app" or replace it with an appropriate container ID
+    const appContainer = document.getElementById('app');
+    
+    if (appContainer) {
+        appContainer.appendChild(rankingSystem.render());
+    } else {
+        console.error('No container found with ID "app". Ensure your HTML has an element with this ID.');
+    }
+});
