@@ -27,7 +27,7 @@ export class NavBarComponent {
 
         const links = [
             { text: 'Home', url: './index.html' },
-            { text: 'Your Restaurants', url: './your-restaurants.html' },
+            { text: 'Your Restaurants', url: './dashboard.html' },
             { text: 'Brackets', url: './brackets.html' }
         ];
         
