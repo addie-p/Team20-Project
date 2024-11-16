@@ -1,7 +1,9 @@
 export class RestaurantCard {
     constructor(restaurantData) {
         this.restaurantData = restaurantData;
-        this.cardElement = null;
+        this.cardElement = null; 
+        this.onLikeCallback = null;
+        this.onDislikeCallback = null;
     }
 
     loadCSS() {
@@ -41,41 +43,49 @@ export class RestaurantCard {
         `;
         content.appendChild(details);
 
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.classList.add('restaurant-card-buttons');
+
+        const dislikeButton = document.createElement('button');
+        dislikeButton.classList.add('dislike-button');
+        dislikeButton.textContent = 'Dislike';
+        dislikeButton.addEventListener('click', () => this.onDislike());
+
+        const likeButton = document.createElement('button');
+        likeButton.classList.add('like-button');
+        likeButton.textContent = 'Like';
+        likeButton.addEventListener('click', () => this.onLike());
+
+        buttonsContainer.appendChild(dislikeButton);
+        buttonsContainer.appendChild(likeButton);
+
         card.appendChild(content);
-        this.cardElement = card; // Store a reference to the card element
+        card.appendChild(buttonsContainer);
+
+        this.cardElement = card; 
         return card;
     }
 
-    addSwipeListeners({ onLike, onDislike }) {
-        if (!this.cardElement) return;
+    onLike() {
+        if (this.cardElement && this.onLikeCallback) {
+            this.cardElement.style.transition = 'transform 0.3s ease';
+            this.cardElement.style.transform = 'translateX(150%)';
+            setTimeout(() => this.cardElement.remove(), 300);
+            this.onLikeCallback(this.restaurantData); 
+        }
+    }
 
-        const cardElement = this.cardElement;
-        let startX = 0;
-        let currentX = 0;
+    onDislike() {
+        if (this.cardElement && this.onDislikeCallback) {
+            this.cardElement.style.transition = 'transform 0.3s ease';
+            this.cardElement.style.transform = 'translateX(-150%)';
+            setTimeout(() => this.cardElement.remove(), 300);
+            this.onDislikeCallback(this.restaurantData);
+        }
+    }
 
-        const handleStart = (e) => {
-            startX = e.touches[0].clientX;
-        };
-
-        const handleMove = (e) => {
-            currentX = e.touches[0].clientX - startX;
-            cardElement.style.transform = `translateX(${currentX}px)`;
-        };
-
-        const handleEnd = () => {
-            if (currentX > 150) {
-                onLike(); // Swiped right
-            } else if (currentX < -150) {
-                onDislike(); // Swiped left
-            } else {
-                cardElement.style.transform = ''; // Reset position
-            }
-            startX = 0;
-            currentX = 0;
-        };
-
-        cardElement.addEventListener('touchstart', handleStart);
-        cardElement.addEventListener('touchmove', handleMove);
-        cardElement.addEventListener('touchend', handleEnd);
+    addSwipeListeners(onLikeCallback, onDislikeCallback) {
+        this.onLikeCallback = onLikeCallback;
+        this.onDislikeCallback = onDislikeCallback;
     }
 }
