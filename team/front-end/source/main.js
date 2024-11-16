@@ -1,6 +1,8 @@
 import { NavBarComponent } from './components/NavBarComponent/navbar.js';
 import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-card.js';
 import { GeolocationMapComponent } from './components/geolocation/geolocation.js';
+import { saveRestaurant } from './services/indexeddb.js';
+
 
 const app = document.getElementById('app');
 if (!app) {
@@ -24,14 +26,19 @@ app.appendChild(mapContainer);
 
 
 // create an array of saved restaurants
-const savedRestaurants = [];
+const savedRestaurants = JSON.parse(localStorage.getItem('savedRestaurants')) || [];
+// create an array of disliked restaurants - not rly used just for reference
+const dislikedRestaurants = JSON.parse(localStorage.getItem('dislikedRestaurants')) || [];
+let currentIndex = JSON.parse(localStorage.getItem('currentIndex')) || 0;
 
 async function renderRestaurantCards(containerId) {
     try {
-        const restaurantData = await fetchCSV();
+        let restaurantData = await fetchCSV();
         const container = document.getElementById(containerId);
-        const savedRestaurants = [];
-        let currentIndex = 0;
+
+        if (dislikedRestaurants.length > 0) {
+            restaurantData = restaurantData.concat(dislikedRestaurants);
+        }
 
         if (!container) {
             console.error(`Container with id "${containerId}" not found.`);
@@ -51,17 +58,42 @@ async function renderRestaurantCards(containerId) {
             container.appendChild(card.render());
 
             card.addSwipeListeners(
-                (likedRestaurant) => {
+                async (likedRestaurant) => {
+                    console.log('Liked restaurant:', likedRestaurant);
+            
+                    try {
+                        await saveRestaurant({
+                            id: likedRestaurant.id,
+                            name: likedRestaurant.Restaurant,
+                            cuisine: likedRestaurant.Cuisine,
+                            price: likedRestaurant.Price,
+                            vegetarian: likedRestaurant.Vegetarian,
+                            town: likedRestaurant.Town,
+                            state: likedRestaurant.State,
+                            distance: likedRestaurant.Distance,
+                            imageUrl: likedRestaurant.Image || '', // Include image URL if available
+                            rating: likedRestaurant.Rating || 'N/A',
+                            visited: false,
+                        });
+                        console.log('Restaurant saved:', likedRestaurant);
+                    } catch (error) {
+                        console.error('Error saving restaurant:', error);
+                    }
+            
                     savedRestaurants.push(likedRestaurant);
-                    console.log('Saved restaurants:', savedRestaurants);
                     currentIndex++;
+                    updateLocalStorage();
                     displayNextCard();
                 },
-                () => {
+                (dislikedRestaurant) => {
+                    console.log('Disliked restaurant:', dislikedRestaurant);
+                    dislikedRestaurants.push(dislikedRestaurant);
                     currentIndex++;
+                    updateLocalStorage();
                     displayNextCard();
                 }
             );
+            
         }
 
         displayNextCard();
@@ -69,6 +101,22 @@ async function renderRestaurantCards(containerId) {
         console.error('Error rendering restaurant cards:', error);
     }
 }
+
+// Helper function to update localStorage
+function updateLocalStorage() {
+    localStorage.setItem('savedRestaurants', JSON.stringify(savedRestaurants));
+    localStorage.setItem('dislikedRestaurants', JSON.stringify(dislikedRestaurants));
+    localStorage.setItem('currentIndex', JSON.stringify(currentIndex));
+}
+
+// Restore state on load
+window.addEventListener('load', () => {
+    console.log('Restoring state...');
+    console.log('Saved Restaurants:', savedRestaurants);
+    console.log('Disliked Restaurants:', dislikedRestaurants);
+    console.log('Current Index:', currentIndex);
+});
+
 
 // async function fetch restaurant data from restaurants.csv
 async function fetchCSV() {
@@ -90,11 +138,11 @@ function parseCSV(data) {
     const rows = data.split('\n').map(row => row.trim());
     const headers = rows[0].split(',');
 
-    return rows.slice(1).map(row => {
+    return rows.slice(1).map((row, index) => {
         const values = row.split(',');
-        return headers.reduce((obj, header, index) => {
-            obj[header.trim()] = values[index]?.trim();
+        return headers.reduce((obj, header, idx) => {
+            obj[header.trim()] = values[idx]?.trim();
             return obj;
-        }, {});
+        }, { id: index + 1 }); // Add a unique id if not present
     });
 }
