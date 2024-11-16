@@ -2,3 +2,8 @@ ID,Restaurant,Cuisine,Price,Vegetarian,Town,State,Distance
 1,Antonio's Pizza,Pizza,$,Yes,Amherst,MA,2
 2,Miss Saigon,Vietnamese,$$,Yes,Amherst,MA,4
 3,Arigato,Japanese,$$,Yes,Amherst,MA,6
+4,The Works,Breakfast,$$,Yes,Amherst,MA,10
+5,Bueno y Sano,Mexican,$$,Yes,Amherst,MA,8
+6,Chipotle,Mexican,$,Yes,Hadley,MA,3
+7,McDonalds,Fast Food,$,Yes,Hadley,MA,4
+8,Taco Bell,Fast Food,$,Yes,Hadley,MA,5
