@@ -15,19 +15,20 @@ if (!app) {
     renderRestaurantCards('restaurant-container');
 }
 
-const savedRestaurants = []; // Array to store liked restaurants
+// create an array of saved restaurants
+const savedRestaurants = [];
 
 async function renderRestaurantCards(containerId) {
     try {
         const restaurantData = await fetchCSV();
         const container = document.getElementById(containerId);
-        
+        const savedRestaurants = [];
+        let currentIndex = 0;
+
         if (!container) {
             console.error(`Container with id "${containerId}" not found.`);
             return;
         }
-
-        let currentIndex = 0;
 
         function displayNextCard() {
             if (currentIndex >= restaurantData.length) {
@@ -38,31 +39,30 @@ async function renderRestaurantCards(containerId) {
             const cardData = restaurantData[currentIndex];
             const card = new RestaurantCard(cardData);
 
-            // Clear previous card
             container.innerHTML = '';
             container.appendChild(card.render());
 
-            // Attach swipe functionality
-            card.addSwipeListeners({
-                onLike: () => {
-                    savedRestaurants.push(cardData); // Save liked restaurant
+            card.addSwipeListeners(
+                (likedRestaurant) => {
+                    savedRestaurants.push(likedRestaurant);
+                    console.log('Saved restaurants:', savedRestaurants);
                     currentIndex++;
-                    displayNextCard(); // Show next card
+                    displayNextCard();
                 },
-                onDislike: () => {
+                () => {
                     currentIndex++;
-                    displayNextCard(); // Show next card
+                    displayNextCard();
                 }
-            });
+            );
         }
 
-        // Start displaying cards
         displayNextCard();
     } catch (error) {
         console.error('Error rendering restaurant cards:', error);
     }
 }
 
+// async function fetch restaurant data from restaurants.csv
 async function fetchCSV() {
     try {
         const response = await fetch('./components/restaurants.csv');
@@ -77,6 +77,7 @@ async function fetchCSV() {
     }
 }
 
+// parse the csv by removing commas and trimming as needed
 function parseCSV(data) {
     const rows = data.split('\n').map(row => row.trim());
     const headers = rows[0].split(',');
