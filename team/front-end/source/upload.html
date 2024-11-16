@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photo Upload</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import { PhotoUploadsFeature } from './components/photo_uploads/photo_upload.js';
+
+      const app = document.getElementById('app');
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const restaurantId = urlParams.get('restaurantId');
+
+      const photoUpload = new PhotoUploadsFeature({ id: restaurantId });
+
+      photoUpload.onBackToRating = () => {
+        window.location.href = `rating.html?restaurantId=${restaurantId}`;
+      };
+
+      app.appendChild(photoUpload.render());
+    </script>
+  </body>
+</html>

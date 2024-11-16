@@ -67,6 +67,7 @@ export class RestaurantCard {
     }
 
     onLike() {
+        console.log('Like button clicked');
         if (this.cardElement && this.onLikeCallback) {
             this.cardElement.style.transition = 'transform 0.3s ease';
             this.cardElement.style.transform = 'translateX(150%)';
@@ -74,8 +75,9 @@ export class RestaurantCard {
             this.onLikeCallback(this.restaurantData); 
         }
     }
-
+    
     onDislike() {
+        console.log('Dislike button clicked');
         if (this.cardElement && this.onDislikeCallback) {
             this.cardElement.style.transition = 'transform 0.3s ease';
             this.cardElement.style.transform = 'translateX(-150%)';
@@ -83,6 +85,7 @@ export class RestaurantCard {
             this.onDislikeCallback(this.restaurantData);
         }
     }
+    
 
     addSwipeListeners(onLikeCallback, onDislikeCallback) {
         this.onLikeCallback = onLikeCallback;
