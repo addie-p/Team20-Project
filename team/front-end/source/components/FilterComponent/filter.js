@@ -1,6 +1,7 @@
 export class FilterComponent { //exports FilterComponent class
   constructor(restaurants) {
     this.restaurants = restaurants; //restaraunts from main.js
+    this.loadCSS();
   }
 
  //function that applies filters chosen by the user by checking whether each restaurant matches their preferences
@@ -47,6 +48,13 @@ export class FilterComponent { //exports FilterComponent class
         </ul>
       `;
     }
+  }
+
+  loadCSS(){
+    const style = document.createElement("link");
+    style.rel="stylesheet";
+    style.href= "components/FilterComponent/filter.css"
+    document.head.appendChild(style)
   }
 
 //render html UI in the js file

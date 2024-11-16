@@ -26,20 +26,20 @@ const restaurants = [
 ];
 
 
-document.documentElement.innerHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Filter Restaurant Recommendations</title>
-  <link rel="stylesheet" href="./components/FilterComponent/filter.css">
-</head>
-<body>
-  <div id="app"></div>
-</body>
-</html>
-`;
+// document.documentElement.innerHTML = `
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Filter Restaurant Recommendations</title>
+//   <link rel="stylesheet" href="./components/FilterComponent/filter.css">
+// </head>
+// <body>
+//   <div id="app"></div>
+// </body>
+// </html>
+// `;
 
 const filterComponent = new FilterComponent(restaurants);
 app.appendChild(filterComponent.render());
