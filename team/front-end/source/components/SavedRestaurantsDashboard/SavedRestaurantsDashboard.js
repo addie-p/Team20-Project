@@ -16,7 +16,9 @@ export class SavedRestaurantsDashboard {
   async initialize() {
     const allRestaurants = await getSavedRestaurants();
 
-    this.#wantToTry = allRestaurants.filter((restaurant) => !restaurant.visited);
+    this.#wantToTry = allRestaurants.filter(
+      (restaurant) => !restaurant.visited
+    );
     this.#visited = allRestaurants.filter((restaurant) => restaurant.visited);
 
     this.displayWantToTryRestaurants();
@@ -63,7 +65,7 @@ export class SavedRestaurantsDashboard {
     name.classList.add("restaurant-name");
 
     const rating = document.createElement("p");
-    rating.textContent = `⭐ ${restaurant.rating || "N/A"}`;
+    rating.textContent = `⭐ ${"4"}`;
     rating.classList.add("restaurant-rating");
 
     infoContainer.appendChild(name);

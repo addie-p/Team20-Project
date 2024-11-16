@@ -1,4 +1,4 @@
-ID,Restaurant,Cuisine,Price,Vegetarian,Town,State,Distance
-1,Antonio's Pizza,Pizza,$,Yes,Amherst,MA,2
-2,Miss Saigon,Vietnamese,$$,Yes,Amherst,MA,4
-3,Arigato,Japanese,$$,Yes,Amherst,MA,6
+ID,Restaurant,Cuisine,Price,Vegetarian,Town,State,Distance,Image
+1,Antonio's Pizza,Pizza,$,Yes,Amherst,MA,2,https://www.andiemitchell.com/wp-content/uploads/2012/10/antonios-pizza-amherst-ma.jpg
+2,Miss Saigon,Vietnamese,$$,Yes,Amherst,MA,4,https://www.stonehousefarmbb.com/images/Restaurants/d7c5c347-282a-444a-8012-663ec3256160.jpg
+3,Arigato,Japanese,$$,Yes,Amherst,MA,6,https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/ff/68/3d/teriyaki-salmon-bento.jpg?w=1400&h=-1&s=1 
