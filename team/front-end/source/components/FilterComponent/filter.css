@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #eafaf1; 
+  background-color: #ffffff; 
   margin: 0;
   padding: 0;
   color: #337e37; 
@@ -9,15 +9,20 @@ body {
 .filter-container {
   max-width: 600px;
   margin: 50px auto;
-  background: rgb(197, 228, 201);
+  background: linear-gradient(135deg, rgba(197, 228, 201, 0.9), rgba(255, 255, 255, 0.9));
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #c8e6c9;
 }
 
-h1, h2 {
+h1 {
   color: #1b5e20; 
+  text-align: center;
+}
+
+h2 {
+  color: #134817; 
   text-align: center;
 }
 
@@ -55,6 +60,11 @@ button {
 
 button:hover {
   background-color: #2e7d32; 
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(1px);
 }
 
 button[type="reset"] {

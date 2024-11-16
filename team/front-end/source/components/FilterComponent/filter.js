@@ -31,7 +31,7 @@ export class FilterComponent {
     const resultsContainer = document.getElementById('results');
 
     if (filteredRestaurants.length === 0) {
-      resultsContainer.innerHTML = `<h2>Results</h2><p>Sorry, no restaurants match your  selected filters.</p>`;
+      resultsContainer.innerHTML = `<h2>Results</h2><p>Sorry, no restaurants match your selected filters.</p>`;
     } else {
       resultsContainer.innerHTML = `
         <h2>Results</h2>
@@ -52,9 +52,10 @@ export class FilterComponent {
     container.classList.add('filter-container');
 
     container.innerHTML = `
-      <h1>Apply filters to customize which restaurants are recommended to you!</h1>
+      <h1>Filter Your Restaraunt Recommendations</h1>
+      <h2>Plateful can help you choose the perfect restaraunt for you!</h2>
       <form id="filterForm">
-        <!-- Cuisine Type -->
+        
         <label for="cuisine">Cuisine Type:</label>
         <select id="cuisine" name="cuisine">
           <option value="">Any</option>
@@ -63,11 +64,11 @@ export class FilterComponent {
           <option value="Japanese">Japanese</option>
         </select>
 
-        <!-- Vegetarian Option -->
+        
         <label>Vegetarian:</label>
         <input type="checkbox" id="vegetarian" name="vegetarian">
 
-        <!-- Price -->
+       
         <label for="price">Price Range:</label>
         <select id="price" name="price">
           <option value="">Any</option>
@@ -76,11 +77,11 @@ export class FilterComponent {
           <option value="$$$">$$$</option>
         </select>
 
-        <!-- Distance -->
+        
         <label for="distance">Maximum Distance (in miles):</label>
         <input type="number" id="distance" name="distance" placeholder="ex: 5" min="1">
 
-        <!-- Submit -->
+        
         <button type="button" id="applyFilters">Search</button>
       </form>
 
