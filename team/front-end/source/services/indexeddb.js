@@ -41,17 +41,28 @@ export function saveRestaurant(restaurant) {
         const db = await openDatabase();
         const transaction = db.transaction(['savedRestaurants'], 'readwrite');
         const store = transaction.objectStore('savedRestaurants');
-        const request = store.put(restaurant);
 
-        request.onsuccess = function () {
-            resolve('Restaurant saved');
-        };
+        if (!restaurant.id) {
+            reject('Restaurant must have a valid id.');
+            return;
+        }
 
-        request.onerror = function () {
-            reject('Error saving restaurant');
-        };
+        const existing = await new Promise((resolve, reject) => {
+            const getRequest = store.get(restaurant.id);
+            getRequest.onsuccess = () => resolve(getRequest.result);
+            getRequest.onerror = () => reject(getRequest.error);
+        });
+
+        if (existing) {
+            Object.assign(existing, restaurant);
+            store.put(existing).onsuccess = () => resolve('Restaurant updated');
+        } else {
+            store.add(restaurant).onsuccess = () => resolve('Restaurant saved');
+        }
     });
 }
+
+
 
 export function removeRestaurant(id) {
     return new Promise(async (resolve, reject) => {
