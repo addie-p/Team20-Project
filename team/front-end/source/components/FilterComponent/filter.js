@@ -1,30 +1,68 @@
 export class FilterComponent { //exports FilterComponent class
-  constructor(restaurants) {
-    this.restaurants = restaurants; //restaraunts from main.js
+  constructor() {
+    this.restaurants = []; // Restaurants populated from the CSV
+    this.loading = true; // Add a loading state
     this.loadCSS();
+    this.fetchRestaurantData().then(() => {
+      this.loading = false;
+      document.getElementById('applyFilters').disabled = false; // Enable the button
+    });
+  }
+  
+
+  //function to get restaraunt data from csv
+  async fetchRestaurantData() {
+    try {
+      const response = await fetch('./components/restaurants.csv');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch CSV: ${response.statusText}`);
+      }
+      const data = await response.text();
+      this.restaurants = this.parseCSV(data);
+    } catch (error) {
+      console.error('Error fetching restaurant data:', error);
+    }
+  }
+  
+  parseCSV(data) {
+    const rows = data.split('\n').map(row => row.trim());
+    const headers = rows[0].split(',');
+  
+    return rows.slice(1).map(row => {
+      const values = row.split(',');
+      return headers.reduce((obj, header, index) => {
+        obj[header.trim()] = values[index]?.trim();
+        return obj;
+      }, {});
+    });
   }
 
  //function that applies filters chosen by the user by checking whether each restaurant matches their preferences
-  applyFilters() {
-    const cuisine = document.getElementById('cuisine').value;
-    const vegetarian = document.getElementById('vegetarian').checked;
-    const price = document.getElementById('price').value;
-    const distance = document.getElementById('distance').value;
+ applyFilters() {
+  if (this.loading) {
+    console.log('Restaurant data is still loading.');
+    return;
+  }
 
-    let filteredRestaurants = [...this.restaurants];
+  const cuisine = document.getElementById('cuisine').value;
+  const vegetarian = document.getElementById('vegetarian').checked;
+  const price = document.getElementById('price').value;
+  const distance = document.getElementById('distance').value;
 
-    if (cuisine) {
-      filteredRestaurants = filteredRestaurants.filter(r => r.cuisine === cuisine);
-    }
-    if (vegetarian) {
-      filteredRestaurants = filteredRestaurants.filter(r => r.vegetarian);
-    }
-    if (price) {
-      filteredRestaurants = filteredRestaurants.filter(r => r.price === price);
-    }
-    if (distance) {
-      filteredRestaurants = filteredRestaurants.filter(r => r.distance <= Number(distance));
-    }
+  let filteredRestaurants = [...this.restaurants];
+
+  if (cuisine) {
+    filteredRestaurants = filteredRestaurants.filter(r => r.Cuisine.toLowerCase() === cuisine.toLowerCase());
+  }
+  if (vegetarian) {
+    filteredRestaurants = filteredRestaurants.filter(r => r.Vegetarian.toLowerCase() === 'yes');
+  }
+  if (price) {
+    filteredRestaurants = filteredRestaurants.filter(r => r.Price === price);
+  }
+  if (distance) {
+    filteredRestaurants = filteredRestaurants.filter(r => Number(r.Distance) <= Number(distance));
+  }
 
 //display the restaraunts that match the filters chosen by the user or a message saying no restaurants match those selected filters
     this.displayResults(filteredRestaurants);
@@ -32,7 +70,7 @@ export class FilterComponent { //exports FilterComponent class
 
   displayResults(filteredRestaurants) {
     const resultsContainer = document.getElementById('results');
-
+  
     if (filteredRestaurants.length === 0) {
       resultsContainer.innerHTML = `<h2>Results</h2><p>Sorry, no restaurants match your selected filters.</p>`;
     } else {
@@ -42,13 +80,14 @@ export class FilterComponent { //exports FilterComponent class
           ${filteredRestaurants
             .map(
               r =>
-                `<li>${r.name} - ${r.cuisine}, ${r.price}, ${r.distance} miles away</li>`
+                `<li>${r.Restaurant} - ${r.Cuisine}, ${r.Price}, ${r.Distance} miles away</li>`
             )
             .join('')}
         </ul>
       `;
     }
   }
+  
 
   loadCSS(){
     const style = document.createElement("link");
@@ -64,15 +103,18 @@ export class FilterComponent { //exports FilterComponent class
 
     container.innerHTML = `
       <h1>Filter Your Restaraunt Recommendations</h1>
-      <h2>Plateful can help you choose the perfect restaraunt for you!</h2>
+      <h2>PLATEFUL can help you choose the perfect restaraunt for you!</h2>
       <form id="filterForm">
         
         <label for="cuisine">Cuisine Type:</label>
         <select id="cuisine" name="cuisine">
           <option value="">Any</option>
-          <option value="Pizza">Pizza</option>
           <option value="Vietnamese">Vietnamese</option>
           <option value="Japanese">Japanese</option>
+          <option value="Mexican">Mexican</option>
+           <option value="Pizza">Pizza</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Fast Food">Fast Food</option>
         </select>
 
         
@@ -98,7 +140,7 @@ export class FilterComponent { //exports FilterComponent class
 
       <div id="results">
         <h2>Results</h2>
-        <p>No filters applied yet.</p>
+        <p>No filters have been applied yet.</p>
       </div>
     `;
 
