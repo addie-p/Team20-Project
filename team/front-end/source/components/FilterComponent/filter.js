@@ -1,8 +1,9 @@
 export class FilterComponent {
   constructor(restaurants) {
-    this.restaurants = restaurants;
+    this.restaurants = restaurants; //restaraunts from main.js
   }
 
+ //function that applies filters chosen by the user by checking whether each restaurant matches their preferences
   applyFilters() {
     const cuisine = document.getElementById('cuisine').value;
     const vegetarian = document.getElementById('vegetarian').checked;
@@ -24,6 +25,7 @@ export class FilterComponent {
       filteredRestaurants = filteredRestaurants.filter(r => r.distance <= Number(distance));
     }
 
+//display the restaraunts that match the filters chosen by the user or a message saying no restaurants match those selected filters
     this.displayResults(filteredRestaurants);
   }
 
@@ -47,6 +49,7 @@ export class FilterComponent {
     }
   }
 
+//render html UI in the js file
   render() {
     const container = document.createElement('div');
     container.classList.add('filter-container');
@@ -91,6 +94,7 @@ export class FilterComponent {
       </div>
     `;
 
+  //adds event listener to the search button
     container.querySelector('#applyFilters').addEventListener('click', () => this.applyFilters());
 
     return container;
