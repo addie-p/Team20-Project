@@ -1,36 +1,39 @@
+import {
+  getSavedRestaurants,
+  saveRestaurant,
+  removeRestaurant,
+} from "../../services/indexeddb.js";
+
 export class SavedRestaurantsDashboard {
   #container = null;
   #wantToTry = [];
   #visited = [];
 
   constructor() {
-    // restaurants in want to try section
-    this.#wantToTry = JSON.parse(localStorage.getItem("wantToTry")) || [
-      {
-        id: 1,
-        name: "Miss Saigon",
-        rating: 4.5,
-        imageUrl:
-          "https://www.stonehousefarmbb.com/images/Restaurants/d7c5c347-282a-444a-8012-663ec3256160.jpg",
-      },
-      {
-        id: 2,
-        name: "Antonios",
-        rating: 4,
-        imageUrl:
-          "https://www.andiemitchell.com/wp-content/uploads/2012/10/antonios-pizza-amherst-ma.jpg",
-      },
-      {
-        id: 3,
-        name: "Arigato",
-        rating: 5,
-        imageUrl:
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/ff/68/3d/teriyaki-salmon-bento.jpg?w=1400&h=-1&s=1",
-      },
-    ];
-    // restaurants in visited section
-    this.#visited = JSON.parse(localStorage.getItem("visited")) || [];
     this.loadCSS();
+  }
+
+  async initialize() {
+    // restaurants in want to try section
+
+    const allRestaurants = await getSavedRestaurants();
+
+    this.#wantToTry = allRestaurants.filter(
+      (restaurant) => !restaurant.visited
+    );
+    // restaurants in visited section
+    this.#visited = allRestaurants.filter((restaurant) => restaurant.visited);
+
+    this.displayWantToTryRestaurants();
+    this.displayVisitedRestaurants();
+  }
+
+  async saveData(restaurant) {
+    await saveRestaurant(restaurant);
+  }
+
+  async removeData(id) {
+    await removeRestaurant(id);
   }
 
   loadCSS() {
@@ -134,36 +137,39 @@ export class SavedRestaurantsDashboard {
   }
 
   // moving restaurants functions
-  moveToVisited(id) {
+  async moveToVisited(id) {
     const index = this.#wantToTry.findIndex((r) => r.id === id);
     if (index > -1) {
       const [restaurant] = this.#wantToTry.splice(index, 1);
+      restaurant.visited = true;
       this.#visited.push(restaurant);
-      this.saveData();
+      await this.saveData(restaurant);
       this.displayWantToTryRestaurants();
       this.displayVisitedRestaurants();
     }
   }
 
-  moveToWantToTry(id) {
+  async moveToWantToTry(id) {
     const index = this.#visited.findIndex((r) => r.id === id);
     if (index > -1) {
       const [restaurant] = this.#visited.splice(index, 1);
+      restaurant.visited = false;
       this.#wantToTry.push(restaurant);
-      this.saveData();
+      await this.saveData(restaurant); // save updated data
       this.displayWantToTryRestaurants();
       this.displayVisitedRestaurants();
     }
   }
 
-  removeFromWantToTry(id) {
+  async removeFromWantToTry(id) {
     const index = this.#wantToTry.findIndex((r) => r.id === id);
     if (index > -1) {
       this.#wantToTry.splice(index, 1);
-      this.saveData();
+      await this.removeData(id); // remove from IndexedDB
       this.displayWantToTryRestaurants();
     }
   }
+
   // render all
   render() {
     this.#container = document.createElement("div");
@@ -180,8 +186,7 @@ export class SavedRestaurantsDashboard {
     this.#container.appendChild(wantToTrySection);
     this.#container.appendChild(visitedSection);
 
-    this.displayWantToTryRestaurants();
-    this.displayVisitedRestaurants();
+    this.initialize();
 
     return this.#container;
   }
