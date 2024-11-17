@@ -1,0 +1,97 @@
+#filter-container {
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family:'Merriweather', serif;
+}
+
+#filter-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #73a075;
+}
+
+#filter-container h2 {
+  color: #344e41;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+#filter-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #658a6e;
+}
+
+#filter-container select,
+#filter-container input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+#filter-container input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+#filter-container input[type="checkbox"] {
+  width: auto; 
+  margin-top: 5px; 
+  margin-bottom: 15px;
+  margin-left: 0; 
+}
+
+#filter-container select:focus,
+#filter-container input:focus {
+  border-color: #344e41;
+  outline: none;
+}
+
+#applyFilters {
+  padding: 12px 20px;
+  background-color:  #658a6e;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#applyFilters:hover {
+  background-color: #344e41;
+}
+
+#clearFilters {
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+#clearFilters:hover {
+  background-color: #e2e6ea;
+}
