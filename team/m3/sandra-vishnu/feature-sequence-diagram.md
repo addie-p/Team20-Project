@@ -20,7 +20,7 @@ sequenceDiagram
     RestaurantContainer->>FilterForm: Apply filters to parsed restaurant data
     FilterForm-->>RestaurantContainer: Return filtered list of restaurants
     RestaurantContainer-->>App: Display only filtered restaurant cards as recommendations
-
+    
     User->>FilterForm: Change filter preferences
     FilterForm->>RestaurantContainer: Clear and re-apply filters
     RestaurantContainer->>FilterForm: Re-apply filters to remaining restaurant data
