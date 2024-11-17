@@ -15,6 +15,7 @@ if (!app) {
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
         <h1>Filter Your Restaurant Recommendations</h1>
+        <h2>PLATEFUL can help find the perfect restaurant for you!</h2>
         <form id="filterForm">
             <label for="cuisine">Cuisine Type:</label>
             <select id="cuisine" name="cuisine">
@@ -52,6 +53,11 @@ if (!app) {
 
     renderRestaurantCards('restaurant-container');
 }
+
+const style = document.createElement('link');
+style.rel = 'stylesheet';
+style.href = './components/FilterComponent/filter.css';
+document.head.appendChild(style);
 
 //geolocation component
 const geolocationMap = new GeolocationMapComponent('map', 42.376800, -72.519444, 15);
