@@ -1,3 +1,4 @@
+import { NavBarComponent } from '../NavBarComponent/navbar.js';
 export class rating_system {
   #container = null;
   #db = null;
@@ -110,18 +111,16 @@ export class rating_system {
   }
 
   render() {
+    const full_container = document.createElement('div');
+    const navBar = new NavBarComponent();
+    full_container.appendChild(navBar.render());
+
     // Render the rating system component
     this.#container = document.createElement("div");
     this.#container.classList.add("container");
 
     // Render HTML 
     this.#container.innerHTML = `
-      <button class="menu-button">&#9776;</button>
-      <div class="menu-dropdown">
-        <a href="#">Homepage</a>
-        <a href="#">Ranking</a>
-        <a href="#">Saved Restaurants Dashboard</a>
-      </div>
       <div class="header-container">
         <h1>Plateful</h1>
         <h2>Review Your Favorite Restaurants</h2>
@@ -166,10 +165,12 @@ export class rating_system {
     });
 
     // event listener for form submission
-    this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
+   //this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
     // event listener for menu button click
-    this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
+    //this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
 
-    return this.#container;
+    //return this.#container;
+    full_container.appendChild(this.#container);
+    return full_container;
   }
 }
