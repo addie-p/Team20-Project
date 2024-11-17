@@ -1,97 +1,109 @@
-#filter-container {
-  background-color: #fff; 
-  padding: 20px;
+/* filter bar styling */
+#filter-bar-container {
+  width: calc(100% - 40px); /* don't push up to sides of site */
+  margin: 0 auto; 
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  font-family: 'Merriweather', serif;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-family:'Merriweather', serif;
 }
 
-#filter-container h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #73a075;
-}
-
-#filter-container h2 {
-  color: #344e41;
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-#filter-container label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #658a6e;
-}
-
-#filter-container select,
-#filter-container input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
-#filter-container input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
-#filter-container input[type="checkbox"] {
-  width: auto; 
-  margin-top: 5px; 
-  margin-bottom: 15px;
-  margin-left: 0; 
-}
-
-#filter-container select:focus,
-#filter-container input:focus {
-  border-color: #344e41;
-  outline: none;
-}
-
-#applyFilters {
-  padding: 12px 20px;
-  background-color:  #658a6e;
+/* toggle button styling for showing/hiding filter */
+#filter-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #73a075;
   color: white;
-  font-size: 16px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#applyFilters:hover {
-  background-color: #344e41;
-}
-
-#clearFilters {
-  padding: 12px 20px;
-  background-color: #f8f9fa;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 10px 15px;
   font-size: 16px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-left: 10px;
+  outline: none;
+  width: 100%;
+  text-align: left;
 }
 
-#clearFilters:hover {
-  background-color: #e2e6ea;
+/* toggle button for filter */
+#filter-toggle-button span {
+  margin-left: 5px;
+  font-size: 14px;
+  transition: transform 0.3s ease;
 }
+
+/* arrow animation for toggle button for filter */
+#filter-container:not(.hidden) ~ #filter-toggle-button span {
+  transform: rotate(180deg); /* Rotates arrow */
+}
+
+/* hide filter bar */
+.hidden {
+  display: none;
+}
+
+/* filter container styling */
+#filter-container {
+  padding: 15px 0;
+}
+
+#filterForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+/* format vegetarian option checkbox directly next to label */
+#filterForm label[for="vegetarian"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+/* styling for filter options */
+#filterForm select,
+#filterForm input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Merriweather', serif;
+  outline: none;
+  width: 100%;
+}
+
+#filterForm label[for="price"],
+#filterForm select#price {
+  flex: 1 1 100%; 
+}
+
+#filterForm button {
+  background-color: #73a075; 
+  color: white; 
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px; 
+}
+
+#filterForm button:hover {
+  background-color: #5d8a5c;
+}
+
+body {
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+

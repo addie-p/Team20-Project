@@ -10,46 +10,70 @@ if (!app) {
     const navBar = new NavBarComponent();
     app.appendChild(navBar.render());
 
-    // render UI for filter
+    const filterBarContainer = document.createElement('div');
+    filterBarContainer.id = 'filter-bar-container';
+
+    const filterToggleButton = document.createElement('button');
+    filterToggleButton.id = 'filter-toggle-button';
+    filterToggleButton.innerHTML = `Filter <span>&#9660;</span>`;
+    filterToggleButton.classList.add('filter-toggle');
+    filterToggleButton.onclick = () => {
+        filterContainer.classList.toggle('hidden');
+        const arrow = filterToggleButton.querySelector('span');
+        arrow.innerHTML = filterContainer.classList.contains('hidden') ? '&#9654;' : '&#9660;';
+    };
+    filterBarContainer.appendChild(filterToggleButton);
+
     const filterContainer = document.createElement('div');
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
-        <h1>Filter Your Restaurant Recommendations</h1>
-        <h2>PLATEFUL can help find the perfect restaurant for you!</h2>
-        <form id="filterForm">
-            <label for="cuisine">Cuisine Type:</label>
-            <select id="cuisine" name="cuisine">
-                <option value="">Any</option>
-                <option value="Vietnamese">Vietnamese</option>
-                <option value="Japanese">Japanese</option>
-                <option value="Mexican">Mexican</option>
-                <option value="Pizza">Pizza</option>
-                <option value="Breakfast">Breakfast</option>
-                <option value="Fast Food">Fast Food</option>
-            </select>
+    <form id="filterForm">
+        <label for="cuisine">Cuisine Type:</label>
+        <select id="cuisine" name="cuisine">
+            <option value="">Any</option>
+            <option value="Vietnamese">Vietnamese</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Fast Food">Fast Food</option>
+        </select>
 
-            <label for="vegetarian">Vegetarian:</label>
+        <label for="vegetarian">Vegetarian:
             <input type="checkbox" id="vegetarian" name="vegetarian">
+        </label>
 
-            <label for="price">Price Range:</label>
-            <select id="price" name="price">
-                <option value="">Any</option>
-                <option value="$">$</option>
-                <option value="$$">$$</option>
-                <option value="$$$">$$$</option>
-            </select>
+        <label for="price">Price Range:</label>
+        <select id="price" name="price">
+            <option value="">Any</option>
+            <option value="$">$</option>
+            <option value="$$">$$</option>
+            <option value="$$$">$$$</option>
+        </select>
 
-            <label for="distance">Maximum Distance (in miles):</label>
-            <input type="number" id="distance" name="distance" placeholder="e.g., 5" min="1">
+        <label for="distance">Maximum Distance (in miles):</label>
+        <input type="number" id="distance" name="distance" placeholder="e.g., 5" min="1">
 
-            <button type="button" id="applyFilters">Apply Filters</button>
-        </form>
-    `;
-    app.appendChild(filterContainer);
+        <button type="button" id="applyFilters">Apply Filters</button>
+    </form>
+`;
+
+    filterBarContainer.appendChild(filterContainer);
+    app.appendChild(filterBarContainer);
+
+    const contentContainer = document.createElement('div');
+    contentContainer.id = 'content-container';
 
     const restaurantContainer = document.createElement('div');
     restaurantContainer.id = 'restaurant-container';
-    app.appendChild(restaurantContainer);
+    restaurantContainer.classList.add('restaurant-list');
+    contentContainer.appendChild(restaurantContainer);
+
+    const mapContainer = document.createElement('div');
+    mapContainer.id = 'map-container';
+    contentContainer.appendChild(mapContainer);
+
+    app.appendChild(contentContainer);
 
     renderRestaurantCards('restaurant-container');
 }
@@ -59,7 +83,7 @@ style.rel = 'stylesheet';
 style.href = './components/FilterComponent/filter.css';
 document.head.appendChild(style);
 
-//geolocation component
+// geolocation component
 const geolocationMap = new GeolocationMapComponent('map', 42.376800, -72.519444, 15);
 const mapContainer = geolocationMap.render();
 app.appendChild(mapContainer);
@@ -69,14 +93,14 @@ const dislikedRestaurants = JSON.parse(localStorage.getItem('dislikedRestaurants
 let currentIndex = 0; // tracking index of restaurant card
 let filteredRestaurants = []; // restaurants after applying filter
 let remainingRestaurants = []; // restaurants after swipes
-let allRestaurants = []; // all restaraunts
+let allRestaurants = []; // all restaurants
 
-//get restarants from CSV and render
+// get restaurants from CSV and render
 async function renderRestaurantCards(containerId) {
     try {
         allRestaurants = await fetchCSV(); 
 
-        // don't include already liked and dislike restaraunts in stack
+        // don't include already liked and dislike restaurants in stack
         const swipedIds = new Set([
             ...savedRestaurants.map((r) => r.id),
             ...dislikedRestaurants.map((r) => r.id),
@@ -109,7 +133,7 @@ document.getElementById('applyFilters').addEventListener('click', () => {
     displayNextCard();
 });
 
-//display the next restaraunt card
+// display the next restaurant card
 function displayNextCard() {
     const container = document.getElementById('restaurant-container');
     container.innerHTML = '';
