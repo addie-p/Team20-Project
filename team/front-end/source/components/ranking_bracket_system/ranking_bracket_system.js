@@ -1,3 +1,4 @@
+import { NavBarComponent } from '../NavBarComponent/navbar.js';
 export class RankingBracketSystem {
     #container = null;
     #currentPair = [];
@@ -123,6 +124,9 @@ export class RankingBracketSystem {
     }
 
     render() {
+        const full_container = document.createElement('div');
+        const navBar = new NavBarComponent();
+        full_container.appendChild(navBar.render());
         // reset the container
         if (this.#container) {
             this.#container.innerHTML = '';
@@ -152,8 +156,11 @@ export class RankingBracketSystem {
         this.#container.appendChild(vsText);
         this.#container.appendChild(restaurant2);
 
-        document.body.appendChild(this.#container);
+        //document.body.appendChild(this.#container);
 
-        return this.#container;
+        full_container.appendChild(this.#container);
+        document.body.appendChild(full_container);
+        return full_container;
+        // return this.#container;
     }
 }
