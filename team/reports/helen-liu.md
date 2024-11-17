@@ -76,8 +76,22 @@
 
 ### update helen-liu.md
 - add progress to helen-liu.md report
-- link:
+- link: https://github.com/addie-p/Team20-Project/commit/571bb1213fa2b3a92430fc68c84928379c7c9504
 
 ### update data.md
 - go over data structures used in front end and update data.md as per directions of m3
-- link:
+- link: https://github.com/addie-p/Team20-Project/commit/7be715ae43b69dacb33e3a17a8abf8417b8dc87a
+
+## Sunday, November 17
+
+### add navbar to photo upload page
+- render navbar in photo upload page with a fuller container for user accessibility
+- link: https://github.com/addie-p/Team20-Project/commit/4cfee929caccb401cde49cb685f8e91801d15579
+
+### add navbar to rating system page
+- render navbar in rating system page with a fuller container and modify css for the navbar to be width of full page while everything else on the page remains the same
+- link: https://github.com/addie-p/Team20-Project/commit/33f61032002d15f0e275a431464b14371b74f270
+
+### add navbar to ranking bracket page
+- render navbar in rating system page with a fuller container and modify css for the navbar to be width of full page while everything else on the page remains the same
+- link: https://github.com/addie-p/Team20-Project/commit/13f86144946d7347ea9086491a6b31b8f77712c0
