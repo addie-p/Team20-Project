@@ -26,7 +26,7 @@
 - **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/e6a17dd161dd864b8e58bd5ce821bcd7fa8ce852)
 
 
-### November 15, 2024
+### November 16, 2024
 - **Task**: Fixed code for easier readilibilty and merged into integrate_main and fixed some bugs
 - **Details**:Added comments to the code to enhance readability and make it easier for others to understand and maintain. Also merged into integrate main to add the mini map on the main homepage.
 - **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/ebc0124203bbd9a270127c767e076fecded07736)
