@@ -1,3 +1,4 @@
+import { NavBarComponent } from '../NavBarComponent/navbar.js';
 export class PhotoUploadsFeature {
 
     constructor() {
@@ -145,13 +146,18 @@ export class PhotoUploadsFeature {
     }
 
     render() {
+        const full_container = document.createElement('div');
         const container = document.createElement('div');
+        container.style.marginTop = '20px';
         container.id = 'main-container';
         container.style.display = 'flex';
         container.style.flexDirection = 'column';
         container.style.alignItems = 'center'; // center horizontal
         container.style.justifyContent = 'center'; // center vertical
         container.style.textAlign = 'center'; // center align text in container
+
+        const navBar = new NavBarComponent();
+        full_container.appendChild(navBar.render());
 
         const headerBlock = document.createElement('div');
         headerBlock.id = 'header-block';
@@ -348,7 +354,9 @@ export class PhotoUploadsFeature {
         // // add main container
         // document.body.appendChild(container);
 
-        return container;
+        full_container.appendChild(container);
+
+        return full_container;
     }
 
     
