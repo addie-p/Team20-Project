@@ -164,8 +164,8 @@ export class rating_system {
       this.updateStars(this.#container, this.#selectedRating);
     });
 
-    // event listener for form submission
-   //this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
+    //event listener for form submission
+    this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
     // event listener for menu button click
     //this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
 
