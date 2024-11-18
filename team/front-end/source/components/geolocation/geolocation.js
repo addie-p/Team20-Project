@@ -63,14 +63,13 @@ export class GeolocationMapComponent {
       this.loadCSS();
   
       const wrapper = document.createElement("div");
-      wrapper.style.display = "flex";
-      wrapper.style.width = "100%"; 
+      wrapper.style.width = "80%"; 
       wrapper.style.justifyContent = "center"; 
   
       const mapElement = document.createElement("div");
       mapElement.id = this.elementId; 
       mapElement.style.height = "300px"; 
-      mapElement.style.width = "20%"; 
+      mapElement.style.width = "100%"; 
   
       wrapper.appendChild(mapElement);
       this.#container = mapElement;

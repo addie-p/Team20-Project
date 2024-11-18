@@ -2,36 +2,29 @@
 #content-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    gap: 20px; 
-    margin-top: 20px;
-    width: 100%;
+    gap: 80px; 
+    margin: 40px auto 0;
+    width: 60%;
     max-width: 1200px;
-    margin-left: 200;
-    margin-right: 200;
 }
 
 /* container to store restaurant cards */
-.restaurant-container {
-    display: flex;
+#restaurant-container {
     align-items: center;
     justify-content: center;
 }
 
 /* container to store map */
 #map-container {
-    flex: 1;
-    max-width: 600px;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    width: 70%; /* Ensure the container takes the full width */
 }
 
 /* formatting for map */
 #map {
-    width: 100%;
-    max-width: 400px; 
-    height: 400px;
+    width: 70%; /* Map should take up the full width of its container */
+    height: 400px; /* Ensure a fixed height for the map */
     border: 1px solid #ccc; 
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 

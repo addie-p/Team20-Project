@@ -87,12 +87,14 @@ if (!app) {
     // geolocation component
     const mapContainerWrapper = document.createElement('div');
     mapContainerWrapper.id = 'map-container';
-    contentContainer.appendChild(geolocationMap.render());
+    mapContainerWrapper.appendChild(geolocationMap.render());
+    contentContainer.appendChild(mapContainerWrapper);
 
     app.appendChild(contentContainer);
 
 
     renderRestaurantCards('restaurant-container');
+
 }
 
 // link stylesheet for filter bar
