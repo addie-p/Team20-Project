@@ -20,29 +20,22 @@ sequenceDiagram
     participant IndexedDB as IndexedDB
     participant SavedDashboard as Saved Restaurants Dashboard
 
-    User->>Filter: Apply filters (e.g., cuisine, price, distance)
+    User->>Filter: Apply filters (e.g., cuisine, price)
     Filter->>Recommendation: Pass filter criteria
-    Recommendation->>Recommendation: Filter restaurants based on criteria
     Recommendation->>User: Display filtered restaurant recommendation
 
     User->>Recommendation: Like a restaurant
-    Recommendation->>IndexedDB: Save restaurant to savedRestaurants
-    IndexedDB-->>Recommendation: Confirm restaurant saved
-    Recommendation->>SavedDashboard: Update saved restaurants list
-    SavedDashboard-->>User: Reflect changes in Saved Restaurants
+    Recommendation->>IndexedDB: Save to savedRestaurants
+    IndexedDB-->>Recommendation: Confirm saved
+    Recommendation->>SavedDashboard: Update saved restaurants
 
     User->>Recommendation: Dislike a restaurant
-    Recommendation->>Recommendation: Remove disliked restaurant from stack
-    Recommendation->>User: Display next restaurant card
+    Recommendation->>Recommendation: Remove from stack
+    Recommendation->>User: Show next restaurant
 
-    User->>SavedDashboard: Navigate to Saved Restaurants Dashboard
+    User->>SavedDashboard: Open Saved Restaurants
     SavedDashboard->>IndexedDB: Fetch saved restaurants
-    IndexedDB-->>SavedDashboard: Return saved restaurants list
+    IndexedDB-->>SavedDashboard: Return saved list
     SavedDashboard->>User: Display saved restaurants
-
-    User->>SavedDashboard: Remove a saved restaurant
-    SavedDashboard->>IndexedDB: Delete restaurant from savedRestaurants
-    IndexedDB-->>SavedDashboard: Confirm deletion
-    SavedDashboard->>User: Update UI to reflect deletion
 
 ```
