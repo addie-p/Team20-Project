@@ -44,12 +44,12 @@
 
 ## Friday, November 15
 
-### save photo file + restaurant in indexDB
-- make sure that the photo file can be saved within indexDB with the restaurant name
+### save photo file + restaurant in indexedDB
+- make sure that the photo file can be saved within indexedDB with the restaurant name
 - link: https://github.com/addie-p/Team20-Project/commit/c63d4b042adb1c8e2c7785086ae36bf5d76298f9
 
 ### make photo file + restaurant persistent/load on refresh
-- if a photo file in indexDB exists, make sure to load it on refresh so data is persistent
+- if a photo file in indexedDB exists, make sure to load it on refresh so data is persistent
 - make sure image preview container displays accordingly
 - link: https://github.com/addie-p/Team20-Project/commit/1930d5b2826ba07986cec5c14cb98f71f9fbb29e
 
@@ -57,13 +57,13 @@
 - add icons for the 3 buttons next to each other with a container and import its image files
 - link: https://github.com/addie-p/Team20-Project/commit/5a08a227f9df0ae8eff8daaaa839696794302b74
 
-### make clear button clear indexDB
-- create clear from indexDB function and have clicking clear button as event listener to call the clear function
+### make clear button clear indexedDB
+- create clear from indexedDB function and have clicking clear button as event listener to call the clear function
 - adjust image preview container display accordingly
 - link: https://github.com/addie-p/Team20-Project/commit/04483635a941b45d6e61d488f66e840854d45326
 
 ### add function to submit and make back button go back to rating system page
-- add functionality for submit to send alert to user confirming saving file in indexDB or require restaurant or image input
+- add functionality for submit to send alert to user confirming saving file in indexedDB or require restaurant or image input
 - link: https://github.com/addie-p/Team20-Project/commit/4b91a07aca1bad51ad1f5a6691a215848b78393a
 - have clicking back button to redirect back to rating system page after branch with saved restaurants dashboard, rating system page, and photo upload page
 - link: https://github.com/addie-p/Team20-Project/commit/aab502158fde8ba9a07d1fbfd64d39e52f4e1857
