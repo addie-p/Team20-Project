@@ -15,24 +15,34 @@ The following work flow shows user interactions with the recommendation system a
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant Dashboard as Saved Restaurants component
+    participant Filter as Filter Component
+    participant Recommendation as Recommendation System
     participant IndexedDB as IndexedDB
-    participant Review as Review System
+    participant SavedDashboard as Saved Restaurants Dashboard
 
-    User->>Dashboard: Open Saved restaurants Page
-    Dashboard->>IndexedDB: Fetch saved restaurants from data from Recommendation system (previous page)
-    IndexedDB-->>Dashboard: Return list of saved restaurants
-    Dashboard->>User: Display restaurants in Want to Try and Visited sections based on previous choices
+    User->>Filter: Apply filters (e.g., cuisine, price, distance)
+    Filter->>Recommendation: Pass filter criteria
+    Recommendation->>Recommendation: Filter restaurants based on criteria
+    Recommendation->>User: Display filtered restaurant recommendation
 
-    User->>Dashboard: Click Remove on a restaurant
-    Dashboard->>IndexedDB: Delete restaurant from storage
-    IndexedDB-->>Dashboard: Confirm deletion
-    Dashboard->>User: Remove restaurant from UI
+    User->>Recommendation: Like a restaurant
+    Recommendation->>IndexedDB: Save restaurant to savedRestaurants
+    IndexedDB-->>Recommendation: Confirm restaurant saved
+    Recommendation->>SavedDashboard: Update saved restaurants list
+    SavedDashboard-->>User: Reflect changes in Saved Restaurants
 
-    User->>Dashboard: Click plus for a restaurant in Want To Try section
-    Dashboard->>IndexedDB: Update restaurant category to Visited
-    Dashboard->>User: Move restaurant to Visited section
+    User->>Recommendation: Dislike a restaurant
+    Recommendation->>Recommendation: Remove disliked restaurant from stack
+    Recommendation->>User: Display next restaurant card
 
-    User->>Dashboard: Click review link for a restaurant in Visited section
-    Dashboard->>Review: Send users to the review system for the restaurant
+    User->>SavedDashboard: Navigate to Saved Restaurants Dashboard
+    SavedDashboard->>IndexedDB: Fetch saved restaurants
+    IndexedDB-->>SavedDashboard: Return saved restaurants list
+    SavedDashboard->>User: Display saved restaurants
+
+    User->>SavedDashboard: Remove a saved restaurant
+    SavedDashboard->>IndexedDB: Delete restaurant from savedRestaurants
+    IndexedDB-->>SavedDashboard: Confirm deletion
+    SavedDashboard->>User: Update UI to reflect deletion
+
 ```
