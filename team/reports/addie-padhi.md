@@ -1,24 +1,32 @@
 ### October 21, 2024 
 
-Task: Created the initial GitHub repository and set up the project structure, including the team/m2 folder and initial markdown files for milestone submissions. 
+Task: Repository creation + project structure set up
+
+Details: Created the initial GitHub repository and set up the project structure, including the team/m2 folder and initial markdown files for milestone submissions. 
 
 Link to Commit: 
 - https://github.com/addie-p/Team20-Project/commit/9062818caa4239a2676a930d1b5f83d4c96da2d7
 
 ### October 21, 2024 
 
-Task: Brainstormed and finalized web application idea, splitting up and assigning tasks to ensure a fair assignment of work to each member.
+Task: Begin ideation process of web application and split up tasks
+
+Details: Brainstormed and finalized web application idea, splitting up and assigning tasks to ensure a fair assignment of work to each member.
 
 ### October 21, 2024 
 
-Task: Drafted four of the listed features and elicited feedback from the team to finalize in the features.md file 
+Task: Ideate/describe features for web application
+
+Details: Drafted four of the listed features and elicited feedback from the team to finalize in the features.md file.
 
 Link to Commit: 
 - https://github.com/addie-p/Team20-Project/commit/e23f8f8ce04b00435d7bedaa8d1c73f0fddfc015
 
 ### November 14th, 2024
 
-Task: Create dynamic navigation bar component to display on all pages and allow for seamless user navigation between pages.
+Task: Create/design navigation bar
+
+Details: Create dynamic navigation bar component to display on all pages and allow for seamless user navigation between pages.
 
 Link to Commits:  
 - https://github.com/addie-p/Team20-Project/commit/05e515d4f139b45a13ba70175b0acd8fd9e98058
@@ -27,14 +35,18 @@ Link to Commits:
 
 ### November 15th, 2024
 
-Task: Create restaurant cards that display the restaurant information from the CSV file containing dummy data.
+Task: Create restaurant cards/recommendation system
+
+Details: Create restaurant cards that display the restaurant information from the CSV file containing dummy data.
 
 Link to Commit: 
 - https://github.com/addie-p/Team20-Project/commit/c15a889b8cf46331d5787525b4be1f171fb2d430
 
 ### November 16th, 2024 
 
-Task: Integrate "like"/"dislike" functionality with restaurant cards; dynamically update savedRestaurants in indexeddb for usage for saved restaurants and brackets.
+Task: Integrate "like"s/"dislike"s and integrate indexeddb
+
+Details: Integrate "like"/"dislike" functionality with restaurant cards; dynamically update savedRestaurants in indexeddb for usage for saved restaurants and brackets.
 
 Link to Commits: 
 - https://github.com/addie-p/Team20-Project/commit/43613910c7b03a8ade0b049afa2ff15ba4571386
@@ -42,7 +54,9 @@ Link to Commits:
 
 ### November 17th, 2024 
 
-Task: Helped polish the format of the website to include consistent styling of components (i.e. navigation bar, cards, etc); helped integrate formatting of recommendation cards, filtering system, and map into homepage.
+Task: Complete styling and format components together
+
+Details: Helped polish the format of the website to include consistent styling of components (i.e. navigation bar, cards, etc); helped integrate formatting of recommendation cards, filtering system, and map into homepage.
 
 Link to Commits: 
 - https://github.com/addie-p/Team20-Project/commit/24a4ad0ac0563f6adda16157cb7d14a04ab0792d
