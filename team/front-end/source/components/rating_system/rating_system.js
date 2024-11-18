@@ -11,7 +11,6 @@ export class rating_system {
   }
 
   loadCSS() {
-    // Load css file for the rating system component
     const styleSheet = document.createElement("link");
     styleSheet.rel = "stylesheet";
     styleSheet.href = "./components/rating_system/rating_system.css"; 
@@ -19,7 +18,7 @@ export class rating_system {
   }
 
   initializeDB() {
-    // Initialize IndexedDB to store reviews
+    //initializes indexedDB for storing reviews
     const request = indexedDB.open("PlatefulDB", 1);
     request.onupgradeneeded = (event) => {
       this.#db = event.target.result;
@@ -35,32 +34,30 @@ export class rating_system {
   }
 
   updateStars(container, rating) {
-    // Update visual of the stars based on the rating
     container.querySelectorAll('.rating span').forEach((star, index) => {
       star.classList.toggle('selected', index < rating);
     });
   }
 
   handleStarClick(container, index) {
-    // Handle clicking on star and update the selected rating
+    // handles clicking on star and updates the selected rating
     this.#selectedRating = index + 1;
     this.updateStars(container, this.#selectedRating);
   }
 
   handleSubmit(event) {
-    // Handle form submission to store the review in IndexedDB
+    // stores the review in IndexedDB
     event.preventDefault();
 
     const restaurantName = event.target.querySelector("#restaurantName").value;
     const reviewText = event.target.querySelector("#reviewText").value;
 
-    // Make sure star rating is selected
     if (this.#selectedRating === 0) {
       alert("Please select a star rating.");
       return;
     }
 
-    // Create new transaction to store the review
+    // new transaction to store the review
     const transaction = this.#db.transaction(["reviews"], "readwrite");
     const objectStore = transaction.objectStore("reviews");
     const review = {
@@ -76,8 +73,8 @@ export class rating_system {
     transaction.oncomplete = () => {
       alert("Review added successfully!");
       event.target.reset();
-      this.updateStars(event.target, 0); // Reset star rating
-      this.#selectedRating = 0; // Reset selected rating
+      this.updateStars(event.target, 0); // resetrs star rating
+      this.#selectedRating = 0; 
     };
 
     transaction.onerror = (event) => {
@@ -85,20 +82,6 @@ export class rating_system {
     };
   }
 
-  handleMenuClick() {
-    // Toggle visibility of dropdown menu
-    const dropdown = document.querySelector(".menu-dropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  }
-
-  handleBodyClick(event) {
-    // Close dropdown menu if clicking outside of it
-    const dropdown = document.querySelector(".menu-dropdown");
-    const menuButton = document.querySelector(".menu-button");
-    if (dropdown.style.display === "block" && !dropdown.contains(event.target) && event.target !== menuButton) {
-      dropdown.style.display = "none";
-    }
-  }
 
   addBodyClickListener() {
     // listener to handle clicks outside of the dropdown menu
@@ -106,7 +89,7 @@ export class rating_system {
   }
 
   handleUploadButtonClick() {
-    // Redirect to Helen's upload page when the upload button is clicked
+    // redirect to Helen's upload page
     window.location.href = "./upload.html";
   }
 
@@ -115,11 +98,11 @@ export class rating_system {
     const navBar = new NavBarComponent();
     full_container.appendChild(navBar.render());
 
-    // Render the rating system component
+    // render rating system component
     this.#container = document.createElement("div");
     this.#container.classList.add("container");
 
-    // Render HTML 
+    // render HTML 
     this.#container.innerHTML = `
       <div class="header-container">
         <h1>Plateful</h1>
@@ -152,24 +135,21 @@ export class rating_system {
       </div>
     `;
 
-    // Add event listeners to stars for rating
+    //event listeners to stars
     const stars = this.#container.querySelectorAll(".rating span");
     stars.forEach((star, index) => {
       star.addEventListener("click", () => this.handleStarClick(this.#container, index));
       star.addEventListener("mouseover", () => this.updateStars(this.#container, index + 1));
     });
 
-    // Reset stars when mouse leaves the rating area
+    // rsets stars when mouse leaves the rating area
     this.#container.querySelector(".rating").addEventListener("mouseleave", () => {
       this.updateStars(this.#container, this.#selectedRating);
     });
 
     //event listener for form submission
     this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
-    // event listener for menu button click
-    //this.#container.querySelector(".menu-button").addEventListener("click", this.handleMenuClick);
-
-    //return this.#container;
+    
     full_container.appendChild(this.#container);
     return full_container;
   }
