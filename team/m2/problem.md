@@ -5,13 +5,15 @@ With busy schedules, many people find it hard to cook or meal prep. The abundanc
 Our web application, Plateful, is designed to help individuals decide where they want to eat by providing personalized recommendations based on user's filter preferences and making choosing food playful. Plateful allows users to input their preferences into their filter preferences, generating a tailored list of restaurants that match their tastes. 
 
 ## Key features include: 
-Filter system: customize search results with filters like budget, cuisine type, price range, and dietary restrictions 
+Filter system: customize search results with filters like budget, cuisine type, price range, and dietary restrictions (like are there vegetarian options)
 
-Dashboard of saved restaurants: save and easily access your favorite dining spots for future reference
-
-Geolocation integration: use your location to find nearby restaurants or search in a specific location
+Geolocation integration: use your location to find nearby restaurants or search in a specific location (including in a map so that the user can see where the restaurants are located)
 
 Rating and review system: view and submit restaurant ratings, and share and explore photos of meals and restaurants to help you and others make informed decisions.
+
+Recommendation system: where the user gets restaurant options and they can vote "yes" or "no" on each restaurant
+
+Ranking bracket system: of the restaurants that the user voted "yes" to from recommendation system, the user will vote between two restaurants until it is narrowed down to one restaurant
 
 By offering a tool that is both user-friendly and feature-rich, Plateful aims to take the stress out of deciding where to eat, making meal planning effortless and enjoyable.
 

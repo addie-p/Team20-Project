@@ -1,6 +1,12 @@
 # Application Data 
 
-##  Overview
+## M3 Update
+The general structure of the data is still uniform throughout the application, but for the front-end milestone, many used dummy data with just attributes that were relevant to their features. For example, some features tested on restaurants with a name and price range, while another only needed to test on a name, and others only used names and ratings or locations or images. As we move into back-end, we will ensure that the structure and all attributes are consistent between pages.
+
+### How front-end interacts with IndexedDB
+Our front-end first opens IndexedDB to establish the initial connection. The restaurant cards are pulled from IndexedDB, that stores restaurants and their attributes. When information about restaurants are updated, the restaurant will be updated in its IndexedDB database with the new attribute value. For example, a restaurant that is liked will be updated with a true value for the "saved" attribute. When a restaurant is rated, it is updated with the new rating. When a restaurant has a photo uploaded to it, its photo list is updated with the new photo appended.
+
+##  M2 Overview
 
 ### 1. Filter
 - **Description**: Contains user preferences on their food search to give best restaurant recommendations.
@@ -46,4 +52,4 @@
 
 ## Data Sources
 - **User-Input Data**: Data like filter preferences/settings, saving a restaurant, and marking a restaurant as visited comes from direct user input via forms/actions in the application.
-- **System-Generated Data**: Restaurant profile data will be filled in based on web APIs and further calculations can done on the data to fully complete the restaurant profile.
+- **System-Generated Data**: Restaurant profile data will be filled in based on web APIs and further calculations can done on the data to fully complete the restaurant profile. We will specifically being using geographic location APIs for maps of restaurants and estimating distances. We also found it more accessible to access restaurant data from csv or xml files instead of APIs due to price limitations.

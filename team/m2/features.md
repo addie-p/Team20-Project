@@ -2,25 +2,51 @@
 
 ## Recommendation System
 
-The recommendation system in our web application will use personalized dining suggestions tailored for each users’ preferences. The algorithm behind this system will use content-based filtering to curate a dynamic list of recommendations. Users will be able to “swipe” (click) right, if they like a restaurant, or left, if they do not like a restaurant, with a limited number of swipes to ensure quality over quantity in swiping. This recommendation system will be designed to help users choose from a relevant list of restaurants they may be interested in, encouraging exploration while also prioritizing meaningful and decisive interactions.
+The recommendation system in our web application provides personalized dining suggestions tailored for each users’ preferences. The algorithm behind this system curates a dynamic list of restaurant recommendations. Restaraunt cards which display information and a photo for each restaurant are created and then connected to the filtering system, so only filtered restaurant cards are displayed. Users are able to click the checkmark button on the card if they like a restaurant, or the x button if they do not like a restaurant. When the like button is clicked, the restaurant is moved to the saved restaraunts dashboard. When the user clocks the dislike button, the restaurant is removed from the list of recommended options. When the user has gone through all the possible recommendations and liked or disliked them, the feature tells them that there are no more restaurants that match their preferences. This recommendation system is designed to help users choose from a relevant list of restaurants they may be interested in, encouraging exploration while also prioritizing meaningful and decisive interactions.
+
+**Point Value**: 5 points
+
+Subfeatures: 
+    - Like/dislike feature
+    - Nav bar
+    - Homepage
+    - Restaurant cards
 
 **Assigned to**: Addie Padhi
   
 ## Saved Restaurants Dashboard
 
-The saved restaurants dashboard will serve as a personalized hub for users to easily access and manage the restaurants that they “swiped” right on. Users can view details about the restaurants they saved such as the average rating, reviews, and photos of the restaurants to help them make comprehensive decisions when selecting where to dine. The dashboard will allow users to revisit the restaurants they like and choose from their top picks when planning meals. They will also be able to move the restaurant to the “Been To” category if they decide to go there.
+The saved restaurants dashboard serves as a personalized hub for users to easily access and manage the restaurants that they liked. These liked restaurants will go to the "Want to Try" category in the dashboard. Users can view details about the restaurants they saved such as the average rating and a photo of the restaurant to help them make comprehensive decisions when selecting where to dine. The user can also move the restaurant to the “Visited” category if they decide to go there. The feature then links to the rating and review system feature through a button on the restaraunt card once it is in the "Visited" category. 
+
+**Point Value**: 3 points 
+
+Subfeatures:
+    - Want to try/Visited categories
+    - Restaurant cards
 
 **Assigned to**: Eva Choudhury
 
 ## Filter System
 
-The filters feature will allow users to refine their dining options based on specific preferences such as cuisine type, dietary preferences, distance, and price (low, medium, high). Users can narrow down a vast array of restaurants using the filters, streamlining the search process and only providing relevant recommendations. Users can also dynamically update the filters to adjust to their shifting preferences and to find an optimal restaurant for them.
+The filters feature allows users to refine their dining options based on specific preferences which are cuisine type, vegetarian or not, distance, and price range ($, $$ and $$$). When a user applies the filters, restaraunt data is fetch from a CSV and the parsed data is then filtered through and resulting restaraunts which fit the user's criteria are displayed. The filter feature then links to the recommendation system feature because only the restaraunt cards of the filtered restaurants are displayed as recommendations that the user can like or dislike. Users can narrow down a vast array of restaurants using the filters, streamlining the search process and only providing relevant recommendations. Users can also dynamically update the filters to adjust to their shifting preferences and to find an optimal restaurant for them.
+
+**Point Value**: 3 points
+
+Subfeatures:
+    - Filter form that takes in user input
+    - Filter functionality that grabs csv data and returns only filtered restaurants
 
 **Assigned to**: Sandra Vishnu
 
-## Geolocation/Option to Input Location
+## Geolocation/Map Feature
 
-Users will be able to input their current location to receive recommendations for restaurants that are nearby or in their city/area. The filter system feature above will use this inputted location to provide users with recommendations that are within their preferred distance from their location. The location feature will give users an opportunity to find restaurant options in different, unfamiliar places if they are traveling or in their home city if they are not. 
+The geolocation feature displays restaurants in the user's area based on their current location. The application will request the user to input their location and if the user does give permission, restaurants nearby will be shown to the viewer on a map where they can hover over the markers to see further details about each restaurant. Right now, the map is using the location of Amherst to display nearby restaraunts, but it will further be developed to use the user's location. The restaraunt data is fetched using the Overpass API.
+
+**Point Value**: 3 points
+
+Subfeatures:
+    - Fetches restaraunt location data using Overpass API
+    - Displays map on homepage with markers for restaurants 
 
 **Assigned to**: Aliya Abedeen
 
