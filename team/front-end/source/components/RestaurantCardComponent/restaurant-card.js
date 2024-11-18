@@ -35,12 +35,12 @@ export class RestaurantCard {
     const details = document.createElement("p");
     details.classList.add("restaurant-card-details");
     details.innerHTML = `
-            <span>Cuisine:</span> ${this.restaurantData.Cuisine}<br>
-            <span>Price:</span> ${this.restaurantData.Price}<br>
-            <span>Vegetarian:</span> ${this.restaurantData.Vegetarian}<br>
-            <span>Location:</span> ${this.restaurantData.Town}, ${this.restaurantData.State}<br>
-            <span>Distance:</span> ${this.restaurantData.Distance} miles
-        `;
+      <span>Cuisine:</span> ${this.restaurantData.Cuisine}<br>
+      <span>Price:</span> ${this.restaurantData.Price}<br>
+      <span>Vegetarian:</span> ${this.restaurantData.Vegetarian}<br>
+      <span>Location:</span> ${this.restaurantData.Town}, ${this.restaurantData.State}<br>
+      <span>Distance:</span> ${this.restaurantData.Distance} miles
+    `;
     content.appendChild(details);
 
     const buttonsContainer = document.createElement("div");

@@ -8,8 +8,9 @@
     overflow: hidden;
     background-color: #fff;
     font-family: 'Merriweather', serif;
-    margin: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 .restaurant-card:hover {
