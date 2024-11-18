@@ -95,9 +95,9 @@ export class rating_system {
     // Close dropdown menu if clicking outside of it
     const dropdown = document.querySelector(".menu-dropdown");
     const menuButton = document.querySelector(".menu-button");
-    if (dropdown.style.display === "block" && !dropdown.contains(event.target) && event.target !== menuButton) {
-      dropdown.style.display = "none";
-    }
+    // if (dropdown.style.display === "block" && !dropdown.contains(event.target) && event.target !== menuButton) {
+    //   dropdown.style.display = "none";
+    // }
   }
 
   addBodyClickListener() {
