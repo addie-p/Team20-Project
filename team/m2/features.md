@@ -2,9 +2,15 @@
 
 ## Recommendation System
 
-The recommendation system in our web application provides personalized dining suggestions tailored for each users’ preferences. The algorithm behind this system curates a dynamic list of recommendations from the restaraunts stored in IndexedDB. Restaraunt cards which display information and a photo for each restaurant are created and then connected to the filtering system, so only filtered restaurant cards are displayed. Users are able to click the checkmark button on the card if they like a restaurant, or the x button if they do not like a restaurant. When the like button is clicked, the restaurant is moved to the saved restaraunts dashboard. When the user clocks the dislike button, the restaurant is removed from the list of recommended options. When the user has gone through all the possible recommendations and liked or disliked them, the feature tells them that there are no more restaurants that match their preferences. This recommendation system is designed to help users choose from a relevant list of restaurants they may be interested in, encouraging exploration while also prioritizing meaningful and decisive interactions.
+The recommendation system in our web application provides personalized dining suggestions tailored for each users’ preferences. The algorithm behind this system curates a dynamic list of restaurant recommendations. Restaraunt cards which display information and a photo for each restaurant are created and then connected to the filtering system, so only filtered restaurant cards are displayed. Users are able to click the checkmark button on the card if they like a restaurant, or the x button if they do not like a restaurant. When the like button is clicked, the restaurant is moved to the saved restaraunts dashboard. When the user clocks the dislike button, the restaurant is removed from the list of recommended options. When the user has gone through all the possible recommendations and liked or disliked them, the feature tells them that there are no more restaurants that match their preferences. This recommendation system is designed to help users choose from a relevant list of restaurants they may be interested in, encouraging exploration while also prioritizing meaningful and decisive interactions.
 
-**Point Value**: 4 points
+**Point Value**: 5 points
+
+Subfeatures: 
+    - Like/dislike feature
+    - Nav bar
+    - Homepage
+    - Restaurant cards
 
 **Assigned to**: Addie Padhi
   
@@ -14,6 +20,10 @@ The saved restaurants dashboard serves as a personalized hub for users to easily
 
 **Point Value**: 3 points 
 
+Subfeatures:
+    - Want to try/Visited categories
+    - Restaurant cards
+
 **Assigned to**: Eva Choudhury
 
 ## Filter System
@@ -22,13 +32,21 @@ The filters feature allows users to refine their dining options based on specifi
 
 **Point Value**: 3 points
 
+Subfeatures:
+    - Filter form that takes in user input
+    - Filter functionality that grabs csv data and returns only filtered restaurants
+
 **Assigned to**: Sandra Vishnu
 
 ## Geolocation/Map Feature
 
-The geolocation feature displays restaurants in the user's area based on their current location. The application requests the user's location, and the user has the opportunity to give or deny permission for the app to use it. If the user does give permission, restaurants nearby are shown to the viewer on a map where they can hover over the markers to see further details about each restaurant. The restaraunt data is fetch using the Overpass API. We plan to further connect this feature with the filter system and recommendation features in the future so that users can input a max distance from them that they would like their recommended restaraunts to be.
+The geolocation feature displays restaurants in the user's area based on their current location. The application will request the user to input their location and if the user does give permission, restaurants nearby will be shown to the viewer on a map where they can hover over the markers to see further details about each restaurant. Right now, the map is using the location of Amherst to display nearby restaraunts, but it will further be developed to use the user's location. The restaraunt data is fetched using the Overpass API.
 
 **Point Value**: 3 points
+
+Subfeatures:
+    - Fetches restaraunt location data using Overpass API
+    - Displays map on homepage with markers for restaurants 
 
 **Assigned to**: Aliya Abedeen
 
