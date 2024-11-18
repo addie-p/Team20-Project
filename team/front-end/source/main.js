@@ -69,11 +69,12 @@ if (!app) {
     restaurantContainer.classList.add('restaurant-list');
     contentContainer.appendChild(restaurantContainer);
 
-    const mapContainer = document.createElement('div');
-    mapContainer.id = 'map-container';
-    contentContainer.appendChild(mapContainer);
+    const mapContainerWrapper = document.createElement('div');
+    mapContainerWrapper.id = 'map-container';
+    contentContainer.appendChild(mapContainerWrapper);
 
     app.appendChild(contentContainer);
+
 
     renderRestaurantCards('restaurant-container');
 }

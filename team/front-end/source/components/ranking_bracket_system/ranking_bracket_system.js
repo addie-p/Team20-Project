@@ -1,4 +1,5 @@
 import { NavBarComponent } from '../NavBarComponent/navbar.js';
+
 export class RankingBracketSystem {
     #container = null;
     #currentPair = [];
@@ -36,7 +37,6 @@ export class RankingBracketSystem {
         document.head.appendChild(styleSheet);
     }
 
-
     //voting for restaurant
     voteForRestaurant(restaurantName) {
         console.log(`Vote button clicked for ${restaurantName}`);
@@ -54,21 +54,21 @@ export class RankingBracketSystem {
         this.updateToNextPair(restaurantName);
     }
 
-    // Move to the next two  restaurants
-     updateToNextPair(votedRestaurantName) {
+    // Move to the next two restaurants
+    updateToNextPair(votedRestaurantName) {
         // find index of last restaurant in the current pair
         let currentIndex = this.#restaurants.findIndex((r) => r.name === this.#currentPair[1]?.name);
-    
+
         // make sure next index exists
         if (currentIndex + 1 < this.#restaurants.length) {
             let nextRestaurant = this.#restaurants[currentIndex + 1];
-    
+
             // don't infinite loop or reuse the voted restaurant as the second option
             while (nextRestaurant && nextRestaurant.name === votedRestaurantName) {
                 currentIndex++;
                 nextRestaurant = this.#restaurants[currentIndex + 1];
             }
-    
+
             if (nextRestaurant) {
                 // new restaurant replaces restaurant not voted for
                 this.#currentPair = [
@@ -94,8 +94,6 @@ export class RankingBracketSystem {
     }
 
 
-
-    
     // the best restaurant is the last restaurant that's voted for 
     showBestRestaurant() {
         if (this.#lastVotedRestaurant) {
@@ -109,7 +107,7 @@ export class RankingBracketSystem {
     createRestaurantCard(restaurant) {
         if (!restaurant || !restaurant.name) {
             console.error("Invalid restaurant object:", restaurant);
-            return document.createElement("div"); 
+            return document.createElement("div");
         }
 
         const card = document.createElement("div");
@@ -133,10 +131,11 @@ export class RankingBracketSystem {
     }
 
     render() {
-        const full_container = document.createElement('div');
-        const navBar = new NavBarComponent();
-        full_container.appendChild(navBar.render());
-        // reset the container
+        if (!document.querySelector('.navbar')) {
+            const navBar = new NavBarComponent();
+            document.body.prepend(navBar.render());
+        }
+
         if (this.#container) {
             this.#container.innerHTML = '';
         } else {
@@ -146,15 +145,16 @@ export class RankingBracketSystem {
 
         if (this.#restaurants.length === 0) {
             this.#container.textContent = "No restaurants available for voting.";
+            document.body.appendChild(this.#container);
             return this.#container;
         }
 
         if (this.#currentPair.length === 0) {
             this.#container.textContent = "No restaurants available for voting.";
+            document.body.appendChild(this.#container);
             return this.#container;
         }
 
-        // Add the restaurant cards and vs text 
         const restaurant1 = this.createRestaurantCard(this.#currentPair[0]);
         const vsText = document.createElement("div");
         vsText.classList.add("vs");
@@ -165,11 +165,7 @@ export class RankingBracketSystem {
         this.#container.appendChild(vsText);
         this.#container.appendChild(restaurant2);
 
-        //document.body.appendChild(this.#container);
-
-        full_container.appendChild(this.#container);
-        document.body.appendChild(full_container);
-        return full_container;
-        // return this.#container;
+        document.body.appendChild(this.#container);
+        return this.#container;
     }
 }

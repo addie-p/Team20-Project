@@ -1,8 +1,10 @@
+@import url('./components/NavBarComponent/navbar.css');
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
-  padding: 20px;
+  padding-top: 80px;
 }
 
 .dashboard-container {
@@ -14,7 +16,7 @@ section {
   margin-bottom: 30px;
 }
 
-h2 {
+body h2:not(.navbar h2) {
   background-color: #658a6e;
   color: #fff;
   padding: 10px;
