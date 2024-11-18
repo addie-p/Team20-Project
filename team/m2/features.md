@@ -7,10 +7,10 @@ The recommendation system in our web application provides personalized dining su
 **Point Value**: 5 points
 
 Subfeatures: 
-    - Like/dislike feature
-    - Navigation bar
-    - Homepage
-    - Restaurant cards
+- Like/dislike feature
+- Navigation bar
+- Homepage
+- Restaurant cards
 
 **Assigned to**: Addie Padhi
   
@@ -21,8 +21,8 @@ The saved restaurants dashboard serves as a personalized hub for users to easily
 **Point Value**: 3 points 
 
 Subfeatures:
-    - Want to try/Visited categories
-    - Restaurant cards
+- Want to try/Visited categories
+- Restaurant cards
 
 **Assigned to**: Eva Choudhury
 
@@ -33,8 +33,8 @@ The filters feature allows users to refine their dining options based on specifi
 **Point Value**: 3 points
 
 Subfeatures:
-    - Filter form that takes in user input
-    - Filter functionality that grabs csv data and returns only filtered restaurants
+- Filter form that takes in user input
+- Filter functionality that grabs csv data and returns only filtered restaurants
 
 **Assigned to**: Sandra Vishnu
 
@@ -45,8 +45,8 @@ The geolocation feature displays restaurants in the user's area based on their c
 **Point Value**: 3 points
 
 Subfeatures:
-    - Fetches restaurant location data using Overpass API
-    - Displays map on homepage with markers for restaurants 
+- Fetches restaurant location data using Overpass API
+- Displays map on homepage with markers for restaurants 
 
 **Assigned to**: Aliya Abedeen
 
@@ -57,9 +57,9 @@ This feature will allow users to give a star rating out of 5 stars once they hav
 **Point Value**: 3 points
 
 Subfeatures:
-    - Add review feature to allow users to give description of feedback of restaurant after visiting
-    - Add star feature to allow users to rate restaurant out of five stars
-    - Dynamically updates reviews for given restaurant to indexeddb for persistent storage
+- Add review feature to allow users to give description of feedback of restaurant after visiting
+- Add star feature to allow users to rate restaurant out of five stars
+- Dynamically updates reviews for given restaurant to indexeddb for persistent storage
     
 
 **Assigned to**: Jada Tu
@@ -71,9 +71,9 @@ This feature will allow users to upload photos of the food they purchased and of
 **Point Value**: 3 points
 
 Subfeatures:
-    - Add back, clear, and submit buttons to photo upload page
-    - Add function to submit and make back button go back to rating system page
-    - Make photo file + restaurant persistent/load on refresh
+- Add back, clear, and submit buttons to photo upload page
+- Add function to submit and make back button go back to rating system page
+- Make photo file + restaurant persistent/load on refresh
     
 **Assigned to**: Helen Liu
 
@@ -84,9 +84,9 @@ Through this feature, users can participate in head-to-head matchups, where they
 **Point Value**: 3 points
 
 Subfeatures:
-    - Dynamically populate brackets based on saved restaurants from indexeddb
-    - Add "vote" buttons to allow users to vote between two restaurants
-    - Update brackets with choices as user votes
-    - Add notification on browser informing user of what they voted for and the winner
+- Dynamically populate brackets based on saved restaurants from indexeddb
+- Add "vote" buttons to allow users to vote between two restaurants
+- Update brackets with choices as user votes
+- Add notification on browser informing user of what they voted for and the winner
 
 **Assigned to**: Carol Ding
