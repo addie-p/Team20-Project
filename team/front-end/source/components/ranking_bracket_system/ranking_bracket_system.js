@@ -1,6 +1,7 @@
 import { NavBarComponent } from '../NavBarComponent/navbar.js';
 
 export class RankingBracketSystem {
+    //initialize private variables
     #container = null;
     #currentPair = [];
     #lastVotedRestaurant = null;
@@ -94,7 +95,7 @@ export class RankingBracketSystem {
     }
 
 
-    // the best restaurant is the last restaurant that's voted for 
+    // the best restaurant for the user is the last restaurant that's voted for 
     showBestRestaurant() {
         if (this.#lastVotedRestaurant) {
             alert(`The best restaurant for you is ${this.#lastVotedRestaurant}!`);
@@ -105,6 +106,7 @@ export class RankingBracketSystem {
 
     // create cards for each restaurant with vote option
     createRestaurantCard(restaurant) {
+        //check if restaurant is valid
         if (!restaurant || !restaurant.name) {
             console.error("Invalid restaurant object:", restaurant);
             return document.createElement("div");
@@ -113,16 +115,20 @@ export class RankingBracketSystem {
         const card = document.createElement("div");
         card.classList.add("restaurant");
 
+        //show restaurant's name 
         const name = document.createElement("h3");
         name.textContent = restaurant.name;
 
+        //show restaurant details 
         const details = document.createElement("p");
         details.textContent = `Cuisine: ${restaurant.cuisine} | Price: ${restaurant.price}`;
 
+        //vote button for voting
         const voteButton = document.createElement("button");
         voteButton.textContent = `Vote for ${restaurant.name}`;
         voteButton.onclick = () => this.voteForRestaurant(restaurant.name);
 
+        //add name, details, voteButton to card container
         card.appendChild(name);
         card.appendChild(details);
         card.appendChild(voteButton);
@@ -131,24 +137,28 @@ export class RankingBracketSystem {
     }
 
     render() {
+        //if navbar element doesn't already exist
         if (!document.querySelector('.navbar')) {
+            //then create a new navBarComponent 
             const navBar = new NavBarComponent();
             document.body.prepend(navBar.render());
         }
-
+        //clear container if it already exists 
         if (this.#container) {
             this.#container.innerHTML = '';
         } else {
+            //if it doesn't exist, then create a new eleemnt 
             this.#container = document.createElement("div");
             this.#container.classList.add("container", "matchup");
         }
-
+        
+        //check if there are any restaurants availble 
         if (this.#restaurants.length === 0) {
             this.#container.textContent = "No restaurants available for voting.";
             document.body.appendChild(this.#container);
             return this.#container;
         }
-
+        //check if current restuarants for voting is empty 
         if (this.#currentPair.length === 0) {
             this.#container.textContent = "No restaurants available for voting.";
             document.body.appendChild(this.#container);
@@ -156,11 +166,13 @@ export class RankingBracketSystem {
         }
 
         const restaurant1 = this.createRestaurantCard(this.#currentPair[0]);
+        //for the "vs"
         const vsText = document.createElement("div");
         vsText.classList.add("vs");
         vsText.textContent = "VS";
         const restaurant2 = this.createRestaurantCard(this.#currentPair[1]);
 
+        //add all elements to container 
         this.#container.appendChild(restaurant1);
         this.#container.appendChild(vsText);
         this.#container.appendChild(restaurant2);
