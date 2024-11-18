@@ -12,13 +12,25 @@ sequenceDiagram
     participant User
     participant Browser
     participant RankingBracketSystem
+    participant LocalStorage
 
-    User->>Browser: User clicks on "Vote for [restaurantName]" button
-    Browser->>RankingBracketSystem: Triggers voteForRestaurant(restaurantName) method
-    RankingBracketSystem->>RankingBracketSystem: Logs user vote and increases vote count for the restaurant voted for
+    User->>Browser: User loads the page
+    Browser->>RankingBracketSystem: Initialize RankingBracketSystem
+    RankingBracketSystem->>LocalStorage: Retrieves savedRestaurants from localStorage
+    LocalStorage-->>RankingBracketSystem: Returns savedRestaurants data
+    RankingBracketSystem->>RankingBracketSystem: Formats and sets up restaurants array
+    RankingBracketSystem->>Browser: Loads initial UI with restaurant options
+
+    User->>Browser: User clicks on "Vote for [restaurant]" button
+    Browser->>RankingBracketSystem: Calls voteForRestaurant(restaurant) method
+    RankingBracketSystem->>RankingBracketSystem: Records the user's vote and increases vote count for the selected restaurant
     RankingBracketSystem->>RankingBracketSystem: Calls updateToNextPair(votedRestaurantName)
-    RankingBracketSystem->>RankingBracketSystem: Finds next restaurant and updates #currentPair
-    RankingBracketSystem->>Browser: Re-renders container with updated restaurant pair
-    Browser->>User: Displays updated restaurant options
+    RankingBracketSystem->>RankingBracketSystem: Finds the next restaurant and updates #currentPair
+    alt Next restaurant exists
+        RankingBracketSystem->>Browser: Re-renders container with updated restaurant pair
+    else No more restaurants
+        RankingBracketSystem->>Browser: Calls showBestRestaurant()
+        Browser->>User: Shows "The best restaurant for you is [restaurantName]!"
+    end
 
 ```
