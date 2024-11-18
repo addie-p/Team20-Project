@@ -35,6 +35,13 @@ Link to Commits:
 
 ### November 15th, 2024
 
+Task: Create dummy data for restaurants
+
+Details: Find information about restaurants and create CSV of dummy data to use to populate restaurant cards; our next milestone will use data pulled from a more exhaustive database.
+
+Link to Commit:
+- https://github.com/addie-p/Team20-Project/commit/69e3c9b9418e52c9eced7869f672f738b1f01dfb
+
 Task: Create restaurant cards/recommendation system
 
 Details: Create restaurant cards that display the restaurant information from the CSV file containing dummy data.
@@ -49,6 +56,7 @@ Task: Integrate "like"s/"dislike"s and integrate indexeddb
 Details: Integrate "like"/"dislike" functionality with restaurant cards; dynamically update savedRestaurants in indexeddb for usage for saved restaurants and brackets.
 
 Link to Commits: 
+- https://github.com/addie-p/Team20-Project/commit/1524f04e2e7f271114c2cc586de3daecd0a0f0f0
 - https://github.com/addie-p/Team20-Project/commit/43613910c7b03a8ade0b049afa2ff15ba4571386
 - https://github.com/addie-p/Team20-Project/commit/b7c8eb4d0f40175a00d322600c902e82bf7fa578
 
@@ -61,3 +69,10 @@ Details: Helped polish the format of the website to include consistent styling o
 Link to Commits: 
 - https://github.com/addie-p/Team20-Project/commit/24a4ad0ac0563f6adda16157cb7d14a04ab0792d
 - https://github.com/addie-p/Team20-Project/commit/427f5bd670e4868d290b8b8b5f985d668567c123
+
+Task: Update features.md file
+
+Details: Updated the second half of the features.md file with point values to describe the features being implemented and a more accurate description of the features, according to our implementation.
+
+Link to Commit:
+- https://github.com/addie-p/Team20-Project/commit/1524f04e2e7f271114c2cc586de3daecd0a0f0f0
