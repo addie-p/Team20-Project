@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #777;
+}
+
+.container {
+  width: 90%;
+  font-family: 'Arial', sans-serif;
+  max-width: 600px;
+  background: #e6f5e6;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;  
+  margin-right: auto; 
+  position: relative;
+  margin-top: 30px;
+}
+
+.left-content {
+  flex: 0.6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.right-content {
+  flex: 0.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #0c5b14;
+  outline: none;
+}
+
+button {
+  display: block;
+  width: 100%;
+  background-color: #0c5b14;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0a4b11;
+}
+
+.upload-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.upload-button-icon {
+  font-size: 3em;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.upload-button-text {
+  font-size: 1em;
+  color: #333;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.rating span {
+  font-size: 2.5em;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin: 0 5px;
+}
+
+.rating span:hover {
+  color: gold;
+}
+
+.rating span.selected {
+  color: gold;
+}

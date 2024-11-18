@@ -62,23 +62,26 @@ export class GeolocationMapComponent {
     render() {
       this.loadCSS();
   
-      // creating a container for the map
-      const container = document.createElement("div");
-      container.id = this.elementId;
+      const wrapper = document.createElement("div");
+      wrapper.style.width = "80%"; 
+      wrapper.style.justifyContent = "center"; 
   
-     
-      container.style.height = "300px";  
-      container.style.width = "300px";    
+      const mapElement = document.createElement("div");
+      mapElement.id = this.elementId; 
+      mapElement.style.height = "300px"; 
+      mapElement.style.width = "100%"; 
   
-      this.#container = container;
+      wrapper.appendChild(mapElement);
+      this.#container = mapElement;
   
-      
       const script = document.createElement("script");
       script.src = "https://unpkg.com/leaflet/dist/leaflet.js";
       script.onload = () => this.initMap();
       document.head.appendChild(script);
   
-      return this.#container;
-    }
+      return wrapper;
   }
+}
+
+
   

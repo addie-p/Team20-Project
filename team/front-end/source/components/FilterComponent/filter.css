@@ -1,0 +1,109 @@
+/* filter bar styling */
+#filter-bar-container {
+  width: calc(100% - 40px); /* don't push up to sides of site */
+  margin: 0 auto; 
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  font-family: 'Merriweather', serif;
+  border-radius: 8px;
+}
+
+/* toggle button styling for showing/hiding filter */
+#filter-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #73a075;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  text-align: left;
+}
+
+/* toggle button for filter */
+#filter-toggle-button span {
+  margin-left: 5px;
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+/* arrow animation for toggle button for filter */
+#filter-container:not(.hidden) ~ #filter-toggle-button span {
+  transform: rotate(180deg); /* Rotates arrow */
+}
+
+/* hide filter bar */
+.hidden {
+  display: none;
+}
+
+/* filter container styling */
+#filter-container {
+  padding: 15px 0;
+}
+
+#filterForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+/* format vegetarian option checkbox directly next to label */
+#filterForm label[for="vegetarian"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+/* styling for filter options */
+#filterForm select,
+#filterForm input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'Merriweather', serif;
+  outline: none;
+  width: 100%;
+}
+
+#filterForm label[for="price"],
+#filterForm select#price {
+  flex: 1 1 100%; 
+}
+
+#filterForm button {
+  background-color: #73a075; 
+  color: white; 
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 150px; 
+}
+
+#filterForm button:hover {
+  background-color: #5d8a5c;
+}
+
+body {
+  margin: 0;
+  padding: 90px;
+  box-sizing: border-box;
+}
+

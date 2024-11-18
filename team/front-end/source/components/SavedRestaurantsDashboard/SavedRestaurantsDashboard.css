@@ -1,0 +1,134 @@
+@import url('./components/NavBarComponent/navbar.css');
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding-top: 80px;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+body h2:not(.navbar h2) {
+  background-color: #658a6e;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.restaurant-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.restaurant-card {
+  background-color: #344e41;
+  color: #fff;
+  width: 180px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.restaurant-card h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.add-to-visited, .remove-button {
+  position: absolute;
+  background-color: #658a6e;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.add-to-visited {
+  top: 10px;
+  right: 10px;
+}
+
+.remove-button {
+  top: 10px;
+  left: 10px;
+}
+
+.visited-card {
+  background-color: #d7d9b1;
+  color: #344e41;
+}
+
+.review-input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #658a6e;
+  border-radius: 5px;
+}
+
+.upload-button {
+  background-color: #344e41;
+  color: #fff;
+  padding: 8px 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.star-container {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.star {
+  font-size: 1.5em;
+  color: gray;
+}
+
+.star.selected {
+  color: gold;
+}
+
+
+
+.review-link {
+  font-size: 1.2em;
+  text-decoration: none;
+  color: #4a7c59; 
+  cursor: pointer;
+}
+
+.review-link:hover {
+  color: #2f5e41;
+}
+
+.info-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
