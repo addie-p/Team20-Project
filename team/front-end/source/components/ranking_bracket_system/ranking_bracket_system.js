@@ -55,7 +55,7 @@ export class RankingBracketSystem {
     }
 
     // Move to the next two  restaurants
-    updateToNextPair(votedRestaurantName) {
+     updateToNextPair(votedRestaurantName) {
         // find index of last restaurant in the current pair
         let currentIndex = this.#restaurants.findIndex((r) => r.name === this.#currentPair[1]?.name);
     
@@ -75,10 +75,16 @@ export class RankingBracketSystem {
                     this.#restaurants.find((r) => r.name === votedRestaurantName),
                     nextRestaurant
                 ];
-                // re-render container 
-                this.#container.replaceWith(this.render());
+                // update contents of the container without re-rendering the whole component (so navbar doesn't increase too)
+                this.#container.innerHTML = '';
+                this.#container.appendChild(this.createRestaurantCard(this.#currentPair[0]));
+                const vsText = document.createElement("div");
+                vsText.classList.add("vs");
+                vsText.textContent = "VS";
+                this.#container.appendChild(vsText);
+                this.#container.appendChild(this.createRestaurantCard(this.#currentPair[1]));
             } else {
-                // no more restaurants 
+                // no more restaurants
                 this.showBestRestaurant();
             }
         } else {
@@ -86,6 +92,9 @@ export class RankingBracketSystem {
             this.showBestRestaurant();
         }
     }
+
+
+
     
     // the best restaurant is the last restaurant that's voted for 
     showBestRestaurant() {
