@@ -3,27 +3,39 @@ import { RestaurantCard } from './components/RestaurantCardComponent/restaurant-
 import { GeolocationMapComponent } from './components/geolocation/geolocation.js';
 import { saveRestaurant } from './services/indexeddb.js';
 
+// initialize main app
 const app = document.getElementById('app');
+
 if (!app) {
+    // error handling
     console.error("App container with id 'app' not found.");
 } else {
+    // navigation bar from component
     const navBar = new NavBarComponent();
+    // map from component
+    const geolocationMap = new GeolocationMapComponent('map', 42.376800, -72.519444, 15);
+    // render navigation bar
     app.appendChild(navBar.render());
 
+    // render filter bar
     const filterBarContainer = document.createElement('div');
     filterBarContainer.id = 'filter-bar-container';
 
+    // render filter dropdown buttons
     const filterToggleButton = document.createElement('button');
     filterToggleButton.id = 'filter-toggle-button';
     filterToggleButton.innerHTML = `Filter <span>&#9660;</span>`;
     filterToggleButton.classList.add('filter-toggle');
+    // function handle filter bar show/hide
     filterToggleButton.onclick = () => {
         filterContainer.classList.toggle('hidden');
         const arrow = filterToggleButton.querySelector('span');
         arrow.innerHTML = filterContainer.classList.contains('hidden') ? '&#9654;' : '&#9660;';
     };
+    // render filter bar toggle button
     filterBarContainer.appendChild(filterToggleButton);
 
+    // render filter container and filter bar choices
     const filterContainer = document.createElement('div');
     filterContainer.id = 'filter-container';
     filterContainer.innerHTML = `
@@ -58,20 +70,24 @@ if (!app) {
     </form>
 `;
 
+    // append filter container
     filterBarContainer.appendChild(filterContainer);
     app.appendChild(filterBarContainer);
 
+    // render container to store restaurant cards and map
     const contentContainer = document.createElement('div');
     contentContainer.id = 'content-container';
 
+    // render container to store restaurant cards
     const restaurantContainer = document.createElement('div');
     restaurantContainer.id = 'restaurant-container';
     restaurantContainer.classList.add('restaurant-list');
     contentContainer.appendChild(restaurantContainer);
 
+    // geolocation component
     const mapContainerWrapper = document.createElement('div');
     mapContainerWrapper.id = 'map-container';
-    contentContainer.appendChild(mapContainerWrapper);
+    contentContainer.appendChild(geolocationMap.render());
 
     app.appendChild(contentContainer);
 
@@ -79,15 +95,11 @@ if (!app) {
     renderRestaurantCards('restaurant-container');
 }
 
+// link stylesheet for filter bar
 const style = document.createElement('link');
 style.rel = 'stylesheet';
 style.href = './components/FilterComponent/filter.css';
 document.head.appendChild(style);
-
-// geolocation component
-const geolocationMap = new GeolocationMapComponent('map', 42.376800, -72.519444, 15);
-const mapContainer = geolocationMap.render();
-app.appendChild(mapContainer);
 
 const savedRestaurants = JSON.parse(localStorage.getItem('savedRestaurants')) || [];
 const dislikedRestaurants = JSON.parse(localStorage.getItem('dislikedRestaurants')) || [];
@@ -109,6 +121,7 @@ async function renderRestaurantCards(containerId) {
         remainingRestaurants = allRestaurants.filter((r) => !swipedIds.has(r.id));
         filteredRestaurants = [...remainingRestaurants];
 
+        // dynamically update to next card after user likes/dislikes
         displayNextCard();
     } catch (error) {
         console.error('Error rendering restaurant cards:', error);
@@ -122,6 +135,7 @@ document.getElementById('applyFilters').addEventListener('click', () => {
     const price = document.getElementById('price').value;
     const distance = Number(document.getElementById('distance').value);
 
+    // function to return restaurants that apply based on filters
     filteredRestaurants = [...remainingRestaurants].filter((r) => {
         if (cuisine && !r.Cuisine?.toLowerCase().includes(cuisine)) return false;
         if (vegetarian && r.Vegetarian?.toLowerCase() !== 'yes') return false;
@@ -139,6 +153,7 @@ function displayNextCard() {
     const container = document.getElementById('restaurant-container');
     container.innerHTML = '';
 
+    // indicate that restaurants are done
     if (currentIndex >= filteredRestaurants.length) {
         container.textContent = 'No more restaurants to show.';
         return;
@@ -149,6 +164,7 @@ function displayNextCard() {
 
     container.appendChild(card.render());
 
+    // add swipe listeners for cards to save "liked" and "disliked" restaurants on click
     card.addSwipeListeners(
         async (likedRestaurant) => {
             console.log('Liked restaurant:', likedRestaurant);
