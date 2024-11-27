@@ -3,11 +3,15 @@ export class rating_system {
   #container = null;
   #db = null;
   #selectedRating = 0;
+  #restaurantId = null;
+  #restaurantName = null;
 
-  constructor() {
-    this.initializeDB(); 
-    this.loadCSS(); 
-    this.addBodyClickListener(); 
+  constructor({ id, name }) { 
+    this.#restaurantId = id;
+    this.#restaurantName = name;
+    this.initializeDB();
+    this.loadCSS();
+    this.addBodyClickListener();
   }
 
   loadCSS() {
@@ -18,20 +22,67 @@ export class rating_system {
   }
 
   initializeDB() {
-    //initializes indexedDB for storing reviews
+    // initializes IndexedDB for storing reviews and restaurants
     const request = indexedDB.open("PlatefulDB", 1);
+
     request.onupgradeneeded = (event) => {
-      this.#db = event.target.result;
-      const objectStore = this.#db.createObjectStore("reviews", { keyPath: "id", autoIncrement: true });
-      objectStore.createIndex("restaurantName", "restaurantName", { unique: false });
+      const db = event.target.result;
+  
+      if (!db.objectStoreNames.contains("reviews")) {
+        const reviewStore = db.createObjectStore("reviews", { keyPath: "id", autoIncrement: true });
+        reviewStore.createIndex("restaurantName", "restaurantName", { unique: false });
+      }
+  
+      if (!db.objectStoreNames.contains("restaurants")) {
+        db.createObjectStore("restaurants", { keyPath: "id" });
+      }
     };
+  
     request.onsuccess = (event) => {
       this.#db = event.target.result;
+      this.populateRestaurantName();
     };
+  
     request.onerror = (event) => {
       console.error("Error opening IndexedDB:", event.target.errorCode);
     };
   }
+
+  populateRestaurantName() {
+    const restaurantNameInput = this.#container.querySelector("#restaurantName");
+    const reviewTextInput = this.#container.querySelector("#reviewText");
+    const starsContainer = this.#container.querySelector(".rating");
+  
+    if (restaurantNameInput) {
+      restaurantNameInput.value = this.#restaurantName;
+      restaurantNameInput.disabled = true; 
+    }
+  
+    // get existing review from IndexedDB
+    const transaction = this.#db.transaction(["reviews"], "readonly");
+    const reviewStore = transaction.objectStore("reviews");
+    const index = reviewStore.index("restaurantName");
+    const request = index.get(this.#restaurantName);
+  
+    request.onsuccess = () => {
+      const review = request.result;
+      if (review) {
+        // prefill review text and star rating
+        if (reviewTextInput) {
+          reviewTextInput.value = review.reviewText;
+        }
+        if (starsContainer) {
+          this.#selectedRating = review.rating;
+          this.updateStars(starsContainer, this.#selectedRating);
+        }
+      }
+    };
+  
+    request.onerror = (event) => {
+      console.error("Error fetching review:", event.target.errorCode);
+    };
+  }
+   
 
   updateStars(container, rating) {
     container.querySelectorAll('.rating span').forEach((star, index) => {
@@ -46,41 +97,48 @@ export class rating_system {
   }
 
   handleSubmit(event) {
-    // stores the review in IndexedDB
     event.preventDefault();
-
+  
     const restaurantName = event.target.querySelector("#restaurantName").value;
     const reviewText = event.target.querySelector("#reviewText").value;
-
+  
     if (this.#selectedRating === 0) {
       alert("Please select a star rating.");
       return;
     }
-
-    // new transaction to store the review
-    const transaction = this.#db.transaction(["reviews"], "readwrite");
-    const objectStore = transaction.objectStore("reviews");
+  
     const review = {
       restaurantName,
       reviewText,
       rating: this.#selectedRating,
       date: new Date(),
     };
-
-    objectStore.add(review);
-    console.log(review);
-
-    transaction.oncomplete = () => {
-      alert("Review added successfully!");
-      event.target.reset();
-      this.updateStars(event.target, 0); // resetrs star rating
-      this.#selectedRating = 0; 
+  
+    // save/update the review in IndexedDB
+    const transaction = this.#db.transaction(["reviews"], "readwrite");
+    const reviewStore = transaction.objectStore("reviews");
+    const index = reviewStore.index("restaurantName");
+    const getRequest = index.get(restaurantName);
+  
+    getRequest.onsuccess = () => {
+      if (getRequest.result) {
+        // update existing review
+        review.id = getRequest.result.id; 
+        reviewStore.put(review);
+      } else {
+        reviewStore.add(review);
+      }
     };
-
+  
+    transaction.oncomplete = () => {
+      alert("Review saved successfully!");
+    };
+  
     transaction.onerror = (event) => {
-      console.error("Error adding review:", event.target.error);
+      console.error("Error saving review:", event.target.error);
     };
   }
+  
 
 
   addBodyClickListener() {
@@ -90,7 +148,7 @@ export class rating_system {
 
   handleUploadButtonClick() {
     // redirect to Helen's upload page
-    window.location.href = "./upload.html";
+    window.location.href = `./upload.html?restaurantId=${this.#restaurantId}`;
   }
 
   render() {
