@@ -1,17 +1,17 @@
 const express = require('express');
 const multer = require('multer');
-const db = require('./database');
+const db = require('./photo_db_test'); //match to db calls
 const fs = require('fs');
 
 const app = express();
 const port = 3000;
 
-// Configure Multer for file uploads
+// configure multer for file uploads for image post and get
 const upload = multer({
-  storage: multer.memoryStorage(), // Store file in memory for easy access
+  storage: multer.memoryStorage(), // store file in memory for easy access
 });
 
-// Upload an image
+// upload an image with post method to endpoint
 app.post('/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
@@ -29,7 +29,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
   });
 });
 
-// Retrieve an image by ID
+// retrieve an image by id (number in database)
 app.get('/image/:id', (req, res) => {
   const { id } = req.params;
 
@@ -43,14 +43,14 @@ app.get('/image/:id', (req, res) => {
       return res.status(404).send('Image not found.');
     }
 
-    // Set headers and send the image data
-    res.setHeader('Content-Type', 'image/jpeg'); // Adjust MIME type if necessary
+    // set headers and image data
+    res.setHeader('Content-Type', 'image/jpeg');
     res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
     res.send(row.data);
   });
 });
 
-// Start the server
+// start server to start listening to calls
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
