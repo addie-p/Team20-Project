@@ -30,7 +30,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
 });
 
 // retrieve an image by id (number in database)
-app.get('/image/:id', (req, res) => {
+app.get('/image2/:id', (req, res) => {
   const { id } = req.params;
 
   const sql = `SELECT name, data FROM images WHERE id = ?`;
@@ -48,6 +48,27 @@ app.get('/image/:id', (req, res) => {
     res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
     res.send(row.data);
   });
+});
+
+// retrieve an image by name (number in database)
+app.get('/image/:name', (req, res) => {
+    const { name } = req.params;
+  
+    const sql = `SELECT name, data FROM images WHERE name = ?`;
+    db.get(sql, [name], (err, row) => {
+      if (err) {
+        console.error('Error retrieving image:', err.message);
+        return res.status(500).send('Failed to retrieve image.');
+      }
+  
+      if (!row) {
+        return res.status(404).send('Image not found.');
+      }
+  
+      res.setHeader('Content-Type', 'image/jpeg'); // Adjust MIME type if necessary
+      res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
+      res.send(row.data);
+    });
 });
 
 // start server to start listening to calls
