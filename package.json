@@ -1,0 +1,21 @@
+{
+  "name": "photo_upload",
+  "version": "1.0.0",
+  "description": "## Description Plateful is a restaurant review web application designed to help users track and rank the restaurants they visit. Integrating a bracket system allows indecisive users to choose where they should eat based on specific preferences at the time of choice. The app uses geolocation to provide a user experience where users are able to associate their reviews with specific locations, as well as having a saved dashboard where they can access their reviews. It uses IndexedDB for efficient local data storage.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server team/front-end/source -p 3000 -c-1 -o -s"
+  },
+  "dependencies": {
+    "archiver": "^6.0.1",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "keywords": []
+}
