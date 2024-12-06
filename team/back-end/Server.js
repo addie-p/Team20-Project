@@ -1,7 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import { sequelize } from '../model/ModelFactory.js';
-import RestaurantRoutes from '../routes/RestaurantRoutes.js';
+const express = require('express');
+const cors = require('cors');
+//const { sequelize, models } = require('./model/ModelFactory');
+const sequelize = require('./model/ModelFactory').sequelize;
+const RestaurantRoutes = require('./routes/RestaurantRoutes');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;

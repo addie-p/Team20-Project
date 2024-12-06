@@ -1,5 +1,8 @@
-import express from 'express';
-import { getAllRestaurants, addRestaurant, updateRestaurant, deleteRestaurant } from '../source/controllers/RestaurantController.js';
+// import express from 'express';
+// import { getAllRestaurants, addRestaurant, updateRestaurant, deleteRestaurant } from '../source/controllers/RestaurantController.js';
+
+const express = require('express');
+const { getAllRestaurants, addRestaurant, updateRestaurant, deleteRestaurant } = require('../controller/RestaurantController.js');
 
 const router = express.Router();
 
@@ -8,4 +11,6 @@ router.post('/restaurants', addRestaurant);
 router.put('/restaurants/:id', updateRestaurant);
 router.delete('/restaurants/:id', deleteRestaurant);
 
-export default router;
+//export default router;
+
+module.exports = router;

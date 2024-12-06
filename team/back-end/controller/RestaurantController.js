@@ -1,6 +1,8 @@
-import { models } from '../../model/ModelFactory.js';
+//import { models } from '../../model/ModelFactory.js';
+const { models } = require('../model/ModelFactory');
 
-export const getAllRestaurants = async (req, res) => {
+
+const getAllRestaurants = async (req, res) => {
     try {
         const restaurants = await models.Restaurant.findAll();
         res.status(200).json(restaurants);
@@ -9,7 +11,7 @@ export const getAllRestaurants = async (req, res) => {
     }
 };
 
-export const addRestaurant = async (req, res) => {
+const addRestaurant = async (req, res) => {
     try {
         const { name, cuisine, location, rating, visited } = req.body;
         const newRestaurant = await models.Restaurant.create({ name, cuisine, location, rating, visited });
@@ -19,7 +21,7 @@ export const addRestaurant = async (req, res) => {
     }
 };
 
-export const updateRestaurant = async (req, res) => {
+const updateRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
         const updatedRestaurant = await models.Restaurant.update(req.body, { where: { id } });
@@ -29,7 +31,7 @@ export const updateRestaurant = async (req, res) => {
     }
 };
 
-export const deleteRestaurant = async (req, res) => {
+const deleteRestaurant = async (req, res) => {
     try {
         const { id } = req.params;
         await models.Restaurant.destroy({ where: { id } });
@@ -37,4 +39,11 @@ export const deleteRestaurant = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete restaurant.' });
     }
+};
+
+module.exports = {
+    getAllRestaurants,
+    addRestaurant,
+    updateRestaurant,
+    deleteRestaurant,
 };
