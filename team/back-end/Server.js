@@ -8,10 +8,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use('/api', RestaurantRoutes);
 
 sequelize.sync({ force: false }).then(() => {
-    console.log('Database connected.');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}).catch(err => console.error('Database connection failed:', err));
+    console.log('Database synced successfully.');
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  }).catch((err) => console.error('Database connection failed:', err));

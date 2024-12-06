@@ -15,17 +15,29 @@ export default (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        location: {
+        full_address: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        latitude: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        longitude: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        h3: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         rating: {
             type: DataTypes.FLOAT,
             allowNull: true,
         },
-        visited: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
+        reviews: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
     });
     return Restaurant;

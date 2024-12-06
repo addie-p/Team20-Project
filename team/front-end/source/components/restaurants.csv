@@ -1,4 +1,139 @@
-ID,Restaurant,Cuisine,Price,Vegetarian,Town,State,Distance,Image
-1,Antonio's Pizza,Pizza,$,Yes,Amherst,MA,2,https://www.andiemitchell.com/wp-content/uploads/2012/10/antonios-pizza-amherst-ma.jpg
-2,Miss Saigon,Vietnamese,$$,Yes,Amherst,MA,4,https://www.stonehousefarmbb.com/images/Restaurants/d7c5c347-282a-444a-8012-663ec3256160.jpg
-3,Arigato,Japanese,$$,Yes,Amherst,MA,6,https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/ff/68/3d/teriyaki-salmon-bento.jpg?w=1400&h=-1&s=1 
+id,name,cuisine,full_address,latitude,longitude,h3,rating,reviews
+1,Homestead.,American,"7 Strong Ave, Northampton, MA 01060",42.319829,-72.6284675,892a32640b3ffff,4.5,242.0
+2,Oriental Taste,Chinese,"41 Main St, Northampton, MA 01060",42.3199715,-72.6293089,892a32640b3ffff,4.3,95.0
+3,T. ROOTS,Taiwanese,"249 Main St, Northampton, MA 01060",42.3180573,-72.6329142,892a32640bbffff,4.4,167.0
+4,Taipei Hibachi,Japanese,"16 Crafts Ave, Northampton, MA 01060",42.3173278,-72.6315403,892a32640a3ffff,4.9,14.0
+5,Toasted,Brunch,"111 Pleasant St, Northampton, MA 01060",42.3182222,-72.6281679,892a32640b3ffff,4.1,48.0
+6,Wurst Haus,German,"27 Pleasant St, Northampton, MA 01060",42.3191054,-72.6293444,892a32640b3ffff,4.2,144.0
+7,Fitzwilly's Restaurant,American,"23 Main St, Northampton, MA 01060",42.3202386,-72.62895689999999,892a32640b3ffff,4.4,1883.0
+8,Eastside Grill,American,"19 Strong Ave, Northampton, MA 01060",42.3195813,-72.6282603,892a32640b3ffff,4.3,646.0
+9,Jake's,Breakfast,"17 King St, Northampton, MA 01060",42.3199608,-72.6299554,892a32640b3ffff,4.6,967.0
+10,Tellus & the Satellite Bar,Pizza,"Basement Level, 150 Main St, Northampton, MA 01060",42.3181847,-72.6306857,892a32640a3ffff,4.4,119.0
+11,Paul and Elizabeth's,American,"150 Main St, Northampton, MA 01060",42.3179254,-72.6308948,892a32640a3ffff,4.6,752.0
+12,Gombo Nola Kitchen & Oyster Bar,Cajun,"159 Main St, Northampton, MA 01060",42.3186932,-72.63142239999999,892a32640bbffff,4.2,114.0
+13,Mosaic Cafe,Moroccan,"78 Masonic St, Northampton, MA 01060",42.3190881,-72.6332496,892a32640bbffff,4.5,471.0
+14,Wiggins Tavern Restaurant,American,"36 King St, Northampton, MA 01060",42.3200122,-72.6306306,892a32640b3ffff,4.1,135.0
+15,Amanouz Cafe,Mediterranean,"44 Main St, Northampton, MA 01060",42.3195858,-72.6290322,892a32640b3ffff,4.5,737.0
+16,Pita Pockets,Mediterranean,"193 Main St, Northampton, MA 01060",42.3182504,-72.6319622,892a32640a3ffff,4.8,799.0
+17,Toasted Owl Tavern,American,"21 Main St, Northampton, MA 01060",42.3202871,-72.6289177,892a32640b3ffff,4.3,275.0
+18,Filos Greek Taverna,Greek,"279 Main St, Northampton, MA 01060",42.317957,-72.633599,892a32640abffff,4.4,701.0
+19,Packard's,American,"14 Masonic St, Northampton, MA 01060",42.3181269,-72.6333128,892a32640bbffff,4.2,588.0
+20,Roberto's Restaurant,Italian,"223 Pleasant St, Northampton, MA 01060",42.3171748,-72.62683489999999,892a32640b7ffff,4.4,430.0
+21,Nourish Wellness Cafe,Breakfast,"10 Bridge St, Northampton, MA 01060",42.3207583,-72.6284083,892a32640b3ffff,4.4,271.0
+22,Oliver Smith Restaurant,American,"80 Locust St, Northampton, MA 01060",42.3317105,-72.6557194,892a3264623ffff,4.8,8.0
+23,Coolidge Park Cafe,Breakfast,"36 King St, Northampton, MA 01060",42.3200832,-72.6306389,892a32640b3ffff,3.8,62.0
+24,Bueno Y Sano,Mexican,"134 Main St, Northampton, MA 01060",42.318633,-72.630704,892a32640a3ffff,4.5,904.0
+25,Caminito Steakhouse,Argentinean,"7 Old S St, Northampton, MA 01060",42.3175412,-72.6311233,892a32640a3ffff,4.3,298.0
+26,Bluebonnet Diner,American,"324 King St, Northampton, MA 01060",42.3345537,-72.6365064,892a326447bffff,4.3,1054.0
+27,Spoleto,Italian,"1 Bridge St, Northampton, MA 01060",42.3204859,-72.6281151,892a32640b3ffff,4.1,420.0
+28,Royal Chicken & Kebab,American,"1A Boltwood Walk, Amherst, MA 01002",42.375999,-72.51860599999999,892a3274bb7ffff,4.7,122.0
+29,Bistro 63,American,"63 N Pleasant St, Amherst, MA 01002",42.3767078,-72.5196405,892a3274bb3ffff,4.2,438.0
+30,Crazy Noodles,Asian,"36 Main St, Amherst, MA 01002",42.3758478,-72.5190121,892a3274bb7ffff,4.6,456.0
+31,Protocol,American,"1 E Pleasant St, Amherst, MA 01002",42.379113,-72.51958979999999,892a327494bffff,4.7,102.0
+32,La Veracruzana,Mexican,"63 S Pleasant St, Amherst, MA 01002",42.3748244,-72.52003239999999,892a3274bb7ffff,4.3,122.0
+33,Lili's Restaurant,Chinese,"197 N Pleasant St, Amherst, MA 01002",42.378629,-72.519708,892a3274bb3ffff,4.8,328.0
+34,Fresh Side,Asian,"39 S Pleasant St, Amherst, MA 01002",42.3751917,-72.52000559999999,892a3274bb7ffff,4.3,333.0
+35,Playa Bowls,Breakfast,"65 University Dr, Amherst, MA 01002",42.3714918,-72.5338852,892a3274b3bffff,5.0,25.0
+36,Panda East,Chinese,"103 N Pleasant St, Amherst, MA 01002",42.3772497,-72.5191668,892a3274bb3ffff,4.1,380.0
+37,Pita Pockets,Middle Eastern,"Pita Pockets, 103 N Pleasant St, Amherst, MA 01002",42.3772684,-72.5194994,892a3274bb3ffff,4.9,714.0
+38,El Comalito (Amherst),Salvadoran,"460 West St, Amherst, MA 01002",42.3404846,-72.5193481,892a32292b3ffff,4.6,704.0
+39,Lao Hu Tong,Chinese,"63 Main St, Amherst, MA 01002",42.3755854,-72.5184723,892a3274bb7ffff,4.9,86.0
+40,Johnny's Tavern,American,"30 Boltwood Walk, Amherst, MA 01002",42.3763889,-72.5183333,892a3274bb7ffff,4.5,1030.0
+41,Mission Cantina,Mexican,"485 West St, Amherst, MA 01002",42.3397472,-72.5209639,892a32292b3ffff,4.4,892.0
+42,Osteria Vespa,Italian,"28 Amity St STE 1G, Amherst, MA 01002",42.3753811,-72.5205242,892a3274bb7ffff,4.2,139.0
+43,30Boltwood,American,"30 Boltwood Ave, Amherst, MA 01002",42.3744093,-72.51874719999999,892a3274bb7ffff,4.2,173.0
+44,MoMo Tibetan Restaurant,Tibetan,"23 N Pleasant St, Amherst, MA 01002",42.3760931,-72.5196532,892a3274bb7ffff,4.5,228.0
+45,Pasta E Basta,Italian,"26 Main St, Amherst, MA 01002",42.3757944,-72.5193467,892a3274bb7ffff,4.5,462.0
+46,The Black Sheep,Breakfast,"79 Main St, Amherst, MA 01002",42.375617,-72.51814499999999,892a3274bb7ffff,4.3,480.0
+47,Kels Good Eat's,American,"121 N Pleasant St, Amherst, MA 01002",42.3774317,-72.5193938,892a3274bb3ffff,5.0,1.0
+48,Only Kebab,Mediterranean,"N Pleasant St, Amherst, MA 01002",42.3798417,-72.5200357,892a327494bffff,4.9,19.0
+49,Garcia's Mexican Restaurant Bar,Mexican,"51 E Pleasant St, Amherst, MA 01002",42.3807407,-72.5188802,892a327494bffff,4.5,398.0
+50,Amherst Public House,American,"40 University Dr, Amherst, MA 01002",42.3721987,-72.5324162,892a3274b3bffff,3.7,45.0
+51,Ginger Garden,Chinese,"351 Northampton Rd, Amherst, MA 01002",42.3669778,-72.5339528,892a3274b2fffff,4.3,1177.0
+52,Formosa Chinese Restaurant,Chinese,"62 Main St, Amherst, MA 01002",42.3759176,-72.5185551,892a3274bb7ffff,4.1,360.0
+53,Taqueria Del Pueblo,Mexican,"31 Boltwood Walk, Amherst, MA 01002",42.3761219,-72.5193437,892a3274bb7ffff,4.7,144.0
+54,Antonio's Pizza,Pizza,"31 N Pleasant St, Amherst, MA 01002",42.3761691,-72.5196426,892a3274bb7ffff,4.6,1421.0
+55,3 Amigos,Mexican,"68 Cowls Rd, Amherst, MA 01002",42.4152916,-72.5302418,892a3274e17ffff,4.9,96.0
+56,Miss Saigon,Vietnamese,"96 N Pleasant St, Amherst, MA 01002",42.3771039,-72.52022099999999,892a3274bb3ffff,4.6,727.0
+57,The Halal Cart,Mediterranean,"115 N Pleasant St, Amherst, MA 01002",42.3773318,-72.5198152,892a3274bb3ffff,4.8,151.0
+58,Chef Lau,Chinese,"356 College St, Amherst, MA 01002",42.3731679,-72.5018104,892a327493bffff,4.7,111.0
+59,Oriental Flavor,Chinese,"25 S Pleasant St, Amherst, MA 01002",42.3753746,-72.5200199,892a3274bb7ffff,4.4,283.0
+60,The Commonwealth Restaurant at UMass Amherst,American,"667 N Pleasant St, Amherst, MA 01003",42.3932969,-72.5255048,892a3274873ffff,4.9,12.0
+61,Hangar Pub And Grill,American,"10 University Dr, Amherst, MA 01002",42.3727556,-72.5318238,892a3274b33ffff,4.2,703.0
+62,Cushman Market & Cafe,Breakfast,"491 Pine St, Amherst, MA 01002",42.4127806,-72.507994,892a3274c73ffff,4.6,492.0
+63,HighBrow Wood Fired Kitchen & Bar,American,"12 Crafts Ave #1, Northampton, MA 01060",42.3174742,-72.63160429999999,892a32640a3ffff,4.2,606.0
+64,Mulino’s,Italian,"41 Strong Ave, Northampton, MA 01060",42.3191097,-72.6275495,892a32640b3ffff,4.6,530.0
+65,India House,Indian,"45 State St, Northampton, MA 01060",42.319075,-72.6340111,892a32640bbffff,4.3,490.0
+66,Osaka,Japanese,"7 Old S St, Northampton, MA 01060",42.3176494,-72.6311554,892a32640a3ffff,4.2,1237.0
+67,Bela,Vegetarian,"68 Masonic St, Northampton, MA 01060",42.3189635,-72.6332728,892a32640bbffff,4.7,112.0
+68,Notch 8 Grille,American,"125A Pleasant St, Northampton, MA 01060",42.319641,-72.6274151,892a32640b3ffff,4.4,110.0
+69,The Works Café,Breakfast,"48 N Pleasant St, Amherst, MA 01002",42.3764197,-72.5203441,892a3274bb3ffff,4.3,398.0
+70,uptown tap & grille,American,"104 N Pleasant St, Amherst, MA 01002",42.377219,-72.52016119999999,892a3274bb3ffff,2.6,7.0
+71,The Stables,Brunch,"326 Russell St, Hadley, MA 01035",42.3555136,-72.5566169,892a3266573ffff,4.6,636.0
+72,Pulse Cafe,Vegan,"270 Russell St, Hadley, MA 01035",42.3513944,-72.5668111,892a32660a7ffff,4.7,732.0
+73,Cheesy Street Grill,American,"367 Russell St, Hadley, MA 01035",42.355986,-72.5477248,892a3266507ffff,4.4,54.0
+74,110 Grill Hadley,American,"355 Russell St, Hadley, MA 01035",42.356826,-72.55182669999999,892a326650fffff,4.1,440.0
+75,Texas Roadhouse,American,"280 Russell St, Hadley, MA 01035",42.3520318,-72.5635199,892a326656bffff,4.5,2555.0
+76,Hot Table,American,"344 Russell St, Hadley, MA 01035",42.357591,-72.552527,892a326650bffff,4.5,304.0
+77,Alina's,Italian,"96 Russell St, Hadley, MA 01035",42.3417731,-72.5977108,892a326631bffff,4.7,517.0
+78,Chili's Grill & Bar,American,"426 Russell Street, MA-9, Hadley, MA 01035",42.364088,-72.539523,892a3266583ffff,4.0,881.0
+79,Arizona Pizza Company,Pizza,"367 Russell St, Hadley, MA 01035",42.3558586,-72.54753749999999,892a3266507ffff,4.0,439.0
+80,Wildwood Barbeque,American,"235 Russell St, Hadley, MA 01035",42.3465805,-72.5722045,892a32661cbffff,4.2,867.0
+81,Friendly's,American,"455 Russell St, Hadley, MA 01035",42.3639099,-72.53773269999999,892a3266597ffff,4.0,438.0
+82,Johnny's Roadside Diner,Breakfast,"458 Russell St, Hadley, MA 01035",42.3655232,-72.5364237,892a3266597ffff,4.3,1113.0
+83,Joy Bowl Poke,Hawaiian,"344 Russell St Unit 13, Hadley, MA 01035",42.3575948,-72.5526012,892a326650bffff,4.5,114.0
+84,Gohyang Korean Restaurant,Korean,"113 Russell St, Hadley, MA 01035",42.3418064,-72.5940079,892a3266313ffff,4.6,438.0
+85,Johnny's Bar & Grille,American,"23 College St, South Hadley, MA 01075",42.2583688,-72.57627459999999,892a149366bffff,4.4,596.0
+86,The Skinny Pancake Hadley,Brunch,"379 Russell St, Hadley, MA 01035",42.3587449,-72.5481783,892a3266503ffff,4.9,9.0
+87,It's Just Wings,American,"426 Russell Street, MA-9, Hadley, MA 01035",42.364088,-72.539523,892a3266583ffff,2.9,34.0
+88,Primo's Pizzeria,American,"103 Russell St, Hadley, MA 01035",42.3415327,-72.5956665,892a3266313ffff,4.6,359.0
+89,The Yarde Tavern South Hadley,American,"3 Hadley St, South Hadley, MA 01075",42.2595714,-72.57494419999999,892a1493663ffff,4.4,690.0
+90,Applebee's Grill + Bar,American,"100 Westgate Center Dr, Hadley, MA 01035",42.3617378,-72.5418801,892a326658fffff,3.9,977.0
+91,The Taste Thai Cuisine,Thai,"25 N Pleasant St, Amherst, MA 01002",42.3761429,-72.519667,892a3274bb7ffff,4.4,172.0
+92,Paradise of India,Indian,"87 Main St, Amherst, MA 01002",42.3755949,-72.518064,892a3274bb7ffff,3.8,198.0
+93,Mexcalito Taco Bar,Mexican,"271 Main St, Northampton, MA 01060",42.317979,-72.633461,892a32640abffff,4.4,102.0
+94,The Deck Bar @ Union Station,Restaurant,"125 A Pleasant St, Northampton, MA 01060",42.3188194,-72.6269011,892a32640b3ffff,4.2,126.0
+95,Miss Florence Diner,Breakfast,"99 Main St, Florence, MA 01062",42.3356062,-72.6714643,892a32655b7ffff,4.5,830.0
+96,The Dirty Truth,Restaurant,"29 Main St, Northampton, MA 01060",42.320162,-72.629126,892a32640b3ffff,4.2,340.0
+97,The Roost,Restaurant,"1 Market St, Northampton, MA 01060",42.320975,-72.62826,892a32640b3ffff,4.4,619.0
+98,Yokohama Ramen,Ramen,"88 Main St, Northampton, MA 01060",42.3191795,-72.6298517,892a32640b3ffff,4.3,310.0
+99,La Veracruzana,Mexican,"31 Main St, Northampton, MA 01060",42.3201298,-72.6292524,892a32640b3ffff,4.3,868.0
+100,India Palace,Indian,"28 Main St, Northampton, MA 01060",42.3198548,-72.6288247,892a32640b3ffff,4.1,151.0
+101,Masa Mexicano,Mexican,"176 Pine St, Florence, MA 01062",42.3304748,-72.6764907,892a32642dbffff,4.7,220.0
+102,La Monaco's Pizza & Pasta,Pizza,"1060 Middletown Ave, Northford, CT 06472",41.3799176,-72.8142467,892a1435e03ffff,4.6,88.0
+103,Panera Bread,Breakfast,"1060 Chapel St, New Haven, CT 06511",41.307676,-72.93021399999999,892a142568bffff,3.8,380.0
+104,350 Grill,Restaurant,"350 Worthington St, Springfield, MA 01103",42.1060696,-72.5908346,892a1482623ffff,4.1,602.0
+105,Cima Restaurant & Chop House,Restaurant,"2200 Boston Rd, Wilbraham, MA 01095",42.151508,-72.46512899999999,892a1492b17ffff,4.4,557.0
+106,Krispy Krunchy Chicken,Chicken,"867 Wethersfield Ave, Hartford, CT 06114",41.7322233,-72.6703395,892a14b99a7ffff,4.6,10.0
+107,IYA Sushi and Noodle Kitchen - Amherst,Japanese,"1 E Pleasant St, Amherst, MA 01002",42.3788711,-72.5197565,892a3274bb3ffff,4.4,209.0
+108,Primo Too Pizzeria Amherst,Pizza,"2144 255 Triangle St, Amherst, MA 01002",42.381281,-72.51851599999999,892a327494bffff,4.2,317.0
+109,Athena's Pizza,Pizza,"65 University Dr #1, Amherst, MA 01002",42.3714322,-72.5338621,892a3274b3bffff,4.4,276.0
+110,House of Teriyaki,Japanese,"1177 N Pleasant St, Amherst, MA 01002",42.4095851,-72.5306093,892a3274e33ffff,4.4,285.0
+111,Bueno Y Sano,Mexican,"1 Boltwood Walk, Amherst, MA 01002",42.3760803,-72.5186844,892a3274bb7ffff,4.6,622.0
+112,The Harp Irish Pub,American,"163 Sunderland Rd, Amherst, MA 01002",42.4156715,-72.53284699999999,892a3274e03ffff,4.6,288.0
+113,Wings Over Amherst,American,"10 University Dr, Amherst, MA 01002",42.372756,-72.531824,892a3274b33ffff,3.9,176.0
+114,Tamales,Mexican,"1 Campus Center Way, Amherst, MA 01003",42.391778,-72.5270068,892a3274863ffff,4.7,3.0
+115,Arigato,Japanese,"11 N Pleasant St, Amherst, MA 01002",42.3760039,-72.51967189999999,892a3274bb7ffff,4.3,277.0
+116,Bruno's Pizza,Pizza,"363 Main St, Amherst, MA 01002",42.375685,-72.5126938,892a327497bffff,4.3,131.0
+117,Wasabi,Japanese,"1 Campus Center Way, Amherst, MA 01003",42.3915789,-72.5265381,892a3274863ffff,3.1,12.0
+118,Campus Pizza,Pizza,"150 Fearing St, Amherst, MA 01002",42.3810893,-72.5275535,892a3274b8fffff,4.0,10.0
+119,Papa Johns Pizza,Pizza,"181 University Dr, Amherst, MA 01002",42.368024,-72.5350867,892a3274b2fffff,3.1,32.0
+120,Subway,American,"4 Main St Store 1A, Amherst, MA 01002",42.3758655,-72.5196445,892a3274bb7ffff,4.0,123.0
+121,Bruegger's Bagels,Breakfast,"170 N Pleasant St, Amherst, MA 01002",42.3781111,-72.5202772,892a3274bb3ffff,3.9,272.0
+122,Dunkin',Breakfast,"312 College St, Amherst, MA 01002",42.3732568,-72.5040149,892a327493bffff,3.1,328.0
+123,Five Guys,American,"335 Russell St Bldg B, Ste. B1, Hadley, MA 01035",42.3567929,-72.5517694,892a326650fffff,4.2,290.0
+124,Taco Bell,Mexican,"348 Russell St, Hadley, MA 01035",42.3582039,-72.55150379999999,892a3266503ffff,3.5,691.0
+125,Greeno Sub Shop,American,"120 Greenough Hall Basement, Orchard Hill Dr, Amherst, MA 01003",42.39017,-72.51938799999999,892a327483bffff,4.4,35.0
+126,The Grill,American,"1 Campus Center Way, Amherst, MA 01003",42.391778,-72.526988,892a3274863ffff,3.8,6.0
+127,Iona's Kitchen,American,"20 Main St, South Hadley, MA 01075",42.2155298,-72.5980263,892a1491093ffff,4.3,72.0
+128,Sok's Bar & Grill,Asian,"30 Bridge St, South Hadley, MA 01075",42.2153937,-72.5946036,892a149142fffff,4.4,132.0
+129,Food 101 Bar & Bistro,American,"19 College St #10, South Hadley, MA 01075",42.2586917,-72.5762611,892a149366bffff,4.3,117.0
+130,The Boathouse Restaurant,American,"1 Alvord St, South Hadley, MA 01075",42.2626567,-72.6001282,892a3264d0bffff,4.3,875.0
+131,Parthenon Restaurant,Italian,"475 Newton St, South Hadley, MA 01075",42.2361151,-72.5827326,892a149322bffff,4.2,415.0
+132,Master Chef,Asian,"461 Granby Rd, South Hadley, MA 01075",42.2347598,-72.56344659999999,892a14933d7ffff,4.7,455.0
+133,Egg & I Restaurant,Breakfast,"489 Newton St, South Hadley, MA 01075",42.2367936,-72.5819526,892a149322bffff,4.2,508.0
+134,Thai Place,Thai,"480 Granby Rd, South Hadley, MA 01075",42.2346755,-72.5621611,892a14933d7ffff,4.5,411.0
+135,Family Pizza South Hadley,Pizza,"334 Newton St, South Hadley, MA 01075",42.2304635,-72.5863773,892a1491483ffff,4.5,270.0
+136,Hangar of South Hadley,American,"515 Granby Rd, South Hadley, MA 01075",42.2368853,-72.5607248,892a149306fffff,4.3,371.0
+137,IYA Sushi and Noodle Kitchen,Japanese,"15 College St, South Hadley, MA 01075",42.258973,-72.57569769999999,892a149366bffff,4.5,822.0
+138,Ichiban Chinese and Japanese restaurant,Asian,"2090 Memorial Dr, South Hadley, MA 01075",42.2155533,-72.57308189999999,892a149159bffff,4.2,564.0
