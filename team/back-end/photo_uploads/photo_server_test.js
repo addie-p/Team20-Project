@@ -57,9 +57,8 @@ app.get('/image2/:id', (req, res) => {
 });
 
 // retrieve an image by file name
-app.get('/image/:name', (req, res) => {
+app.get('/image3/:name', (req, res) => {
     const { name } = req.params;
-    console.log("test2")
   
     const sql = `SELECT name, data FROM images WHERE name = ?`;
     db.get(sql, [name], (err, row) => {
@@ -79,7 +78,7 @@ app.get('/image/:name', (req, res) => {
 });
 
 // retrieve an image by restaurant name
-app.get('/image3/:restaurant_name', (req, res) => {
+app.get('/image/:restaurant_name', (req, res) => {
   const { restaurant_name } = req.params;
 
   const sql = `SELECT name, data FROM images WHERE restaurant_name = ?`;
