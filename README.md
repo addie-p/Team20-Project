@@ -9,3 +9,5 @@ Some key features are restaurant tracking, a rating system, photo upload, filter
 
 ## How to Run
 Download the Live Server extension on VSCode and run the index.html file directly. Through the index.html file and navigation bar, the user will be able to access dashboard.html, rating.html, upload.html, and brackets.html. 
+
+Run node importRestaurants.js in team/back-end/scripts to run parse-CSV script, in case database is not updated.
