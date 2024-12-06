@@ -3,7 +3,7 @@ import path from 'path';
 import csv from 'csv-parser';
 import { sequelize, models } from '../model/ModelFactory.js';
 
-const csvFilePath = path.resolve('./restaurants.csv');
+const csvFilePath = path.resolve('./team/front-end/source/components/restaurants.csv');
 
 (async function importCSV() {
     try {
