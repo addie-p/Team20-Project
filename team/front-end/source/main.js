@@ -118,35 +118,20 @@ let remainingRestaurants = []; // restaurants after swipes
 let allRestaurants = []; // all restaurants
 
 // get restaurants from CSV and render
-async function renderRestaurantCards(containerId) {
-  try {
-    allRestaurants = await fetchCSV();
-
-    // don't include already liked and dislike restaurants in stack
-    const swipedIds = new Set([
-      ...savedRestaurants.map((r) => r.id),
-      ...dislikedRestaurants.map((r) => r.id),
-    ]);
-    remainingRestaurants = allRestaurants.filter((r) => !swipedIds.has(r.id));
-    filteredRestaurants = [...remainingRestaurants];
-
-    // dynamically update to next card after user likes/dislikes
-    displayNextCard();
-  } catch (error) {
-    console.error("Error rendering restaurant cards:", error);
-  }
-}
-
-// async function renderRestaurantCards() {
+// async function renderRestaurantCards(containerId) {
 //   try {
-//     const restaurants = await fetchRestaurantsFromBackend();
-//     restaurants.forEach((restaurant) => {
-//       const card = new RestaurantCard(restaurant);
-//       const restaurantContainer = document.getElementById(
-//         "restaurant-container"
-//       );
-//       restaurantContainer.appendChild(card.render());
-//     });
+//     allRestaurants = await fetchCSV();
+
+//     // don't include already liked and dislike restaurants in stack
+//     const swipedIds = new Set([
+//       ...savedRestaurants.map((r) => r.id),
+//       ...dislikedRestaurants.map((r) => r.id),
+//     ]);
+//     remainingRestaurants = allRestaurants.filter((r) => !swipedIds.has(r.id));
+//     filteredRestaurants = [...remainingRestaurants];
+
+//     // dynamically update to next card after user likes/dislikes
+//     displayNextCard();
 //   } catch (error) {
 //     console.error("Error rendering restaurant cards:", error);
 //   }
@@ -272,17 +257,18 @@ async function fetchCSV() {
 
 // parse data from csv
 function parseCSV(data) {
-  const rows = data.split("\n").map((row) => row.trim());
-  const headers = rows[0].split(",");
-
-  return rows.slice(1).map((row, index) => {
-    const values = row.split(",");
-    return headers.reduce(
-      (obj, header, idx) => {
-        obj[header.trim()] = values[idx]?.trim();
-        return obj;
-      },
-      { id: index + 1 }
-    );
-  });
+    const rows = data.split("\n").map((row) => row.trim());
+    const headers = rows[0].split(",");
+  
+    return rows.slice(1).map((row, index) => {
+      // Use a regular expression or a library to handle quoted fields correctly
+      const values = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(val => val.replace(/^"|"$/g, ''));
+      return headers.reduce(
+        (obj, header, idx) => {
+          obj[header.trim()] = values[idx]?.trim() || null;
+          return obj;
+        },
+        { id: index + 1 }
+      );
+    });  
 }
