@@ -6,7 +6,7 @@ const { getAllRestaurants, addRestaurant, updateRestaurant, deleteRestaurant } =
 
 const router = express.Router();
 
-router.get('/restaurants', getAllRestaurants);
+router.get('/getRestaurants', getAllRestaurants);
 router.post('/restaurants', addRestaurant);
 router.put('/restaurants/:id', updateRestaurant);
 router.delete('/restaurants/:id', deleteRestaurant);

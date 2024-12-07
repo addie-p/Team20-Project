@@ -4,31 +4,24 @@ const { models } = require('../model/ModelFactory');
 
 const getAllRestaurants = async (req, res) => {
     try {
-      const restaurants = await models.Restaurant.findAll();
-  
-      // Correctly map and sanitize database response
-      const formattedRestaurants = restaurants.map((restaurant) => {
-        return {
-          id: restaurant.id,
-          name: restaurant.name,
-          cuisine: restaurant.cuisine,
-          full_address: restaurant.full_address.trim(),
-          latitude: parseFloat(restaurant.latitude),
-          longitude: parseFloat(restaurant.longitude),
-          h3: restaurant.h3,
-          rating: parseFloat(restaurant.rating),
-          reviews: parseInt(restaurant.reviews, 10),
-          price: restaurant.price ? restaurant.price.toString() : "Not specified",
-          vegetarian: restaurant.vegetarian ? "Yes" : "No",
-          distance: restaurant.distance ? parseFloat(restaurant.distance) : 0,
-        };
-      });
-  
-      res.status(200).json(formattedRestaurants);
-    } catch (error) {
-      console.error("Error fetching restaurants:", error);
-      res.status(500).json({ message: "Failed to fetch restaurants" });
-    }
+        // Log to ensure this endpoint is being hit
+        console.log("Fetching restaurants from the database...");
+    
+        // Query the database to fetch all restaurants
+        const restaurants = await models.Restaurant.findAll();
+    
+        // Log the fetched data for debugging purposes
+        console.log("Restaurants fetched:", restaurants);
+    
+        // Respond with the fetched data
+        res.status(200).json(restaurants);
+      } catch (error) {
+        // Log the error for debugging
+        console.error("Error fetching restaurants:", error);
+    
+        // Respond with a 500 status and error message
+        res.status(500).json({ message: "Failed to fetch restaurants." });
+      }
   };
 
 //   const getAllRestaurants = async (req, res) => {
