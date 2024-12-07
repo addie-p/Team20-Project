@@ -152,18 +152,18 @@ async function renderRestaurantCards(containerId) {
 //   }
 // }
 
-// async function fetchRestaurantsFromBackend() {
-//   try {
-//     const response = await fetch("http://127.0.0.1:3000/api/restaurants");
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch restaurants");
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error("Error fetching restaurants from backend:", error);
-//     throw error;
-//   }
-// }
+async function fetchRestaurantsFromBackend() {
+  try {
+    const response = await fetch("http://127.0.0.1:3000/api/restaurants");
+    if (!response.ok) {
+      throw new Error("Failed to fetch restaurants");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching restaurants from backend:", error);
+    throw error;
+  }
+}
 
 // apply filters to remainingRestaurants
 document.getElementById("applyFilters").addEventListener("click", () => {

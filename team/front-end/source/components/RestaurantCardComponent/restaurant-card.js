@@ -15,63 +15,58 @@ export class RestaurantCard {
 
   render() {
     this.loadCSS();
-
+  
     const card = document.createElement("div");
     card.classList.add("restaurant-card");
-    console.log(this.restaurantData);
-
+  
+    console.log(this.restaurantData); // Debugging info
+  
     const image = document.createElement("img");
-    image.src = this.restaurantData.Image || "default-image-url.jpg"; // Ensure there's a default image
-    image.alt = `${this.restaurantData.name || "Restaurant"}`;
+    image.src = this.restaurantData.image || "default-image-url.jpg"; 
+    image.alt = this.restaurantData.name || "Restaurant";
     card.appendChild(image);
-
+  
     const content = document.createElement("div");
     content.classList.add("restaurant-card-content");
-
+  
     const title = document.createElement("h3");
     title.classList.add("restaurant-card-title");
     title.textContent = this.restaurantData.name || "Unknown Restaurant";
     content.appendChild(title);
-
+  
     const details = document.createElement("p");
     details.classList.add("restaurant-card-details");
     details.innerHTML = `
-      <span>Cuisine:</span> ${
-        this.restaurantData.cuisine || "Not specified"
-      }<br>
-      <span>Price:</span> ${this.restaurantData.Price || "Not specified"}<br>
-      <span>Vegetarian:</span> ${
-        this.restaurantData.Vegetarian || "Not specified"
-      }<br>
-      <span>Location:</span> ${this.restaurantData.full_address}<br>
-      <span>Distance:</span> ${
-        this.restaurantData.Distance || "Not specified"
-      } miles
+      <span>Cuisine:</span> ${this.restaurantData.cuisine || "Not specified"}<br>
+      <span>Price:</span> ${this.restaurantData.price || "Not specified"}<br>
+      <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} reviews<br>
+      <span>Location:</span> ${this.restaurantData.full_address || "Not specified"}<br>
+      <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} miles
     `;
     content.appendChild(details);
-
+  
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("restaurant-card-buttons");
-
+  
     const dislikeButton = document.createElement("button");
     dislikeButton.classList.add("dislike-button");
     dislikeButton.textContent = "Dislike";
     dislikeButton.addEventListener("click", () => this.onDislike());
-
+  
     const likeButton = document.createElement("button");
     likeButton.classList.add("like-button");
     likeButton.textContent = "Like";
     likeButton.addEventListener("click", () => this.onLike());
-
+  
     buttonsContainer.appendChild(dislikeButton);
     buttonsContainer.appendChild(likeButton);
-
+  
     card.appendChild(content);
     card.appendChild(buttonsContainer);
-
+  
     this.cardElement = card;
     return card;
-  }
+  }  
 
   onLike() {
     if (this.cardElement && this.onLikeCallback) {
@@ -94,18 +89,5 @@ export class RestaurantCard {
   addSwipeListeners(onLikeCallback, onDislikeCallback) {
     this.onLikeCallback = onLikeCallback;
     this.onDislikeCallback = onDislikeCallback;
-  }
-
-  async fetchRestaurants() {
-    console.log("hi");
-    try {
-      const response = await fetch("http://127.0.0.1:3000/api/restaurants");
-
-      if (!response.ok) throw new Error("Failed to fetch restaurants");
-      this.restaurantData = await response.json();
-      this.render();
-    } catch (error) {
-      console.error("Error fetching restaurants:", error);
-    }
-  }
+  } 
 }
