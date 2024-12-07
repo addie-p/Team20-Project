@@ -18,10 +18,11 @@ export class RestaurantCard {
 
     const card = document.createElement("div");
     card.classList.add("restaurant-card");
+    console.log(this.restaurantData);
 
     const image = document.createElement("img");
-    image.src = this.restaurantData.Image;
-    image.alt = `${this.restaurantData.Restaurant}`;
+    image.src = this.restaurantData.Image || "default-image-url.jpg"; // Ensure there's a default image
+    image.alt = `${this.restaurantData.name || "Restaurant"}`;
     card.appendChild(image);
 
     const content = document.createElement("div");
@@ -29,17 +30,23 @@ export class RestaurantCard {
 
     const title = document.createElement("h3");
     title.classList.add("restaurant-card-title");
-    title.textContent = this.restaurantData.Restaurant;
+    title.textContent = this.restaurantData.name || "Unknown Restaurant";
     content.appendChild(title);
 
     const details = document.createElement("p");
     details.classList.add("restaurant-card-details");
     details.innerHTML = `
-      <span>Cuisine:</span> ${this.restaurantData.Cuisine}<br>
-      <span>Price:</span> ${this.restaurantData.Price}<br>
-      <span>Vegetarian:</span> ${this.restaurantData.Vegetarian}<br>
-      <span>Location:</span> ${this.restaurantData.Town}, ${this.restaurantData.State}<br>
-      <span>Distance:</span> ${this.restaurantData.Distance} miles
+      <span>Cuisine:</span> ${
+        this.restaurantData.cuisine || "Not specified"
+      }<br>
+      <span>Price:</span> ${this.restaurantData.Price || "Not specified"}<br>
+      <span>Vegetarian:</span> ${
+        this.restaurantData.Vegetarian || "Not specified"
+      }<br>
+      <span>Location:</span> ${this.restaurantData.full_address}<br>
+      <span>Distance:</span> ${
+        this.restaurantData.Distance || "Not specified"
+      } miles
     `;
     content.appendChild(details);
 
@@ -67,7 +74,6 @@ export class RestaurantCard {
   }
 
   onLike() {
-    console.log("Like button clicked");
     if (this.cardElement && this.onLikeCallback) {
       this.cardElement.style.transition = "transform 0.3s ease";
       this.cardElement.style.transform = "translateX(150%)";
@@ -77,7 +83,6 @@ export class RestaurantCard {
   }
 
   onDislike() {
-    console.log("Dislike button clicked");
     if (this.cardElement && this.onDislikeCallback) {
       this.cardElement.style.transition = "transform 0.3s ease";
       this.cardElement.style.transform = "translateX(-150%)";
@@ -89,5 +94,18 @@ export class RestaurantCard {
   addSwipeListeners(onLikeCallback, onDislikeCallback) {
     this.onLikeCallback = onLikeCallback;
     this.onDislikeCallback = onDislikeCallback;
+  }
+
+  async fetchRestaurants() {
+    console.log("hi");
+    try {
+      const response = await fetch("http://127.0.0.1:3000/api/restaurants");
+
+      if (!response.ok) throw new Error("Failed to fetch restaurants");
+      this.restaurantData = await response.json();
+      this.render();
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
   }
 }
