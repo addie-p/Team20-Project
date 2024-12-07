@@ -15,12 +15,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../front-end/source')));
 
 // API Routes
-app.use('/api/restaurants', RestaurantRoutes);
-
-// Catch-all route for serving the frontend
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../front-end/source/index.html'));
-});
+app.use('/api', RestaurantRoutes);
 
 // Sync database and start server
 sequelize.sync({ force: false }).then(() => {
