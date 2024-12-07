@@ -1,25 +1,31 @@
-const express = require("express");
-const cors = require("cors");
-//const { sequelize, models } = require('./model/ModelFactory');
-const sequelize = require("./model/ModelFactory").sequelize;
-const RestaurantRoutes = require("./routes/RestaurantRoutes");
-const fs = require("fs");
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const { sequelize } = require('./model/ModelFactory');
+const RestaurantRoutes = require('./routes/RestaurantRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
 
-app.use("/api", RestaurantRoutes);
+// Serve static files
+app.use(express.static(path.join(__dirname, '../front-end/source')));
 
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    console.log("Database synced successfully.");
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://127.0.0.1:${PORT}`);
-    });
-  })
-  .catch((err) => console.error("Database connection failed:", err));
+// API Routes
+app.use('/api/restaurants', RestaurantRoutes);
+
+// Catch-all route for serving the frontend
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../front-end/source/index.html'));
+});
+
+// Sync database and start server
+sequelize.sync({ force: false }).then(() => {
+  console.log('Database connected and models synced');
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}).catch(err => console.error('Database connection failed:', err));
