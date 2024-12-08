@@ -10,32 +10,31 @@
     <div id="app"></div>
     <script type="module">
       import { rating_system } from './components/rating_system/rating_system.js';
-
+    
       const app = document.getElementById('app');
-
       const urlParams = new URLSearchParams(window.location.search);
       const restaurantId = urlParams.get('restaurantId');
       const restaurantName = urlParams.get('restaurantName');
-
+    
       if (!restaurantId || !restaurantName) {
         console.error("Missing restaurantId or restaurantName. Redirecting to dashboard.");
         alert("Error: No restaurant selected. Redirecting to dashboard.");
         window.location.href = 'dashboard.html';
       } else {
-        console.log("Initializing rating system with:", { restaurantId, restaurantName });
-        const ratingSystem = new rating_system({ id: restaurantId, name: restaurantName });
-
-        ratingSystem.onPhotoUploadClick = () => {
-          window.location.href = `upload.html?restaurantId=${restaurantId}`;
-        };
-
-        ratingSystem.onBackToDashboard = () => {
-          window.location.href = 'dashboard.html';
-        };
-
-  app.appendChild(ratingSystem.render());
-}
-
-    </script>
+        try {
+          const ratingSystem = new rating_system({ id: restaurantId, name: restaurantName });
+          const renderedNode = await ratingSystem.render(); 
+    
+          if (!renderedNode || !(renderedNode instanceof Node)) {
+            throw new Error("Rendered node is not valid.");
+          }
+    
+          app.appendChild(renderedNode);
+        } catch (error) {
+          console.error("Error initializing rating system:", error);
+          app.textContent = "An error occurred while loading the rating system.";
+        }
+      }
+    </script>        
   </body>
 </html>
