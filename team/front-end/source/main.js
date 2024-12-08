@@ -138,51 +138,9 @@ async function renderRestaurantCards(containerId) {
   }
 }
 
-// async function renderRestaurantCards() {
-//   try {
-//     const restaurants = await fetchRestaurantsFromBackend();
-//     restaurants.forEach((restaurant) => {
-//       const card = new RestaurantCard(restaurant);
-//       const restaurantContainer = document.getElementById(
-//         "restaurant-container"
-//       );
-//       restaurantContainer.appendChild(card.render());
-//     });
-//   } catch (error) {
-//     console.error("Error rendering restaurant cards:", error);
-//   }
-// }
-
-// async function fetchRestaurantsFromBackend() {
-//   try {
-//     const response = await fetch("http://127.0.0.1:3000/api/restaurants");
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch restaurants");
-//     }
-//     const restaurants = await response.json();
-//     return restaurants.map((restaurant) => ({
-//       id: restaurant.id,
-//       name: restaurant.name,
-//       cuisine: restaurant.cuisine,
-//       full_address: restaurant.full_address,
-//       latitude: restaurant.latitude,
-//       longitude: restaurant.longitude,
-//       h3: restaurant.h3,
-//       rating: restaurant.rating,
-//       reviews: restaurant.reviews,
-//       price: restaurant.price,
-//       vegetarian: restaurant.vegetarian,
-//       distance: restaurant.distance,
-//     }));
-//   } catch (error) {
-//     console.error("Error fetching restaurants from backend:", error);
-//     throw error;
-//   }
-// }
-
 async function fetchRestaurantsFromBackend() {
   try {
-    const response = await fetch("http://127.0.0.1:3000/api/restaurants");
+    const response = await fetch("http://127.0.0.1:3000/api/getrestaurants");
     if (!response.ok) {
       throw new Error("Failed to fetch restaurants");
     }
@@ -220,7 +178,6 @@ function displayNextCard() {
   const container = document.getElementById("restaurant-container");
   container.innerHTML = "";
 
-  // indicate that restaurants are done
   if (currentIndex >= filteredRestaurants.length) {
     container.textContent = "No more restaurants to show.";
     return;
@@ -229,39 +186,33 @@ function displayNextCard() {
   const cardData = filteredRestaurants[currentIndex];
   const card = new RestaurantCard(cardData);
 
-  container.appendChild(card.render());
-
-  // add swipe listeners for cards to save "liked" and "disliked" restaurants on click
+  // Attach swipe listeners for like/dislike actions
   card.addSwipeListeners(
     async (likedRestaurant) => {
       console.log("Liked restaurant:", likedRestaurant);
 
       try {
-        await saveRestaurant({
-          id: likedRestaurant.id,
-          name: likedRestaurant.Restaurant,
-          cuisine: likedRestaurant.Cuisine,
-          price: likedRestaurant.Price,
-          vegetarian: likedRestaurant.Vegetarian,
-          town: likedRestaurant.Town,
-          state: likedRestaurant.State,
-          distance: likedRestaurant.Distance,
-          imageUrl: likedRestaurant.Image || "",
-          rating: likedRestaurant.Rating || "N/A",
-          visited: false,
-        });
-        console.log("Restaurant saved:", likedRestaurant);
-      } catch (error) {
-        console.error("Error saving restaurant:", error);
-      }
+        // POST request to save the liked restaurant to the backend
+        console.log("Sending:", likedRestaurant); // Log before sending
 
-      savedRestaurants.push(likedRestaurant);
-      remainingRestaurants = remainingRestaurants.filter(
-        (r) => r.id !== likedRestaurant.id
-      );
-      currentIndex++;
-      updateLocalStorage();
-      displayNextCard();
+        await fetch("http://127.0.0.1:3000/api/likedrestaurants", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(likedRestaurant),
+        });
+
+        savedRestaurants.push(likedRestaurant);
+        remainingRestaurants = remainingRestaurants.filter(
+          (r) => r.id !== likedRestaurant.id
+        );
+        currentIndex++;
+        updateLocalStorage();
+        displayNextCard();
+      } catch (error) {
+        console.error("Error saving liked restaurant:", error);
+      }
     },
     (dislikedRestaurant) => {
       console.log("Disliked restaurant:", dislikedRestaurant);
@@ -274,6 +225,8 @@ function displayNextCard() {
       displayNextCard();
     }
   );
+
+  container.appendChild(card.render());
 }
 
 // update local storage with savedRestaurants and dislikedRestaurants
