@@ -138,51 +138,9 @@ async function renderRestaurantCards(containerId) {
   }
 }
 
-// async function renderRestaurantCards() {
-//   try {
-//     const restaurants = await fetchRestaurantsFromBackend();
-//     restaurants.forEach((restaurant) => {
-//       const card = new RestaurantCard(restaurant);
-//       const restaurantContainer = document.getElementById(
-//         "restaurant-container"
-//       );
-//       restaurantContainer.appendChild(card.render());
-//     });
-//   } catch (error) {
-//     console.error("Error rendering restaurant cards:", error);
-//   }
-// }
-
-// async function fetchRestaurantsFromBackend() {
-//   try {
-//     const response = await fetch("http://127.0.0.1:3000/api/restaurants");
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch restaurants");
-//     }
-//     const restaurants = await response.json();
-//     return restaurants.map((restaurant) => ({
-//       id: restaurant.id,
-//       name: restaurant.name,
-//       cuisine: restaurant.cuisine,
-//       full_address: restaurant.full_address,
-//       latitude: restaurant.latitude,
-//       longitude: restaurant.longitude,
-//       h3: restaurant.h3,
-//       rating: restaurant.rating,
-//       reviews: restaurant.reviews,
-//       price: restaurant.price,
-//       vegetarian: restaurant.vegetarian,
-//       distance: restaurant.distance,
-//     }));
-//   } catch (error) {
-//     console.error("Error fetching restaurants from backend:", error);
-//     throw error;
-//   }
-// }
-
 async function fetchRestaurantsFromBackend() {
   try {
-    const response = await fetch("http://127.0.0.1:3000/api/restaurants");
+    const response = await fetch("http://127.0.0.1:3000/api/getrestaurants");
     if (!response.ok) {
       throw new Error("Failed to fetch restaurants");
     }

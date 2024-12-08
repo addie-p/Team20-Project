@@ -39,7 +39,7 @@ export class RestaurantCard {
     details.innerHTML = `
       <span>Cuisine:</span> ${this.restaurantData.cuisine || "Not specified"}<br>
       <span>Price:</span> ${this.restaurantData.price || "Not specified"}<br>
-      <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} reviews<br>
+      <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} <br>
       <span>Location:</span> ${this.restaurantData.full_address || "Not specified"}<br>
       <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} miles
     `;
