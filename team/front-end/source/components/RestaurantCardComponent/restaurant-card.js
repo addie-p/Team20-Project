@@ -89,5 +89,5 @@ export class RestaurantCard {
   addSwipeListeners(onLikeCallback, onDislikeCallback) {
     this.onLikeCallback = onLikeCallback;
     this.onDislikeCallback = onDislikeCallback;
-  } 
+  }
 }
