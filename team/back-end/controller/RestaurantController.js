@@ -21,6 +21,7 @@ const getAllRestaurants = async (req, res) => {
           price: restaurant.price ? restaurant.price.toString() : "Not specified",
           vegetarian: restaurant.vegetarian ? "Yes" : "No",
           distance: restaurant.distance ? parseFloat(restaurant.distance) : 0,
+          image: restaurant.image ?  restaurant.image.toString() : "https://via.placeholder.com/300",
         };
       });
   

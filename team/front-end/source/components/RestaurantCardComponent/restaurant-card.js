@@ -33,12 +33,23 @@ export class RestaurantCard {
     title.classList.add("restaurant-card-title");
     title.textContent = this.restaurantData.name || "Unknown Restaurant";
     content.appendChild(title);
+
+    // to convert price as a number to be as many $'s as the price (ex. 3 === $$$, 2 === $$. 1 === $)
+    let r = "";
+    if(this.restaurantData.price !== undefined) {
+      console.log(this.restaurantData.price)
+      for(let i=0; i < this.restaurantData.price; i++)
+        {
+          r += "$"
+        }
+        
+    }    
   
     const details = document.createElement("p");
     details.classList.add("restaurant-card-details");
     details.innerHTML = `
       <span>Cuisine:</span> ${this.restaurantData.cuisine || "Not specified"}<br>
-      <span>Price:</span> ${this.restaurantData.price || "Not specified"}<br>
+      <span>Price:</span> ${r}<br>
       <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} <br>
       <span>Location:</span> ${this.restaurantData.full_address || "Not specified"}<br>
       <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} miles

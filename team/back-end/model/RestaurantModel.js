@@ -51,6 +51,10 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: true,
         },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }, {
         timestamps: false,  // Disable Sequelize's default timestamps
     });
