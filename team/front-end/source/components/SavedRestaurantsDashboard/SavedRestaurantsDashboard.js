@@ -1,36 +1,41 @@
-import {
-  getSavedRestaurants,
-  saveRestaurant,
-  removeRestaurant,
-} from "../../services/indexeddb.js";
-
 export class SavedRestaurantsDashboard {
   #container = null;
-  #wantToTry = [];
-  #visited = [];
+  #likedRestaurants = [];
+  #visitedRestaurants = [];
 
   constructor() {
     this.loadCSS();
+    this.initialize();
   }
 
   async initialize() {
-    const allRestaurants = await getSavedRestaurants();
-
-    this.#wantToTry = allRestaurants.filter(
-      (restaurant) => !restaurant.visited
-    );
-    this.#visited = allRestaurants.filter((restaurant) => restaurant.visited);
-
-    this.displayWantToTryRestaurants();
-    this.displayVisitedRestaurants();
+    await this.fetchLikedRestaurants();
+    await this.fetchVisitedRestaurants();
+    this.displayRestaurants();
   }
 
-  async saveData(restaurant) {
-    await saveRestaurant(restaurant);
+  // fetching liked restaurants from backend liked restauranrs table
+  async fetchLikedRestaurants() {
+    try {
+      const response = await fetch("/api/likedrestaurants");
+      if (!response.ok) throw new Error("Failed to fetch liked restaurants.");
+      this.#likedRestaurants = await response.json();
+      this.displayRestaurants();
+    } catch (error) {
+      console.error("Error fetching liked restaurants:", error);
+    }
   }
 
-  async removeData(id) {
-    await removeRestaurant(id);
+  // fetching visited restaurants from backend visited restauranrs table
+  async fetchVisitedRestaurants() {
+    try {
+      const response = await fetch("/api/visitedrestaurants");
+      if (!response.ok) throw new Error("Failed to fetch visited restaurants.");
+      this.#visitedRestaurants = await response.json();
+      this.displayRestaurants();
+    } catch (error) {
+      console.error("Error fetching visited restaurants:", error);
+    }
   }
 
   loadCSS() {
@@ -41,19 +46,14 @@ export class SavedRestaurantsDashboard {
     document.head.appendChild(styleSheet);
   }
 
-  // Save data to local storage for persistence
-  saveDataToLocalStorage() {
-    localStorage.setItem("wantToTry", JSON.stringify(this.#wantToTry));
-    localStorage.setItem("visited", JSON.stringify(this.#visited));
-  }
-
+  // creating each restaurants card
   createRestaurantCard(restaurant, isVisited) {
     const card = document.createElement("div");
     card.classList.add("restaurant-card");
     if (isVisited) card.classList.add("visited-card");
 
     const image = document.createElement("img");
-    image.src = restaurant.imageUrl || "https://via.placeholder.com/150";
+    image.src = restaurant.image || "https://via.placeholder.com/150";
     image.alt = restaurant.name || "Restaurant Image";
     image.classList.add("restaurant-image");
 
@@ -65,12 +65,13 @@ export class SavedRestaurantsDashboard {
     name.classList.add("restaurant-name");
 
     const rating = document.createElement("p");
-    rating.textContent = `⭐ ${"4"}`;
+    rating.textContent = `⭐ ${restaurant.rating}`;
     rating.classList.add("restaurant-rating");
 
     infoContainer.appendChild(name);
     infoContainer.appendChild(rating);
 
+    // if in visited section add review link
     if (isVisited) {
       const reviewLink = document.createElement("a");
       reviewLink.href = `./rating.html?restaurantId=${restaurant.id}&restaurantName=${encodeURIComponent(
@@ -81,14 +82,15 @@ export class SavedRestaurantsDashboard {
       infoContainer.appendChild(reviewLink);
     }
 
+    // remove completely or remove from visited to liked restaurants
     const removeButton = document.createElement("button");
-    removeButton.textContent = isVisited ? "-" : "X";
+    removeButton.textContent = "X";
     removeButton.classList.add("remove-button");
     removeButton.onclick = () => {
       if (isVisited) {
-        this.moveToWantToTry(restaurant.id);
+        this.moveToLiked(restaurant.id, restaurant);
       } else {
-        this.removeFromWantToTry(restaurant.id);
+        this.removeLikedRestaurant(restaurant.id);
       }
     };
 
@@ -96,84 +98,118 @@ export class SavedRestaurantsDashboard {
     card.appendChild(image);
     card.appendChild(infoContainer);
 
+    // if in the liked section add option to add to visited section
     if (!isVisited) {
       const addToVisitedButton = document.createElement("button");
       addToVisitedButton.textContent = "+";
       addToVisitedButton.classList.add("add-to-visited");
-      addToVisitedButton.onclick = () => this.moveToVisited(restaurant.id);
-
+      addToVisitedButton.onclick = () =>
+        this.moveToVisited(restaurant.id, restaurant);
       card.appendChild(addToVisitedButton);
     }
 
     return card;
   }
 
-  displayWantToTryRestaurants() {
-    const wantToTryGrid = this.#container.querySelector("#wantToTryGrid");
-    wantToTryGrid.innerHTML = "";
+  // display all restaurants
+  displayRestaurants() {
+    const likedContainer = this.#container.querySelector(
+      "#likedRestaurantsGrid"
+    );
+    likedContainer.innerHTML = "";
+    this.#likedRestaurants.forEach((restaurant) => {
+      likedContainer.appendChild(this.createRestaurantCard(restaurant, false));
+    });
 
-    this.#wantToTry.forEach((restaurant) => {
-      const card = this.createRestaurantCard(restaurant, false);
-      wantToTryGrid.appendChild(card);
+    const visitedContainer = this.#container.querySelector(
+      "#visitedRestaurantsGrid"
+    );
+    visitedContainer.innerHTML = "";
+    this.#visitedRestaurants.forEach((restaurant) => {
+      visitedContainer.appendChild(this.createRestaurantCard(restaurant, true));
     });
   }
 
-  displayVisitedRestaurants() {
-    const visitedGrid = this.#container.querySelector("#visitedGrid");
-    visitedGrid.innerHTML = "";
-
-    this.#visited.forEach((restaurant) => {
-      const card = this.createRestaurantCard(restaurant, true);
-      visitedGrid.appendChild(card);
-    });
+  // removes from liked restaurants and adds to visited restaurants dynamically
+  async moveToVisited(id, restaurant) {
+    try {
+      await fetch(`/api/likedrestaurants/${id}`, { method: "DELETE" });
+      const addToVisitedResponse = await fetch("/api/visitedrestaurants", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(restaurant),
+      });
+      if (!addToVisitedResponse.ok)
+        throw new Error("Failed to add to visited restaurants.");
+      // update both tables
+      this.fetchLikedRestaurants();
+      this.fetchVisitedRestaurants();
+    } catch (error) {
+      console.error("Error moving restaurant to visited:", error);
+    }
   }
+  // deletes from visited restaurants table and adds to liked restaurants table dynammically
+  async moveToLiked(id, restaurant) {
+    try {
+      const response = await fetch(`/api/visitedrestaurants/${id}`, {
+        method: "DELETE",
+      });
+      const r = await fetch("http://127.0.0.1:3000/api/likedrestaurants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(restaurant),
+      });
 
-  async moveToVisited(id) {
-    const index = this.#wantToTry.findIndex((r) => r.id === id);
-    if (index > -1) {
-      const [restaurant] = this.#wantToTry.splice(index, 1);
-      restaurant.visited = true;
-      this.#visited.push(restaurant);
-      await this.saveData(restaurant);
-      this.displayWantToTryRestaurants();
-      this.displayVisitedRestaurants();
+      if (!response.ok || !r.ok)
+        throw new Error("Failed to move restaurant to liked.");
+      // update both tables
+      this.fetchLikedRestaurants();
+      this.fetchVisitedRestaurants();
+    } catch (error) {
+      console.error("Error moving restaurant to liked:", error);
     }
   }
 
-  async moveToWantToTry(id) {
-    const index = this.#visited.findIndex((r) => r.id === id);
-    if (index > -1) {
-      const [restaurant] = this.#visited.splice(index, 1);
-      restaurant.visited = false;
-      this.#wantToTry.push(restaurant);
-      await this.saveData(restaurant);
-      this.displayWantToTryRestaurants();
-      this.displayVisitedRestaurants();
+  async removeLikedRestaurant(id) {
+    try {
+      const response = await fetch(`/api/likedrestaurants/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to remove liked restaurant.");
+      this.fetchLikedRestaurants();
+    } catch (error) {
+      console.error("Error removing liked restaurant:", error);
     }
   }
 
-  async removeFromWantToTry(id) {
-    const index = this.#wantToTry.findIndex((r) => r.id === id);
-    if (index > -1) {
-      this.#wantToTry.splice(index, 1);
-      await this.removeData(id);
-      this.displayWantToTryRestaurants();
+  async removeVisitedRestaurant(id) {
+    try {
+      const response = await fetch(`/api/visitedrestaurants/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to remove visited restaurant.");
+      this.fetchVisitedRestaurants();
+    } catch (error) {
+      console.error("Error removing visited restaurant:", error);
     }
   }
 
   render() {
+    //creating two sections and initializing the dashboard
+
     this.#container = document.createElement("div");
     this.#container.classList.add("dashboard-container");
 
-    const wantToTrySection = document.createElement("section");
-    wantToTrySection.classList.add("want-to-try-section");
-    wantToTrySection.innerHTML = `<h2>Want to Try!</h2><div class="restaurant-grid" id="wantToTryGrid"></div>`;
+    const likedSection = document.createElement("section");
+    likedSection.classList.add("liked-section");
+    likedSection.innerHTML = `<h2>Liked Restaurants</h2><div class="restaurant-grid" id="likedRestaurantsGrid"></div>`;
+    this.#container.appendChild(likedSection);
 
     const visitedSection = document.createElement("section");
     visitedSection.classList.add("visited-section");
-    visitedSection.innerHTML = `<h2>Visited!</h2><div class="restaurant-grid" id="visitedGrid"></div>`;
-
-    this.#container.appendChild(wantToTrySection);
+    visitedSection.innerHTML = `<h2>Visited Restaurants</h2><div class="restaurant-grid" id="visitedRestaurantsGrid"></div>`;
     this.#container.appendChild(visitedSection);
 
     this.initialize();
