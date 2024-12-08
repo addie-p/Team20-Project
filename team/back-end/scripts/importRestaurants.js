@@ -30,6 +30,7 @@ const csvFilePath = path.join(__dirname, '../../front-end/source/components/rest
                         price: row.price ? parseInt(row.price, 10) : null,
                         vegetarian: row.vegetarian?.toLowerCase() === 'true',
                         distance: row.distance ? parseFloat(row.distance) : null,
+                        image: row.image ? row.image.toString() : "https://via.placeholder.com/300",
                     };
                     restaurants.push(restaurant);
                 } catch (err) {
