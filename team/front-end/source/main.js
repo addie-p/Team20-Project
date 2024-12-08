@@ -47,35 +47,43 @@ if (!app) {
   filterContainer.id = "filter-container";
   filterContainer.innerHTML = `
     <form id="filterForm">
-        <label for="cuisine">Cuisine Type:</label>
-        <select id="cuisine" name="cuisine">
-            <option value="">Any</option>
-            <option value="Vietnamese">Vietnamese</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Mexican">Mexican</option>
-            <option value="Pizza">Pizza</option>
-            <option value="Breakfast">Breakfast</option>
-            <option value="Fast Food">Fast Food</option>
-        </select>
+      <label for="location">Choose location:</label>
+      <select id="loco" name="loco">
+        <option value="$$">Amherst</option>
+        <option value="">Northampton</option>
+        <option value="$">Hadley</option>
+        <option value="$$$">South Hadley</option>
+      </select>
 
-        <label for="vegetarian">Vegetarian:
-            <input type="checkbox" id="vegetarian" name="vegetarian">
-        </label>
+      <label for="cuisine">Cuisine Type:</label>
+      <select id="cuisine" name="cuisine">
+        <option value="">Any</option>
+        <option value="Vietnamese">Vietnamese</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Mexican">Mexican</option>
+        <option value="Pizza">Pizza</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Fast Food">Fast Food</option>
+      </select>
 
-        <label for="price">Price Range:</label>
-        <select id="price" name="price">
-            <option value="">Any</option>
-            <option value="$">$</option>
-            <option value="$$">$$</option>
-            <option value="$$$">$$$</option>
-        </select>
+      <label for="vegetarian">Vegetarian:
+        <input type="checkbox" id="vegetarian" name="vegetarian">
+      </label>
 
-        <label for="distance">Maximum Distance (in miles):</label>
-        <input type="number" id="distance" name="distance" placeholder="e.g., 5" min="1">
+      <label for="price">Price Range:</label>
+      <select id="price" name="price">
+        <option value="">Any</option>
+        <option value="$">$</option>
+        <option value="$$">$$</option>
+        <option value="$$$">$$$</option>
+      </select>
 
-        <button type="button" id="applyFilters">Apply Filters</button>
+      <label for="distance">Maximum Distance (in miles):</label>
+      <input type="number" id="distance" name="distance" placeholder="e.g., 5" min="1">
+
+      <button type="button" id="applyFilters">Apply Filters</button>
     </form>
-`;
+  `;
 
   // append filter container
   filterBarContainer.appendChild(filterContainer);
@@ -133,6 +141,7 @@ async function renderRestaurantCards(containerId) {
 
     // Dynamically update to the next card after user likes/dislikes
     displayNextCard();
+    updateMapMarkers(); // Update map with restaurant markers
   } catch (error) {
     console.error("Error rendering restaurant cards:", error);
   }
@@ -159,18 +168,25 @@ document.getElementById("applyFilters").addEventListener("click", () => {
   const vegetarian = document.getElementById("vegetarian").checked;
   const price = document.getElementById("price").value;
   const distance = Number(document.getElementById("distance").value);
+  const userLocation = geolocationMap.getUserLocation(); // Get current location from map
 
   // function to return restaurants that apply based on filters
   filteredRestaurants = [...remainingRestaurants].filter((r) => {
+    const restaurantLocation = { lat: r.Latitude, lng: r.Longitude };
+    const distanceToRestaurant = geolocationMap.calculateDistance(
+      userLocation, restaurantLocation
+    );
+
     if (cuisine && !r.Cuisine?.toLowerCase().includes(cuisine)) return false;
     if (vegetarian && r.Vegetarian?.toLowerCase() !== "yes") return false;
     if (price && r.Price !== price) return false;
-    if (distance && Number(r.Distance) > distance) return false;
+    if (distance && distanceToRestaurant > distance) return false;
     return true;
   });
 
   currentIndex = 0; // reset index to start from the beginning of the new stack
   displayNextCard();
+  updateMapMarkers(); // Update map with filtered restaurant markers
 });
 
 // display the next restaurant card
@@ -229,6 +245,20 @@ function displayNextCard() {
   container.appendChild(card.render());
 }
 
+// update map markers based on the filtered restaurants
+function updateMapMarkers() {
+  const userLocation = geolocationMap.getUserLocation(); // Get current location from map
+  geolocationMap.clearMarkers(); // Clear previous markers
+
+  filteredRestaurants.forEach((restaurant) => {
+    const restaurantLocation = {
+      lat: restaurant.Latitude,
+      lng: restaurant.Longitude
+    };
+    geolocationMap.addMarker(restaurantLocation, restaurant.name);
+  });
+}
+
 // update local storage with savedRestaurants and dislikedRestaurants
 function updateLocalStorage() {
   localStorage.setItem("savedRestaurants", JSON.stringify(savedRestaurants));
@@ -236,36 +266,4 @@ function updateLocalStorage() {
     "dislikedRestaurants",
     JSON.stringify(dislikedRestaurants)
   );
-}
-
-// fetch data from csv
-async function fetchCSV() {
-  try {
-    const response = await fetch("./components/restaurants.csv");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch CSV: ${response.statusText}`);
-    }
-    const data = await response.text();
-    return parseCSV(data);
-  } catch (error) {
-    console.error("Error fetching CSV:", error);
-    return [];
-  }
-}
-
-// parse data from csv
-function parseCSV(data) {
-  const rows = data.split("\n").map((row) => row.trim());
-  const headers = rows[0].split(",");
-
-  return rows.slice(1).map((row, index) => {
-    const values = row.split(",");
-    return headers.reduce(
-      (obj, header, idx) => {
-        obj[header.trim()] = values[idx]?.trim();
-        return obj;
-      },
-      { id: index + 1 }
-    );
-  });
 }
