@@ -15,21 +15,27 @@
 
       const urlParams = new URLSearchParams(window.location.search);
       const restaurantId = urlParams.get('restaurantId');
+      const restaurantName = urlParams.get('restaurantName');
 
-
-      const ratingSystem = new rating_system({ id: restaurantId });
-
-
-      ratingSystem.onPhotoUploadClick = () => {
-        window.location.href = `upload.html?restaurantId=${restaurantId}`;
-      };
-
-
-      ratingSystem.onBackToDashboard = () => {
+      if (!restaurantId || !restaurantName) {
+        console.error("Missing restaurantId or restaurantName. Redirecting to dashboard.");
+        alert("Error: No restaurant selected. Redirecting to dashboard.");
         window.location.href = 'dashboard.html';
-      };
+      } else {
+        console.log("Initializing rating system with:", { restaurantId, restaurantName });
+        const ratingSystem = new rating_system({ id: restaurantId, name: restaurantName });
 
-      app.appendChild(ratingSystem.render());
+        ratingSystem.onPhotoUploadClick = () => {
+          window.location.href = `upload.html?restaurantId=${restaurantId}`;
+        };
+
+        ratingSystem.onBackToDashboard = () => {
+          window.location.href = 'dashboard.html';
+        };
+
+  app.appendChild(ratingSystem.render());
+}
+
     </script>
   </body>
 </html>
