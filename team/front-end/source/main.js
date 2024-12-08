@@ -120,9 +120,10 @@ let allRestaurants = []; // all restaurants
 // get restaurants from CSV and render
 async function renderRestaurantCards(containerId) {
   try {
-    allRestaurants = await fetchCSV();
+    // Fetch restaurants from the database
+    allRestaurants = await fetchRestaurantsFromBackend();
 
-    // don't include already liked and dislike restaurants in stack
+    // Filter out already liked and disliked restaurants
     const swipedIds = new Set([
       ...savedRestaurants.map((r) => r.id),
       ...dislikedRestaurants.map((r) => r.id),
@@ -130,7 +131,7 @@ async function renderRestaurantCards(containerId) {
     remainingRestaurants = allRestaurants.filter((r) => !swipedIds.has(r.id));
     filteredRestaurants = [...remainingRestaurants];
 
-    // dynamically update to next card after user likes/dislikes
+    // Dynamically update to the next card after user likes/dislikes
     displayNextCard();
   } catch (error) {
     console.error("Error rendering restaurant cards:", error);
@@ -152,12 +153,41 @@ async function renderRestaurantCards(containerId) {
 //   }
 // }
 
+// async function fetchRestaurantsFromBackend() {
+//   try {
+//     const response = await fetch("http://127.0.0.1:3000/api/restaurants");
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch restaurants");
+//     }
+//     const restaurants = await response.json();
+//     return restaurants.map((restaurant) => ({
+//       id: restaurant.id,
+//       name: restaurant.name,
+//       cuisine: restaurant.cuisine,
+//       full_address: restaurant.full_address,
+//       latitude: restaurant.latitude,
+//       longitude: restaurant.longitude,
+//       h3: restaurant.h3,
+//       rating: restaurant.rating,
+//       reviews: restaurant.reviews,
+//       price: restaurant.price,
+//       vegetarian: restaurant.vegetarian,
+//       distance: restaurant.distance,
+//     }));
+//   } catch (error) {
+//     console.error("Error fetching restaurants from backend:", error);
+//     throw error;
+//   }
+// }
+
 async function fetchRestaurantsFromBackend() {
   try {
     const response = await fetch("http://127.0.0.1:3000/api/restaurants");
     if (!response.ok) {
       throw new Error("Failed to fetch restaurants");
     }
+
+    // Return the JSON response directly
     return await response.json();
   } catch (error) {
     console.error("Error fetching restaurants from backend:", error);
