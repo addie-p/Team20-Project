@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const { sequelize } = require('./model/ModelFactory');
 const RestaurantRoutes = require('./routes/RestaurantRoutes');
+const LikedRestaurantRoutes = require('./routes/LikedRestaurantRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use(express.static(path.join(__dirname, '../front-end/source')));
 
 // API Routes
 app.use('/api', RestaurantRoutes);
+app.use('/api/likedrestaurants', LikedRestaurantRoutes);
 
 // Sync database and start server
 sequelize.sync({ force: false }).then(() => {

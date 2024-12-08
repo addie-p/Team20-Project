@@ -1,8 +1,9 @@
 // import { Sequelize } from 'sequelize';
 // import RestaurantModel from './RestaurantModel.js';
 
-const Sequelize = require('sequelize').Sequelize; // Accessing Sequelize from the module
-const RestaurantModel = require('./RestaurantModel'); // Adjust path if necessary
+const Sequelize = require('sequelize').Sequelize; 
+const RestaurantModel = require('./RestaurantModel');
+const LikedRestaurantModel = require('./LikedRestaurantModel'); 
 const path = require('path');
 
 
@@ -13,6 +14,7 @@ const sequelize = new Sequelize({
 
 const models = {
     Restaurant: RestaurantModel(sequelize),
+    LikedRestaurant: LikedRestaurantModel(sequelize),
 };
 
 //export { sequelize, models };
