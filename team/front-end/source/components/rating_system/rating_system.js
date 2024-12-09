@@ -9,7 +9,7 @@ export class rating_system {
   constructor({ id, name }) { 
     this.#restaurantId = id;
     this.#restaurantName = name;
-    // this.initializeDB();
+    this.initializeDB();
     this.loadCSS();
     this.addBodyClickListener();
   }
@@ -21,32 +21,28 @@ export class rating_system {
     document.head.appendChild(styleSheet);
   }
 
-  // initializeDB() {
-  //   // initializes IndexedDB for storing reviews and restaurants
-  //   const request = indexedDB.open("PlatefulDB", 1);
-
-  //   request.onupgradeneeded = (event) => {
-  //     const db = event.target.result;
+  initializeDB() {
+    const request = indexedDB.open("PlatefulDB", 1);
   
-  //     if (!db.objectStoreNames.contains("reviews")) {
-  //       const reviewStore = db.createObjectStore("reviews", { keyPath: "id", autoIncrement: true });
-  //       reviewStore.createIndex("restaurantName", "restaurantName", { unique: false });
-  //     }
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
   
-  //     if (!db.objectStoreNames.contains("restaurants")) {
-  //       db.createObjectStore("restaurants", { keyPath: "id" });
-  //     }
-  //   };
+      if (!db.objectStoreNames.contains("reviews")) {
+        const reviewStore = db.createObjectStore("reviews", { keyPath: "id" });
+        reviewStore.createIndex("restaurantName", "restaurantName", { unique: false });
+      }
+    };
   
-  //   request.onsuccess = (event) => {
-  //     this.#db = event.target.result;
-  //     this.populateRestaurantName();
-  //   };
+    request.onsuccess = (event) => {
+      this.#db = event.target.result;
+      this.populateRestaurantName();
+    };
   
-  //   request.onerror = (event) => {
-  //     console.error("Error opening IndexedDB:", event.target.errorCode);
-  //   };
-  // }
+    request.onerror = (event) => {
+      console.error("Error initializing IndexedDB:", event.target.errorCode);
+    };
+  }
+  
 
   // populateRestaurantName() {
   //   const restaurantNameInput = this.#container.querySelector("#restaurantName");
@@ -140,50 +136,7 @@ export class rating_system {
     this.updateStars(container, this.#selectedRating);
   }
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  
-  //   const restaurantName = event.target.querySelector("#restaurantName").value;
-  //   const reviewText = event.target.querySelector("#reviewText").value;
-  
-  //   if (this.#selectedRating === 0) {
-  //     alert("Please select a star rating.");
-  //     return;
-  //   }
-  
-  //   const review = {
-  //     restaurantName,
-  //     reviewText,
-  //     rating: this.#selectedRating,
-  //     date: new Date(),
-  //   };
-  
-  //   // save/update the review in IndexedDB
-  //   const transaction = this.#db.transaction(["reviews"], "readwrite");
-  //   const reviewStore = transaction.objectStore("reviews");
-  //   const index = reviewStore.index("restaurantName");
-  //   const getRequest = index.get(restaurantName);
-  
-  //   getRequest.onsuccess = () => {
-  //     if (getRequest.result) {
-  //       // update existing review
-  //       review.id = getRequest.result.id; 
-  //       reviewStore.put(review);
-  //     } else {
-  //       reviewStore.add(review);
-  //     }
-  //   };
-  
-  //   transaction.oncomplete = () => {
-  //     alert("Review saved successfully!");
-  //   };
-  
-  //   transaction.onerror = (event) => {
-  //     console.error("Error saving review:", event.target.error);
-  //   };
-  // }
-  
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
   
     const reviewText = event.target.querySelector("#reviewText").value;
@@ -195,23 +148,28 @@ export class rating_system {
   
     const review = {
       id: this.#restaurantId,
-      review: reviewText,
+      restaurantName: this.#restaurantName,
+      reviewText,
       rating: this.#selectedRating,
     };
   
-    try {
-      const response = await fetch(`/api/visitedrestaurants/${this.#restaurantId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(review),
-      });
+    const transaction = this.#db.transaction(["reviews"], "readwrite");
+    const reviewStore = transaction.objectStore("reviews");
   
-      if (!response.ok) throw new Error("Failed to save review.");
+    const request = reviewStore.put(review); 
+  
+    request.onsuccess = () => {
       alert("Review saved successfully!");
-    } catch (error) {
-      console.error("Error saving review:", error);
-    }
-  }
+    };
+  
+    request.onerror = (event) => {
+      console.error("Error saving review:", event.target.error);
+    };
+  }  
+
+  handleBodyClick(event) {
+    console.log("Body clicked:", event.target);
+  }  
   
   addBodyClickListener() {
     // listener to handle clicks outside of the dropdown menu
