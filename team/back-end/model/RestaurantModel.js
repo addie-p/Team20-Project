@@ -1,13 +1,11 @@
-//import { DataTypes } from 'sequelize';
-const DataTypes = require('sequelize').DataTypes;
+const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-//export default (sequelize) => {
     const Restaurant = sequelize.define('Restaurant', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,
+            autoIncrement: false,  // Since we are using the CSV's `id`
         },
         name: {
             type: DataTypes.STRING,
@@ -41,6 +39,25 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        vegetarian: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        distance: {
+            type: DataTypes.FLOAT,
+            allowNull: true,
+        },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+    }, {
+        timestamps: false,  // Disable Sequelize's default timestamps
     });
+
     return Restaurant;
 };
