@@ -52,7 +52,6 @@ export class RestaurantCard {
       <span>Price:</span> ${r}<br>
       <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} <br>
       <span>Location:</span> ${this.restaurantData.full_address || "Not specified"}<br>
-      <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} miles
     `;
     content.appendChild(details);
   

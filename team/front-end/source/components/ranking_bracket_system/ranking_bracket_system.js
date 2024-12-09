@@ -111,7 +111,14 @@ export class RankingBracketSystem {
             console.error("Invalid restaurant object:", restaurant);
             return document.createElement("div");
         }
-
+        let r = "";
+        if(restaurant.price !== undefined) {
+            console.log(restaurant.price)
+            for(let i=0; i < restaurant.price; i++)
+            {
+            r += "$"
+            }
+    }   
         const card = document.createElement("div");
         card.classList.add("restaurant");
 
@@ -121,7 +128,7 @@ export class RankingBracketSystem {
 
         //show restaurant details 
         const details = document.createElement("p");
-        details.textContent = `Cuisine: ${restaurant.cuisine} | Price: ${restaurant.price}`;
+        details.textContent = `Cuisine: ${restaurant.cuisine} | Price: ${r}`;
 
         //vote button for voting
         const voteButton = document.createElement("button");
