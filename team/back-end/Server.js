@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
-const passport = require("./auth/passport");
-const AuthRoutes = require("./routes/UserRoutes");
+const passport = require("./auth/passport"); // Assuming you have a passport.js file for authentication
+const AuthRoutes = require("./routes/UserRoutes"); // Assuming you have auth routes defined
 const { sequelize } = require("./model/ModelFactory");
 const RestaurantRoutes = require("./routes/RestaurantRoutes");
 const LikedRestaurantRoutes = require("./routes/LikedRestaurantRoutes");
@@ -12,6 +12,7 @@ const VisitedRestaurantRoutes = require("./routes/VisitedRestaurantRoutes");
 
 const app = express();
 const port = process.env.PORT || 3000;
+
 
 // Middleware
 app.use(
@@ -23,6 +24,8 @@ app.use(
  })
 );
 
+
+// Handle Preflight Requests
 app.options("*", (req, res) => {
  res.header("Access-Control-Allow-Origin", req.headers.origin);
  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -35,6 +38,8 @@ app.options("*", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+// Session middleware for login sessions
 app.use(
  session({
    secret: process.env.SESSION_SECRET || "defaultSecret",
@@ -57,7 +62,7 @@ app.use(express.static(path.join(__dirname, "../front-end/source")));
 app.use("/api", RestaurantRoutes);
 app.use("/api/likedrestaurants", LikedRestaurantRoutes);
 app.use("/api/visitedrestaurants", VisitedRestaurantRoutes);
-app.use("/auth", AuthRoutes);
+app.use("/auth", AuthRoutes); // Login and authentication routes
 
 
 // Sync database and start server
@@ -70,8 +75,3 @@ sequelize
    });
  })
  .catch((err) => console.error("Database connection failed:", err));
-
-
-
-
-
