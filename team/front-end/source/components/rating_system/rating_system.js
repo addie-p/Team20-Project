@@ -108,21 +108,44 @@ export class rating_system {
   
 
   async populateRestaurantName() {
+    const restaurantNameInput = this.#container.querySelector("#restaurantName");
+    const reviewTextInput = this.#container.querySelector("#reviewText");
+    const starsContainer = this.#container.querySelector(".rating");
+  
     try {
       const response = await fetch(`/api/visitedrestaurants/${this.#restaurantId}`);
       if (!response.ok) throw new Error("Failed to fetch restaurant details.");
-      
       const restaurant = await response.json();
   
-      const restaurantNameInput = this.#container.querySelector("#restaurantName");
       if (restaurantNameInput) {
-        restaurantNameInput.value = restaurant.name || "Unknown Restaurant"; 
-        restaurantNameInput.disabled = true; 
+        restaurantNameInput.value = restaurant.name || "Unknown Restaurant";
+        restaurantNameInput.disabled = true;
       }
     } catch (error) {
       console.error("Error fetching and populating restaurant name:", error);
     }
-  }
+  
+    if (this.#db) {
+      const transaction = this.#db.transaction(["reviews"], "readonly");
+      const reviewStore = transaction.objectStore("reviews");
+      const request = reviewStore.get(this.#restaurantId);
+  
+      request.onsuccess = () => {
+        const review = request.result;
+        if (review) {
+          if (reviewTextInput) reviewTextInput.value = review.reviewText;
+          if (starsContainer) {
+            this.#selectedRating = review.rating;
+            this.updateStars(starsContainer, this.#selectedRating);
+          }
+        }
+      };
+  
+      request.onerror = (event) => {
+        console.error("Error fetching review:", event.target.error);
+      };
+    }
+  }  
 
   updateStars(container, rating) {
     container.querySelectorAll('.rating span').forEach((star, index) => {
