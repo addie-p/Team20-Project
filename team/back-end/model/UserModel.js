@@ -1,15 +1,13 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const path = require("path");
 
-
-// Initialize Sequelize
+//initialize seuquelite with SQLite
 const sequelize = new Sequelize({
  dialect: "sqlite",
  storage: path.join(__dirname, "../scripts/database.sqlite"),
 });
 
-
-// Define the User model
+//user model
 const User = sequelize.define(
  "User",
  {
@@ -24,12 +22,12 @@ const User = sequelize.define(
    },
  },
  {
-   timestamps: false, // Disable automatic timestamps
+   timestamps: false, 
  }
 );
 
 
-// Sync the database
+// sync database
 (async () => {
  try {
    await sequelize.sync();
@@ -39,5 +37,5 @@ const User = sequelize.define(
  }
 })();
 
-
+//export sequelize instance
 module.exports = { sequelize, User };

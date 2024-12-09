@@ -3,7 +3,7 @@ const { User } = require('../model/UserModel');
 
 
 const UserController = {
- // Register a new user
+ // register new user
  register: async (req, res) => {
    console.log("Register Request Body:", req.body);
     try {
@@ -26,7 +26,7 @@ const UserController = {
  },
 
 
- // Login user
+ // login user
  login: async (req, res) => {
    console.log("Login Request Body:", req.body);
     try {
@@ -53,7 +53,7 @@ const UserController = {
  },
 
 
- // Logout user
+ // logout user
  logout: (req, res) => {
    req.logout((err) => {
      if (err) {

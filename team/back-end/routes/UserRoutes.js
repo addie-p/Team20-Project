@@ -6,15 +6,15 @@ const UserController = require('../controller/UserController');
 const router = express.Router();
 
 
-// Register Route
+//route for register
 router.post('/register', UserController.register);
 
 
-// Login Route
+// route for login
 router.post('/login', passport.authenticate('local'), UserController.login);
 
 
-// Logout Route
+// route for logout
 router.get('/logout', UserController.logout);
 
 

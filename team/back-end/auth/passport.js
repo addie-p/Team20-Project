@@ -22,10 +22,10 @@ passport.use(
    })
 );
 
-
+// serialize user instance to store user id
 passport.serializeUser((user, done) => done(null, user.id));
 
-
+// deserialize user instance from session by id
 passport.deserializeUser(async (id, done) => {
    try {
        const user = await User.findByPk(id);
