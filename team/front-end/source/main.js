@@ -43,15 +43,10 @@ if (!app) {
 
       <label for="price">Price Range:</label>
       <select id="price" name="price">
-        <option value="">Any</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
       </select>
 
       <label for="distance">Maximum Distance (in kilometers):</label>
-      <input type="number" id="distance" name="distance" placeholder="e.g., 0.1" min="0">
+      <input type="number" id="distance" name="distance" placeholder="e.g., 0.7" min="0">
 
       <button type="button" id="applyFilterBtn">Apply Filter</button>
     </form>
@@ -77,6 +72,7 @@ if (!app) {
 
   renderRestaurantCards("restaurant-container");
 
+ 
   const style = document.createElement("link");
   style.rel = "stylesheet";
   style.href = "./components/FilterComponent/filter.css";
@@ -84,11 +80,13 @@ if (!app) {
 
   const savedRestaurants = JSON.parse(localStorage.getItem("savedRestaurants")) || [];
   const dislikedRestaurants = JSON.parse(localStorage.getItem("dislikedRestaurants")) || [];
-  let currentIndex = 0;
-  let filteredRestaurants = [];
-  let remainingRestaurants = [];
+  let currentIndex = 0; // index of restaurant card
+  let filteredRestaurants = []; // this array stores the filtered restaurants
+  let remainingRestaurants = []; // the remaining restaurants after the users swipe
   let allRestaurants = [];
 
+
+  // coordinates for each of the users location
   const locations = {
     Amherst: { lat: 42.373611, lon: -72.519444 },
     "South Hadley": { lat: 42.255, lon: -72.6008 },
@@ -97,7 +95,7 @@ if (!app) {
   };
 
   function haversine(lat1, lon1, lat2, lon2) {
-    const R = 6371;
+    const R = 6371; // Earth's radius in kilometers
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
 
@@ -107,7 +105,7 @@ if (!app) {
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return R * c;
+    return R * c; 
   }
 
   async function renderRestaurantCards(containerId) {
@@ -134,12 +132,6 @@ if (!app) {
       }
       const restaurants = await response.json();
 
-      restaurants.forEach(restaurant => {
-        if (!restaurant.distance) {
-          restaurant.distance = 0;
-        }
-      });
-
       return restaurants;
     } catch (error) {
       console.error("Error fetching restaurants from backend:", error);
@@ -158,6 +150,7 @@ if (!app) {
 
     const cardData = filteredRestaurants[currentIndex];
 
+  
     const card = new RestaurantCard(cardData);
 
     card.addSwipeListeners(
@@ -214,35 +207,42 @@ if (!app) {
   
     const userLocation = locations[location];
   
-    geolocationMap.updateLocation(location);
+    // updating the map with new location
+    geolocationMap.updateLocation(location); // we are gonna zoom on the users location
   
     filteredRestaurants = allRestaurants.filter((restaurant) => {
       let matches = true;
   
+      
       const restaurantDistance = haversine(
         userLocation.lat,
         userLocation.lon,
         restaurant.latitude,
         restaurant.longitude
       );
-      restaurant.distance = restaurantDistance;
+      restaurant.distance = restaurantDistance; 
   
+     
       if (location && !restaurant.full_address.includes(location)) {
         matches = false;
       }
   
+      
       if (cuisine && restaurant.cuisine !== cuisine) {
         matches = false;
       }
   
+      
       if (vegetarian && !restaurant.vegetarian) {
         matches = false;
       }
   
+     
       if (price && parseInt(restaurant.price) !== parseInt(price)) {
         matches = false;
       }
   
+      
       if (distance && restaurantDistance > parseFloat(distance)) {
         matches = false;
       }
@@ -250,9 +250,11 @@ if (!app) {
       return matches;
     });
   
-    currentIndex = 0;
+    currentIndex = 0; 
     displayNextCard();
   }
+
+  // tryna popualte the filter system
 
   function populateFilters() {
     const cuisineSelect = document.getElementById("cuisine");
@@ -278,11 +280,15 @@ if (!app) {
 
     const priceRanges = [1, 2, 3, 4];
 
+    // Populating the dropdown with values
+
+
     const anyCuisineOption = document.createElement("option");
     anyCuisineOption.value = "";
     anyCuisineOption.textContent = "Any";
     cuisineSelect.appendChild(anyCuisineOption);
 
+    
     cuisines.forEach(cuisine => {
       const option = document.createElement("option");
       option.value = cuisine;
@@ -290,18 +296,21 @@ if (!app) {
       cuisineSelect.appendChild(option);
     });
 
+    
     const anyPriceOption = document.createElement("option");
     anyPriceOption.value = "";
     anyPriceOption.textContent = "Any";
     priceSelect.appendChild(anyPriceOption);
 
+    
     priceRanges.forEach(range => {
       const option = document.createElement("option");
       option.value = range;
-      option.textContent = `$${range}`;
+      option.textContent = "$".repeat(range);
       priceSelect.appendChild(option);
-    });
+    });    
   }
 
   populateFilters();
 }
+
