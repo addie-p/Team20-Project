@@ -211,6 +211,8 @@ export class PhotoUploadsFeature {
             fileInput.click();
         });
 
+        let selectedFile = null;
+
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             const restaurantName = textInput.value.trim(); // Get text input value
@@ -222,6 +224,7 @@ export class PhotoUploadsFeature {
 
             if (file) {
                 const reader = new FileReader();
+                selectedFile = file;
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result; // set img source
                     imagePreview.style.display = 'block'; // make img visible
@@ -317,15 +320,49 @@ export class PhotoUploadsFeature {
         submitIcon.style.width = '50px';
         submitIcon.style.height = '50px';
 
-        //event listener
-        submitIcon.addEventListener('click', () => {
+        // submit icon event listener
+        submitIcon.addEventListener('click', async () => {
             console.log("submit icon clicked");
             if (imagePreview.style.display === 'none'){
                 alert("Please upload an image and enter a restaurant before submitting.");
                 return;
             }
+
+            if (!selectedFile) {
+                alert("No image selected. Please upload an image.");
+                return;
+            }
+            const restaurantName = textInput.value.trim();
+            if (!restaurantName) {
+                alert("Please enter a restaurant name.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", selectedFile);
+            formData.append("restaurant_name", restaurantName.toLowerCase());
+
+            // send POST request to upload photo to sqlite
+            try {
+                const response = await fetch("http://localhost:3000/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log("Upload successful:", result);
+                } else {
+                    console.error("Upload failed:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error during upload:", error);
+            }
+
             alert("Successfully saved your image!");
-            this.clearImagePreview();
+            this.clearAllImages();
+            // return to rating page
+            window.location.href = "./rating.html";
         });
 
         // back icon
