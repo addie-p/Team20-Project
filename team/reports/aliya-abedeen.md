@@ -31,8 +31,20 @@
 - **Details**:Added comments to the code to enhance readability and make it easier for others to understand and maintain. Also merged into integrate main to add the mini map on the main homepage.
 - **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/ebc0124203bbd9a270127c767e076fecded07736)
 
+### December 9, 2024
+- **Task**: Fixed the mini-map with the location dropdown in the filter system + Showing the restaurant markers from the database
+- **Details**:The mini-map now pulls data from the database and puts a marker on the restaurant by comparing its latitude and longitudinal values. It also now works with the filter dropdown feature, where once the user chooses their location between 4 options - Amherst, Hadley, Northampton, South Hadley - the map should automatically zoom in at those specific locations and show the restaurants in those specific locations.
+- **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/1ef04a41197614103ff481eac56ae0c381c5432e)
 
+### December 9, 2024
+- **Task**: Updated the mini-map markers to display the cuisine and the average rating of the restaurant
+- **Details**:Changing the mini-map markers to display the name of the restaurant, its cuisine and the average rating of the restaurant.
+- **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/988ae34d45fcf870146e6b677f9ebac6ee446471)
 
+### December 10, 2024
+- **Task**: Updated mini-map feature to work with integrate_main
+- **Details**:Updating the mini-map implementation to work with integrate_main
+- **Link to Commit**: (https://github.com/addie-p/Team20-Project/commit/05253e241df8749a718832909ed133882debfcc3)
 
 
 
