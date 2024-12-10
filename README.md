@@ -12,3 +12,6 @@ Updated run instructions (as of 12/08): To run the updated code with server-side
 1. npm install (in the root directory
 2. cd team/back-end
 3. node Server.js
+
+## Milestone 4 Updates
+For grading purposes, as the markdown files were not required to be updated, please refer to team/m4/m4updates.md for a detailed breakdown of the structure of the backend, GitHub practices used, and overall updates for milestone 4.
