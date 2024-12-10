@@ -52,3 +52,33 @@
 - **Task**: Document feature with sequence diagram in feature-sequence-diagram.md
 - **Details**: Update personal m3 folder with documentation of ranking system feature sequence diagram in Mermaid syntax
 - **Link to Commit**: [Commit on feature-sequence-diagram.md](https://github.com/addie-p/Team20-Project/commit/5cf210ae0e3a29c3a8b159e79074b7dfdcd14934)
+
+### November 21, 2024
+- **Task**: Updated README.md with description and how to run
+- **Details**: Provided the user with information on a brief summary of the web application, as well as how to run the app.
+- **Link to Commit**: [Commit on README.md](https://github.com/addie-p/Team20-Project/commit/98a2422d6518585d7dd9836317cc6e3d28648c67)
+
+### December 8, 2024
+- **Task**: Populate prefilled data on rating page after navigating from dashboard
+- **Details**: Update server code with pre filled population of data that couldn't be merged previously. Pulls from dashboard to populate and dummy-proof name input.
+- **Link to Commit**: [Commit on rating_system.js](https://github.com/addie-p/Team20-Project/commit/2dde6e8027193b237341fd80c31293032970c51c)
+
+### December 9, 2024
+- **Task**: Successfully retrieves data from backend for rating system
+- **Details**: Uses backend to fetch restaurant details (e.g., name, review, and rating) via an API endpoint, ensures that the displayed name is consistent with the backend data, ensures dynamic data like the restaurant name comes from a centralized source amongst users. Fixes problems made previously.
+- **Link to Commit**: [Commit on rating_system.js](https://github.com/addie-p/Team20-Project/commit/66c4babf4f567e3341a37c20e21774a548e14ee4)
+
+### December 9, 2024
+- **Task**: Updates made to allow arrow button to work on photo uploads
+- **Details**: Photo uploads back arrow previously changed and didn't bring back to review page. Problem fixed and brings you back to correct page.
+- **Link to Commit**: [Commit on rating_system.js](https://github.com/addie-p/Team20-Project/commit/a5375f03f139900e6411c7185f42a10d52729273)
+
+### December 9, 2024
+- **Task**: Update server.js with working server
+- **Details**: Previous Server.js wasn't working properly. Certain code has been taken out to allow it to run again.
+- **Link to Commit**: [Commit on rating_system.js](https://github.com/addie-p/Team20-Project/commit/3b2922e0165c63f18da1afda290554e610bcf016)
+
+### December 9, 2024
+- **Task**: Add comments for readability
+- **Details**: Add comments to rating system feature to ensure code readability and so that anyone reviewing code knows what each function does.
+- **Link to Commit**: [Commit on rating_system.js](https://github.com/addie-p/Team20-Project/commit/72d75387480aa107cb326c8d91215e225c983c42)
