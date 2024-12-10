@@ -33,6 +33,7 @@ back-end/
 ├── source/
 ├── Server.js
 ├── testRestaurants.js
+```
 
 However, changes were also made to frontend files in order to connect to the backend for requests such as GET and POST requests to retrieve and update information in the database. For comprehensive details about the frontend changes that were made, please refer to the Issues and/or specific Commits.
 
