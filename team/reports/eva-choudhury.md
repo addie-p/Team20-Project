@@ -41,3 +41,39 @@
 **Task:** Fixing images for restaurant card and adding to CSV (integrate_main #88)
 **Details:** This commit is adding our three chosen restaurants images in the CSV file and pulling that data to display the pictures in our restaurant cards. This fixes this styling.
 **Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/ec2867462a3fe8def7f12eae28414557574c1215)
+
+
+## December 7, 2024
+
+**Task:** Small changes to fix restaurant cards from SQLite database (Restaurant Card Feature (#120))
+**Details:** Editing code to correctly display name and cuisine of restaurant, code in main.js to correctly fetch is in progress.
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/3f8d324ad1aba08dedd043b0f14e023f491f6743)
+
+
+
+## December 7, 2024
+
+**Task:** Created visited restaurant table in backend and updated feature with backend (Saved Dashboard Feature (#125))
+**Details:** Created Visited Restaurants table in the backend, added CRUD operations with end points for this table, and updated my Saved Dashboard feature to grab data from Liked Restaurants table and update dynamically when moving to Visited Restaurants or removing all together.
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/b1fd4ca212a3df32887481701b5e7488601298a1)
+
+
+
+## December 8, 2024
+
+**Task:** Adding image column and image URLs for each restaurant in CSV (Images (#140))
+**Details:** Adding image column with image URLS in our restaurants.csv, updating database with Restaurant model w/ image property and rerunning scripts to correctly hold data in our database with image URLs!
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/2dc188fc1a7b0ae96c8b644ca9c4611b479d73b1)
+
+
+## December 8, 2024
+
+**Task:** Small fix with pricing in each restaurant card (Restaurant Card Price Fix (#138))
+**Details:** Small fix which fixes the way price is displayed to $, $$, and $$$ format instead of 1, 2, 3 using a for loop using the restaurant price data.
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/c78a473ecc35c03d3cf937dd28fa24a0e34d0ea9)
+
+## December 9, 2024
+
+**Task:**Small bug fix, removing Distance parameter (Update Restaurant Card (#138))
+**Details:** Small fix removing distance parameter because we are no longer using them in our restaurant card.
+**Link to Commit:** [Commit](https://github.com/addie-p/Team20-Project/commit/5fa6fbefcd75f09ec3c061b75da4f1fb77825ac8)
