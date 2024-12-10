@@ -14,6 +14,7 @@ export class rating_system {
     this.addBodyClickListener();
   }
 
+  // load external CSS
   loadCSS() {
     const styleSheet = document.createElement("link");
     styleSheet.rel = "stylesheet";
@@ -21,6 +22,7 @@ export class rating_system {
     document.head.appendChild(styleSheet);
   }
 
+  // initialize IndexedDB 
   initializeDB() {
     const request = indexedDB.open("PlatefulDB", 1);
   
@@ -33,53 +35,19 @@ export class rating_system {
       }
     };
   
+    // success callback
     request.onsuccess = (event) => {
       this.#db = event.target.result;
       this.populateRestaurantName();
     };
   
+    // error callback
     request.onerror = (event) => {
       console.error("Error initializing IndexedDB:", event.target.errorCode);
     };
   }
-  
 
-  // populateRestaurantName() {
-  //   const restaurantNameInput = this.#container.querySelector("#restaurantName");
-  //   const reviewTextInput = this.#container.querySelector("#reviewText");
-  //   const starsContainer = this.#container.querySelector(".rating");
-  
-  //   if (restaurantNameInput) {
-  //     restaurantNameInput.value = this.#restaurantName;
-  //     restaurantNameInput.disabled = true; 
-  //   }
-  
-  //   // get existing review from IndexedDB
-  //   const transaction = this.#db.transaction(["reviews"], "readonly");
-  //   const reviewStore = transaction.objectStore("reviews");
-  //   const index = reviewStore.index("restaurantName");
-  //   const request = index.get(this.#restaurantName);
-  
-  //   request.onsuccess = () => {
-  //     const review = request.result;
-  //     if (review) {
-  //       // prefill review text and star rating
-  //       if (reviewTextInput) {
-  //         reviewTextInput.value = review.reviewText;
-  //       }
-  //       if (starsContainer) {
-  //         this.#selectedRating = review.rating;
-  //         this.updateStars(starsContainer, this.#selectedRating);
-  //       }
-  //     }
-  //   };
-  
-  //   request.onerror = (event) => {
-  //     console.error("Error fetching review:", event.target.errorCode);
-  //   };
-  // }
-
-   
+  // fetch restaurant details from API & populate UI
   async fetchRestaurantDetails() {
     try {
       const response = await fetch(`/api/visitedrestaurants/${this.#restaurantId}`);
@@ -106,7 +74,7 @@ export class rating_system {
     }
   }
   
-
+  // populate restaurant name and fetch review data from backend
   async populateRestaurantName() {
     const restaurantNameInput = this.#container.querySelector("#restaurantName");
     const reviewTextInput = this.#container.querySelector("#reviewText");
@@ -147,18 +115,20 @@ export class rating_system {
     }
   }  
 
+  // update star rating display
   updateStars(container, rating) {
     container.querySelectorAll('.rating span').forEach((star, index) => {
       star.classList.toggle('selected', index < rating);
     });
   }
 
+  // handles clicking on star and updates the selected rating
   handleStarClick(container, index) {
-    // handles clicking on star and updates the selected rating
     this.#selectedRating = index + 1;
     this.updateStars(container, this.#selectedRating);
   }
 
+  // handles form submission tp save the review
   handleSubmit(event) {
     event.preventDefault();
   
@@ -204,11 +174,12 @@ export class rating_system {
     window.location.href = `./upload.html?restaurantId=${this.#restaurantId}`;
   }
 
+  // render the rating system UI
   async render() {
     const full_container = document.createElement('div');
     const navBar = new NavBarComponent();
   
-    // Validate NavBarComponent output
+    // validate NavBarComponent output
     const navBarNode = navBar.render();
     if (!navBarNode || !(navBarNode instanceof Node)) {
       console.error("NavBarComponent did not return a valid Node.");
@@ -220,6 +191,7 @@ export class rating_system {
     this.#container = document.createElement("div");
     this.#container.classList.add("container");
   
+    // html structure for UI
     this.#container.innerHTML = `
       <div class="header-container">
         <h1>Plateful</h1>
@@ -251,10 +223,10 @@ export class rating_system {
       <div class="right-content"></div>
     `;
   
-    // Populate restaurant name
+    // populate restaurant name
     await this.populateRestaurantName();
   
-    // Add event listeners
+    // add event listeners for star rating
     const stars = this.#container.querySelectorAll(".rating span");
     stars.forEach((star, index) => {
       star.addEventListener("click", () => this.handleStarClick(this.#container, index));
@@ -267,7 +239,7 @@ export class rating_system {
   
     this.#container.querySelector("#reviewForm").addEventListener("submit", this.handleSubmit.bind(this));
   
-    full_container.appendChild(this.#container);
+    full_container.appendChild(this.#container); 
       return full_container;
   }
 }
