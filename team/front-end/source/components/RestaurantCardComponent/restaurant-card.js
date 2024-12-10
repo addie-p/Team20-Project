@@ -41,7 +41,7 @@ export class RestaurantCard {
       <span>Price:</span> ${this.restaurantData.price || "Not specified"}<br>
       <span>Vegetarian:</span> ${this.restaurantData.vegetarian || "Not specified"} <br>
       <span>Location:</span> ${this.restaurantData.full_address || "Not specified"}<br>
-      <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} miles
+      <span>Distance:</span> ${this.restaurantData.distance || "Unknown"} kilometers
     `;
     content.appendChild(details);
   
