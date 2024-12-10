@@ -3,77 +3,7 @@ The backend structure follows a modular design, as specified in class, where dif
 
 The following file structure was implemented for the backend and server-side integration for milestone 4:
 
-back-end/
-
-│
-
-├── auth/
-
-│   ├── middleware.js
-
-│   ├── passport.js
-
-│
-
-├── controller/
-
-│   ├── LikedRestaurantController.js
-
-│   ├── RestaurantController.js
-
-│   ├── UserController.js
-
-│   ├── VisitedRestaurantController.js
-
-│
-
-├── model/
-
-│   ├── LikedRestaurantModel.js
-
-│   ├── ModelFactory.js
-
-│   ├── RestaurantModel.js
-
-│   ├── UserModel.js
-
-│   ├── VisitedRestaurantModel.js
-
-│
-
-├── photo_uploads/
-
-│   ├── photo_db_test.js
-
-│   ├── photo_server_test.js
-
-│
-
-├── routes/
-
-│   ├── LikedRestaurantRoutes.js
-
-│   ├── RestaurantRoutes.js
-
-│   ├── UserRoutes.js
-
-│   ├── VisitedRestaurantRoutes.js
-
-│
-
-├── scripts/
-
-│   ├── database.sqlite
-
-│   ├── importRestaurants.js
-
-│
-
-├── source/
-
-│   ├── Server.js
-
-│   ├── testRestaurants.js
+back-end/ ├── auth/ │ ├── middleware.js │ ├── passport.js │ ├── controller/ │ ├── LikedRestaurantController.js │ ├── RestaurantController.js │ ├── UserController.js │ ├── VisitedRestaurantController.js │ ├── model/ │ ├── LikedRestaurantModel.js │ ├── ModelFactory.js │ ├── RestaurantModel.js │ ├── UserModel.js │ ├── VisitedRestaurantModel.js │ ├── photo_uploads/ │ ├── photo_db_test.js │ ├── photo_server_test.js │ ├── routes/ │ ├── LikedRestaurantRoutes.js │ ├── RestaurantRoutes.js │ ├── UserRoutes.js │ ├── VisitedRestaurantRoutes.js │ ├── scripts/ │ ├── database.sqlite │ ├── importRestaurants.js │ ├── source/ │ ├── Server.js │ ├── testRestaurants.js
 
 However, changes were also made to frontend files in order to connect to the backend for requests such as GET and POST requests to retrieve and update information in the database. For comprehensive details about the frontend changes that were made, please refer to the Issues and/or specific Commits.
 
