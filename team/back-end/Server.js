@@ -13,6 +13,10 @@ const VisitedRestaurantRoutes = require("./routes/VisitedRestaurantRoutes");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const multer = require('multer');
+const db = require('./photo_uploads/photo_db_test'); //match to db calls
+const fs = require('fs');
+
 
 const resetLikedRestaurants = async () => {
  try {
