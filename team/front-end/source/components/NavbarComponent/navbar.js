@@ -59,16 +59,20 @@ export class NavBarComponent {
         return this.#container;
     }
 
+    // logout event to handle logouts
     async handleLogout(event) {
         event.preventDefault();  
         try {
+            // try to get endpoint
             const response = await fetch("http://localhost:3000/auth/logout", {
                 method: "GET",
                 credentials: "include",
             });
 
             if (response.ok) {
+                // log out user
                 alert("Logged out successfully!");
+                // redirect to login page
                 window.location.href = "login.html";  
             } else {
                 alert("Failed to log out.");

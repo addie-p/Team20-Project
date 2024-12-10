@@ -40,5 +40,22 @@
 - **Name of commit**: Update problem.md with updated information after working on the front-end
 - **Link to commit**: https://github.com/addie-p/Team20-Project/commit/fd3aabe23a1f3e601c8f9623b820f491ba4c5466
 
+### December 9, 2024
+- **Task**: Finished code for login and register 
+- **Details**: Finished the authorization feature, including features login and register. User can register a unique username and passwrod, and use that same username and password to login. If the user uses an incorrect username or password, an error message pops up. 
+- **Name of commit**: Authorization #132, #133: implemented register and login feature so that the user can register an account and log into its account
+- **Link to commit**: https://github.com/addie-p/Team20-Project/commit/88c989066edd2efa23e6a2e4c5457ff0fad169c0
+
+  ### December 9, 2024
+- **Task**: Connected login page to rest of the website 
+- **Details**: Previously, after the user successfully logs in, we had to manually go to index.html in the front-end to get to the rest of the website. Now, it automically goes to the rest of the website when the user succesfully logs in, also some refactoring of login and register code.
+- **Name of commit**: Authorization (#132, #133, #135): connected login feature to the rest of the website
+- **Link to commit**:https://github.com/addie-p/Team20-Project/commit/830ab2008e4ed04d653687049341023b22cba528
+
+  ### December 9, 2024
+- **Task**:Fixed the price on the ranking bracket system restaurant cards
+- **Details**: Changed it so that the restaurant cards would have dollar signs representing the price instead of a number representing how expensive a restaurant is.
+- **Name of commit**: Ranking Bracket System (#157): fixed dollar signs on bracket page
+- **Link to commit**:https://github.com/addie-p/Team20-Project/commit/db3efa732818ea161a1e81dc52bb5c03a40a5bd5
 
 

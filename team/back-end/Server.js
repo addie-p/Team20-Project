@@ -2,64 +2,66 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const session = require("express-session");
-const passport = require("./auth/passport"); // Assuming you have a passport.js file for authentication
-const AuthRoutes = require("./routes/UserRoutes"); // Assuming you have auth routes defined
+const passport = require("./auth/passport");
+const AuthRoutes = require("./routes/UserRoutes");
 const { sequelize } = require("./model/ModelFactory");
 const RestaurantRoutes = require("./routes/RestaurantRoutes");
 const LikedRestaurantRoutes = require("./routes/LikedRestaurantRoutes");
 const VisitedRestaurantRoutes = require("./routes/VisitedRestaurantRoutes");
 
-const multer = require('multer');
-const db = require('./photo_uploads/photo_db_test'); //match to db calls
-const fs = require('fs');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
-
-// Middleware
+// CORS Configuration
 app.use(
- cors({
-   origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
-   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-   allowedHeaders: ["Content-Type", "Authorization"],
-   credentials: true,
- })
+  cors({
+    origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
 );
 
-
-// Handle Preflight Requests
+// Preflight Request Handler
 app.options("*", (req, res) => {
- res.header("Access-Control-Allow-Origin", req.headers.origin);
- res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
- res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
- res.header("Access-Control-Allow-Credentials", "true");
- res.sendStatus(200);
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(200);
 });
 
-
+// Express Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-// Session middleware for login sessions
+// Session Configuration
 app.use(
- session({
-   secret: process.env.SESSION_SECRET || "defaultSecret",
-   resave: false,
-   saveUninitialized: false,
- })
+  session({
+    secret: process.env.SESSION_SECRET || "defaultSecret",
+    resave: false,
+    saveUninitialized: false,
+  })
 );
-
 
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// Serve static files
-app.use(express.static(path.join(__dirname, "../front-end/source")));
-
+// restrict access to pages
+app.use(
+  "/",
+  (req, res, next) => {
+    const protectedPages = ["/index.html", "/dashboard.html", "/brackets.html"];
+    if (protectedPages.includes(req.path) && !req.isAuthenticated()) {
+      return res.redirect("/login.html");
+    }
+    next();
+  },
+  express.static(path.join(__dirname, "../front-end/source"), {
+    index: "login.html", 
+  })
+);
 
 // API Routes
 app.use("/api", RestaurantRoutes);
@@ -118,14 +120,17 @@ app.get('/image/:restaurant_name', (req, res) => {
   });
 });
 
+// Default Route Redirect
+app.get("/", (req, res) => res.redirect("/login.html"));
 
-// Sync database and start server
+// Database Sync and Server Start
+  
 sequelize
- .sync({ force: false })
- .then(() => {
-   console.log("Database connected and models synced");
-   app.listen(port, () => {
-     console.log(`Server running at http://localhost:${port}`);
-   });
- })
- .catch((err) => console.error("Database connection failed:", err));
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database connected and models synced");
+    app.listen(port, () => {
+      console.log(`Server running at http://localhost:${port}`);
+    });
+  })
+  .catch((err) => console.error("Database connection failed:", err));

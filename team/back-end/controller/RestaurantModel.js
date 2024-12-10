@@ -1,12 +1,11 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-// create structure of restaurants table
-module.exports = (sequelize) => {
+export default (sequelize) => {
     const Restaurant = sequelize.define('Restaurant', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: false,
+            autoIncrement: true,
         },
         name: {
             type: DataTypes.STRING,
@@ -40,25 +39,6 @@ module.exports = (sequelize) => {
             type: DataTypes.INTEGER,
             allowNull: true,
         },
-        price: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
-        vegetarian: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        },
-        distance: {
-            type: DataTypes.FLOAT,
-            allowNull: true,
-        },
-        image: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-    }, {
-        timestamps: false,
     });
-
     return Restaurant;
 };
