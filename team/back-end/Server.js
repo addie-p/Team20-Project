@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, "../front-end/source")));
 // API Routes
 app.use("/api", RestaurantRoutes);
 app.use("/api/likedrestaurants", LikedRestaurantRoutes);
-app.use("/api/visitedrestaurants", VisitedRestaurantRoutes);
+app.use("/api/visitedrestaurants", VisitedRestaurantRoutes); // route for fetching visited restaurants
 app.use("/auth", AuthRoutes); // Login and authentication routes
 
 

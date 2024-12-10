@@ -8,6 +8,7 @@ export class SavedRestaurantsDashboard {
     this.initialize();
   }
 
+  // initialize by fetching liked restaurants and visited restaurants from tables from SQLite
   async initialize() {
     await this.fetchLikedRestaurants();
     await this.fetchVisitedRestaurants();
@@ -17,9 +18,9 @@ export class SavedRestaurantsDashboard {
   // fetching liked restaurants from backend liked restauranrs table
   async fetchLikedRestaurants() {
     try {
-      const response = await fetch("/api/likedrestaurants");
+      const response = await fetch("/api/likedrestaurants"); //liked restaurants route
       if (!response.ok) throw new Error("Failed to fetch liked restaurants.");
-      this.#likedRestaurants = await response.json();
+      this.#likedRestaurants = await response.json(); // hold fetched data in this variable
       this.displayRestaurants();
     } catch (error) {
       console.error("Error fetching liked restaurants:", error);
@@ -52,11 +53,14 @@ export class SavedRestaurantsDashboard {
     card.classList.add("restaurant-card");
     if (isVisited) card.classList.add("visited-card");
 
+    //add the image if it exists else have a placeholder
     const image = document.createElement("img");
     image.src = restaurant.image || "https://via.placeholder.com/150";
     image.alt = restaurant.name || "Restaurant Image";
     image.classList.add("restaurant-image");
 
+
+    // info container having name and rating
     const infoContainer = document.createElement("div");
     infoContainer.classList.add("info-container");
 
@@ -71,7 +75,7 @@ export class SavedRestaurantsDashboard {
     infoContainer.appendChild(name);
     infoContainer.appendChild(rating);
 
-    // if in visited section add review link
+    // if restaurant in visited section add a review link which links to review section
     if (isVisited) {
       const reviewLink = document.createElement("a");
       reviewLink.href = "./rating.html";
@@ -96,20 +100,20 @@ export class SavedRestaurantsDashboard {
     card.appendChild(image);
     card.appendChild(infoContainer);
 
-    // if in the liked section add option to add to visited section
+    // if in the liked section add option to move restaurant to visited section
     if (!isVisited) {
       const addToVisitedButton = document.createElement("button");
       addToVisitedButton.textContent = "+";
       addToVisitedButton.classList.add("add-to-visited");
       addToVisitedButton.onclick = () =>
-        this.moveToVisited(restaurant.id, restaurant);
+        this.moveToVisited(restaurant.id, restaurant); // calls function to move to visited
       card.appendChild(addToVisitedButton);
     }
 
     return card;
   }
 
-  // display all restaurants
+  // display all restaurants in its respective container
   displayRestaurants() {
     const likedContainer = this.#container.querySelector(
       "#likedRestaurantsGrid"
@@ -131,8 +135,8 @@ export class SavedRestaurantsDashboard {
   // removes from liked restaurants and adds to visited restaurants dynamically
   async moveToVisited(id, restaurant) {
     try {
-      await fetch(`/api/likedrestaurants/${id}`, { method: "DELETE" });
-      const addToVisitedResponse = await fetch("/api/visitedrestaurants", {
+      await fetch(`/api/likedrestaurants/${id}`, { method: "DELETE" }); // remove from liked restaurant table
+      const addToVisitedResponse = await fetch("/api/visitedrestaurants", { // add to visited restaurant table
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(restaurant),
@@ -149,10 +153,10 @@ export class SavedRestaurantsDashboard {
   // deletes from visited restaurants table and adds to liked restaurants table dynammically
   async moveToLiked(id, restaurant) {
     try {
-      const response = await fetch(`/api/visitedrestaurants/${id}`, {
+      const response = await fetch(`/api/visitedrestaurants/${id}`, { // remove restaurant from visited restaurants
         method: "DELETE",
       });
-      const r = await fetch("http://127.0.0.1:3000/api/likedrestaurants", {
+      const r = await fetch("http://127.0.0.1:3000/api/likedrestaurants", { // add restaurant to liked restaurants
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -172,11 +176,11 @@ export class SavedRestaurantsDashboard {
 
   async removeLikedRestaurant(id) {
     try {
-      const response = await fetch(`/api/likedrestaurants/${id}`, {
+      const response = await fetch(`/api/likedrestaurants/${id}`, { // delete a liked restaurant
         method: "DELETE",
       });
       if (!response.ok) throw new Error("Failed to remove liked restaurant.");
-      this.fetchLikedRestaurants();
+      this.fetchLikedRestaurants(); //update from backend
     } catch (error) {
       console.error("Error removing liked restaurant:", error);
     }
@@ -184,7 +188,7 @@ export class SavedRestaurantsDashboard {
 
   async removeVisitedRestaurant(id) {
     try {
-      const response = await fetch(`/api/visitedrestaurants/${id}`, {
+      const response = await fetch(`/api/visitedrestaurants/${id}`, { // delete from visited restaurant
         method: "DELETE",
       });
       if (!response.ok) throw new Error("Failed to remove visited restaurant.");
