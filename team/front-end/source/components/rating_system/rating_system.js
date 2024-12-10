@@ -100,7 +100,7 @@ export class rating_system {
 
               const img = document.createElement('img');
               img.src = blobUrl;
-              img.style.width = '70px';
+              img.style.width = '250px';
               img.style.height = 'auto';
 
               while (uploadButtonImageDiv.firstChild) {
