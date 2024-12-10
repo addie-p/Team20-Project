@@ -79,6 +79,7 @@ export class rating_system {
     const restaurantNameInput = this.#container.querySelector("#restaurantName");
     const reviewTextInput = this.#container.querySelector("#reviewText");
     const starsContainer = this.#container.querySelector(".rating");
+    const uploadButtonImageDiv = this.#container.querySelector(".upload-button");
   
     try {
       const response = await fetch(`/api/visitedrestaurants/${this.#restaurantId}`);
@@ -88,6 +89,30 @@ export class rating_system {
       if (restaurantNameInput) {
         restaurantNameInput.value = restaurant.name || "Unknown Restaurant";
         restaurantNameInput.disabled = true;
+        try {
+          const response = await fetch(`http://localhost:3000/image/${encodeURIComponent(restaurantNameInput.value.toLowerCase())}`);
+  
+          if (response.ok) {
+              // if restaurant image exists, load it in image preview
+              console.log('Restaurant image exists!');
+              const imageBlob = await response.blob();
+              const blobUrl = URL.createObjectURL(imageBlob);
+
+              const img = document.createElement('img');
+              img.src = blobUrl;
+              img.style.width = '70px';
+              img.style.height = 'auto';
+
+              while (uploadButtonImageDiv.firstChild) {
+                uploadButtonImageDiv.removeChild(uploadButtonImageDiv.firstChild);
+              }
+
+              uploadButtonImageDiv.appendChild(img);
+              img.onload = () => URL.revokeObjectURL(blobUrl);
+          }
+        } catch (error) {
+            console.error('Error checking restaurant image:', error);
+        } 
       }
     } catch (error) {
       console.error("Error fetching and populating restaurant name:", error);
