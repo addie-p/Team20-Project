@@ -364,6 +364,16 @@ export class PhotoUploadsFeature {
         submitIcon.style.width = '50px';
         submitIcon.style.height = '50px';
 
+        // back icon
+        const backIcon = document.createElement('img');
+        backIcon.className = 'back-icon';
+        backIcon.id = 'back-icon';
+        backIcon.src = './components/photo_uploads/images/previous.png';
+        backIcon.alt = 'back icon';
+        backIcon.style.cursor = 'pointer';
+        backIcon.style.width = '50px';
+        backIcon.style.height = '50px';
+
         // submit icon event listener
         submitIcon.addEventListener('click', async () => {
             console.log("submit icon clicked");
@@ -406,20 +416,10 @@ export class PhotoUploadsFeature {
             alert("Successfully saved your image!");
             this.clearAllImages();
             // return to rating page
-            window.location.href = "./rating.html";
+            backIcon.dispatchEvent(new Event('click'));
         });
 
-        // back icon
-        const backIcon = document.createElement('img');
-        backIcon.className = 'back-icon';
-        backIcon.id = 'back-icon';
-        backIcon.src = './components/photo_uploads/images/previous.png';
-        backIcon.alt = 'back icon';
-        backIcon.style.cursor = 'pointer';
-        backIcon.style.width = '50px';
-        backIcon.style.height = '50px';
-
-        //event listener
+        // back icon event listener
         backIcon.addEventListener('click', () => {
         console.log("back icon clicked");
 
