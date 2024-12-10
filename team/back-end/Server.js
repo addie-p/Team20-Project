@@ -18,7 +18,7 @@ const db = require('./photo_uploads/photo_db_test'); //match to db calls
 const fs = require('fs');
 
 
-const resetLikedRestaurants = async () => {
+const resetRestaurants = async () => {
  try {
    await models.Restaurant.update(
      { liked: 0 },
@@ -31,7 +31,16 @@ const resetLikedRestaurants = async () => {
 };
 
 
-
+const resetLikedRestaurants = async () => {
+  try {
+    await models.LikedRestaurant.destroy({
+      where: {},
+      truncate: true, 
+    });
+  } catch (error) {
+    console.error("Error deleting liked values:", error);
+  }
+ };
 
 // CORS Configuration
 app.use(
@@ -158,6 +167,7 @@ sequelize
  .sync({ force: false })
  .then(async() => {
    console.log("Database connected and models synced");
+   await resetRestaurants();
    await resetLikedRestaurants();
    app.listen(port, () => {
      console.log(`Server running at http://localhost:${port}`);
