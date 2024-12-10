@@ -8,7 +8,7 @@ const {
 } = require("../controller/VisitedRestaurantController.js");
 
 const router = express.Router();
-
+// creating get and post routes
 router.get("/", getVisitedRestaurants);
 router.get("/:id", async (req, res) => {
   try {

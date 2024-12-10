@@ -45,6 +45,7 @@
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
+  // POST request to log in user using credentials in db
   try {
     const response = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
@@ -55,15 +56,17 @@
 
     const data = await response.json();
 
+    // success message to user if login worked
     if (!response.ok) {
       alert(data.message); 
     } else {
       alert("Logged in successfully!");
+      // redirect to main page on success
       window.location.href = "/index.html"; 
     }
   } catch (error) {
     console.error("Error during login:", error);
-    alert("An error occurred during login.");
+    alert("You may have entered an invalid username or password.");
   }
 }
   </script>

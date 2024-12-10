@@ -186,14 +186,15 @@ function displayNextCard() {
   const cardData = filteredRestaurants[currentIndex];
   const card = new RestaurantCard(cardData);
 
-  // Attach swipe listeners for like/dislike actions
+  // swipe listeners for likes/dislikes
   card.addSwipeListeners(
+    // event for like
     async (likedRestaurant) => {
       console.log("Liked restaurant:", likedRestaurant);
 
       try {
-        // POST request to save the liked restaurant to the backend
-        console.log("Sending:", likedRestaurant); // Log before sending
+        // POST request to save liked restaurant to the backend
+        console.log("Sending:", likedRestaurant); // log for testing purposes
 
         await fetch("http://127.0.0.1:3000/api/likedrestaurants", {
           method: "POST",
@@ -203,20 +204,26 @@ function displayNextCard() {
           body: JSON.stringify(likedRestaurant),
         });
 
+        // push liked restaurants to db table
         savedRestaurants.push(likedRestaurant);
+        // get rid of liked restaurant in stack
         remainingRestaurants = remainingRestaurants.filter(
           (r) => r.id !== likedRestaurant.id
         );
         currentIndex++;
+        // update local storage to save changes
         updateLocalStorage();
         displayNextCard();
       } catch (error) {
         console.error("Error saving liked restaurant:", error);
       }
     },
+    // event for dislike
     (dislikedRestaurant) => {
-      console.log("Disliked restaurant:", dislikedRestaurant);
+      console.log("Disliked restaurant:", dislikedRestaurant); // log for testing purposes
+      // push to dummy table
       dislikedRestaurants.push(dislikedRestaurant);
+      // get rid of disliked restaurant in stack
       remainingRestaurants = remainingRestaurants.filter(
         (r) => r.id !== dislikedRestaurant.id
       );
@@ -236,36 +243,4 @@ function updateLocalStorage() {
     "dislikedRestaurants",
     JSON.stringify(dislikedRestaurants)
   );
-}
-
-// fetch data from csv
-async function fetchCSV() {
-  try {
-    const response = await fetch("./components/restaurants.csv");
-    if (!response.ok) {
-      throw new Error(`Failed to fetch CSV: ${response.statusText}`);
-    }
-    const data = await response.text();
-    return parseCSV(data);
-  } catch (error) {
-    console.error("Error fetching CSV:", error);
-    return [];
-  }
-}
-
-// parse data from csv
-function parseCSV(data) {
-  const rows = data.split("\n").map((row) => row.trim());
-  const headers = rows[0].split(",");
-
-  return rows.slice(1).map((row, index) => {
-    const values = row.split(",");
-    return headers.reduce(
-      (obj, header, idx) => {
-        obj[header.trim()] = values[idx]?.trim();
-        return obj;
-      },
-      { id: index + 1 }
-    );
-  });
 }

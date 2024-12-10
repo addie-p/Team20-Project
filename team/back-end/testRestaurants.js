@@ -1,23 +1,25 @@
+// this file is used for TESTING purposes - to test if fetching from db works
 const { sequelize, models } = require('./model/ModelFactory');
 
 async function testFetchRestaurants() {
   try {
-    // Connect to the database
+    // connect to db
     await sequelize.authenticate();
-    console.log('Connection established successfully.');
+    console.log('Connection worked');
 
-    // Fetch all restaurants
+    // fetch all restaurants
     const restaurants = await models.Restaurant.findAll();
 
+    // log if no restaurants are fetched
     if (restaurants.length === 0) {
-      console.log('No restaurants found.');
+      console.log('No restaurants');
     } else {
-      console.log('Restaurants found:', JSON.stringify(restaurants, null, 2));
+      console.log(JSON.stringify(restaurants, null, 2));
     }
   } catch (error) {
-    console.error('Error fetching restaurants:', error);
+    console.error('Error fetching', error);
   } finally {
-    // Close the connection
+    // close connection
     await sequelize.close();
   }
 }

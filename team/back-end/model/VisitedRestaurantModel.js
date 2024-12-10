@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 
+// same model as liked restaurant model
 module.exports = (sequelize) => {
   return sequelize.define("VisitedRestaurant", {
     id: {
