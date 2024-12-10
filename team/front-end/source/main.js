@@ -191,11 +191,13 @@ function displayNextCard() {
     // event for like
     async (likedRestaurant) => {
       console.log("Liked restaurant:", likedRestaurant);
-
+ 
+ 
       try {
         // POST request to save liked restaurant to the backend
         console.log("Sending:", likedRestaurant); // log for testing purposes
-
+ 
+ 
         await fetch("http://127.0.0.1:3000/api/likedrestaurants", {
           method: "POST",
           headers: {
@@ -203,7 +205,17 @@ function displayNextCard() {
           },
           body: JSON.stringify(likedRestaurant),
         });
-
+ 
+ 
+        await fetch(`http://127.0.0.1:3000/api/restaurants/${likedRestaurant.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ liked: 1 }),
+        });
+ 
+ 
         // push liked restaurants to db table
         savedRestaurants.push(likedRestaurant);
         // get rid of liked restaurant in stack
@@ -219,8 +231,19 @@ function displayNextCard() {
       }
     },
     // event for dislike
-    (dislikedRestaurant) => {
+    async (dislikedRestaurant) => {
       console.log("Disliked restaurant:", dislikedRestaurant); // log for testing purposes
+ 
+ 
+      await fetch(`http://127.0.0.1:3000/api/restaurants/${likedRestaurant.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ liked: 1 }),
+      });
+ 
+ 
       // push to dummy table
       dislikedRestaurants.push(dislikedRestaurant);
       // get rid of disliked restaurant in stack
@@ -231,8 +254,7 @@ function displayNextCard() {
       updateLocalStorage();
       displayNextCard();
     }
-  );
-
+  ); 
   container.appendChild(card.render());
 }
 
