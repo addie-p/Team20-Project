@@ -96,48 +96,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
   });
 });
 
-// retrieve an image by id (number in database)
-app.get('/image2/:id', (req, res) => {
-  const { id } = req.params;
-
-  const sql = `SELECT name, data FROM images WHERE id = ?`;
-  db.get(sql, [id], (err, row) => {
-    if (err) {
-      console.error('Error retrieving image:', err.message);
-      return res.status(500).send('Failed to retrieve image.');
-    }
-    if (!row) {
-      return res.status(404).send('Image not found.');
-    }
-
-    // set headers and image data
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
-    res.send(row.data);
-  });
-});
-
-// retrieve an image by file name
-app.get('/image3/:name', (req, res) => {
-    const { name } = req.params;
-  
-    const sql = `SELECT name, data FROM images WHERE name = ?`;
-    db.get(sql, [name], (err, row) => {
-      if (err) {
-        console.error('Error retrieving image:', err.message);
-        return res.status(500).send('Failed to retrieve image.');
-      }
-  
-      if (!row) {
-        return res.status(404).send('Image not found.');
-      }
-  
-      res.setHeader('Content-Type', 'image/jpeg'); // adjust MIME type if necessary
-      res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
-      res.send(row.data);
-    });
-});
-
 // retrieve an image by restaurant name
 app.get('/image/:restaurant_name', (req, res) => {
   const { restaurant_name } = req.params;
@@ -153,10 +111,10 @@ app.get('/image/:restaurant_name', (req, res) => {
       return res.status(404).send('No image found for the specified restaurant.');
     }
 
-    // Set appropriate content headers for the image
+    // set content headers for image
     res.setHeader('Content-Disposition', `inline; filename="${row.name}"`);
-    res.setHeader('Content-Type', 'image/jpeg'); // Adjust content type based on the image format
-    res.send(row.data); // Send the binary image data
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.send(row.data); // send binary image data
   });
 });
 

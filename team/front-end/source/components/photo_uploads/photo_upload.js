@@ -290,6 +290,58 @@ export class PhotoUploadsFeature {
         // image preview container
         container.appendChild(imagePreviewContainer);
 
+        // function to check if restaurant image already exists
+        const checkRestaurantImage = async (restaurantName) => {
+            try {
+                const response = await fetch(`http://localhost:3000/image/${encodeURIComponent(restaurantName)}`);
+        
+                if (response.ok) {
+                    // if restaurant image exists, load it in image preview
+                    console.log('Restaurant image exists!');
+                    const imageBlob = await response.blob();
+                    const file = new File([imageBlob], `${restaurantName}.jpg`, { type: imageBlob.type });
+
+                    // update and change the file input field
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+
+                    fileInput.files = dataTransfer.files;
+
+                    // trigger file input change event
+                    fileInput.dispatchEvent(new Event('change'));
+
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error checking restaurant image:', error);
+            }
+        };
+
+        // input listener for restaurant name text 
+        textInput.addEventListener('input', async function () {
+            const inputValue = this.value.trim();
+            if (inputValue) {
+                const exists = await checkRestaurantImage(inputValue.toLowerCase());
+                console.log(exists ? 'Image found!' : 'Image not found!');
+                // if restaurant image does not exist, make sure to clear image preview
+                if (!exists){
+                    if (imagePreview) {
+                        imagePreview.src = '';
+                        imagePreview.style.display = 'none';
+                        imagePreviewContainer.style.display = 'block';
+                    }
+                    
+                    if (imagePreviewText) {
+                        imagePreviewText.style.display = 'none';
+                        imagePreviewContainer.style.display = 'none';
+                    }
+                }
+                
+            }
+        });        
+
         //icon container for clear, submit, and back
         const iconContainer = document.createElement('div');
         iconContainer.style.display = 'flex'; 
