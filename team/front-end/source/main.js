@@ -235,7 +235,7 @@ function displayNextCard() {
       console.log("Disliked restaurant:", dislikedRestaurant); // log for testing purposes
  
  
-      await fetch(`http://127.0.0.1:3000/api/restaurants/${likedRestaurant.id}`, {
+      await fetch(`http://127.0.0.1:3000/api/restaurants/${dislikedRestaurant.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
