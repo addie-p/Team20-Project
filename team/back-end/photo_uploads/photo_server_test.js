@@ -4,7 +4,7 @@ const db = require('./photo_db_test'); //match to db calls
 const fs = require('fs');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 // configure multer for file uploads for image post and get
 const upload = multer({

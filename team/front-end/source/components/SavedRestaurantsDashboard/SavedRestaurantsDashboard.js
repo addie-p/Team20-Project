@@ -78,7 +78,9 @@ export class SavedRestaurantsDashboard {
     // if restaurant in visited section add a review link which links to review section
     if (isVisited) {
       const reviewLink = document.createElement("a");
-      reviewLink.href = "./rating.html";
+      reviewLink.href = `./rating.html?restaurantId=${restaurant.id}&restaurantName=${encodeURIComponent(
+        restaurant.name
+      )}`;      
       reviewLink.classList.add("review-link");
       reviewLink.innerHTML = "&#8599;";
       infoContainer.appendChild(reviewLink);
