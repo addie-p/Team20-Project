@@ -8,8 +8,7 @@ Plateful is designed for personal use and serves as a digital diary for food ent
 Some key features are restaurant tracking, a rating system, photo upload, filtering system, and geolocation integration. 
 
 ## How to Run
-Download the Live Server extension on VSCode and run the index.html file directly. Through the index.html file and navigation bar, the user will be able to access dashboard.html, rating.html, upload.html, and brackets.html. 
-
-Updated run instructions (as of 12/08): To run the updated code with server-side integration, navigate to the back-end folder and run the server file. In your local terminal, in the project folder, run:
-1. cd team/back-end
-2. node Server.js
+Updated run instructions (as of 12/08): To run the updated code with server-side integration, navigate to the back-end folder, install the node dependencies, and run the server file. In your local terminal, in the project folder, run:
+1. npm install (in the root directory
+2. cd team/back-end
+3. node Server.js
