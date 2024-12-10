@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+// create structure of liked restaurants table (same as restaurants)
 module.exports = (sequelize) => {
   return sequelize.define('LikedRestaurant', {
     id: {

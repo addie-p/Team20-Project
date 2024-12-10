@@ -1,11 +1,12 @@
 const { DataTypes } = require('sequelize');
 
+// create structure of restaurants table
 module.exports = (sequelize) => {
     const Restaurant = sequelize.define('Restaurant', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: false,  // Since we are using the CSV's `id`
+            autoIncrement: false,
         },
         name: {
             type: DataTypes.STRING,
@@ -56,7 +57,7 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
     }, {
-        timestamps: false,  // Disable Sequelize's default timestamps
+        timestamps: false,
     });
 
     return Restaurant;
