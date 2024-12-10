@@ -9,9 +9,9 @@ Some key features are restaurant tracking, a rating system, photo upload, filter
 
 ## How to Run
 Updated run instructions (as of 12/08): To run the updated code with server-side integration, navigate to the back-end folder, install the node dependencies, and run the server file. In your local terminal, in the project folder, run:
-1. npm install (in the root directory
-2. cd team/back-end
-3. node Server.js
+1. npm install (in the root directory)
+2. npm start
+If your browser does not automatically open, navigate to localhost:3000/login.html
 
 ## Milestone 4 Updates
 For grading purposes, as the markdown files were not required to be updated, please refer to team/m4 for a detailed breakdown of the structure of the backend, GitHub practices used, and overall updates for milestone 4.
