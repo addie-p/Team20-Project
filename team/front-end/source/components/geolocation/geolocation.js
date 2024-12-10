@@ -68,6 +68,7 @@ export class GeolocationMapComponent {
         lon: restaurant.longitude,
         name: restaurant.name,
         cuisine: restaurant.cuisine, 
+        rating: restaurant.rating
       }));
     } catch (error) {
       console.error('Error fetching restaurants:', error);
@@ -98,37 +99,39 @@ export class GeolocationMapComponent {
   }
 
   // adds markers to the map with distance calculation
-  addMarkers(map, selectedLat, selectedLon) {
-    const listContainer = document.getElementById(`${this.elementId}-list`);
-    if (listContainer) {
-      listContainer.innerHTML = '';
-    }
-
-    if (this.#restaurants.length === 0) {
-      if (listContainer) {
-        listContainer.textContent = 'No restaurants available.';
-      }
-      return;
-    }
-
-    this.#restaurants.forEach((restaurant) => {
-      const { lat, lon, name, cuisine } = restaurant;
-      const distance = this.haversine(selectedLat, selectedLon, lat, lon).toFixed(2);
-
-      L.marker([lat, lon]).addTo(map)
-        .bindPopup(`<b>${name}</b><br><i>Cuisine: ${cuisine}</i><br><b>Distance: ${distance} km</b>`);
-
-      if (listContainer) {
-        const listItem = document.createElement('div');
-        listItem.className = 'restaurant-list-item';
-        listItem.textContent = `${name} (${cuisine}) - ${distance} km`;
-        listItem.onclick = () => map.setView([lat, lon], this.zoomLevel);
-        listContainer.appendChild(listItem);
-      }
-    });
-
-    console.log('Rendered restaurant names, cuisines, and markers with distances.');
+  // Adds markers to the map with cuisine and rating
+addMarkers(map, selectedLat, selectedLon) {
+  const listContainer = document.getElementById(`${this.elementId}-list`);
+  if (listContainer) {
+    listContainer.innerHTML = '';
   }
+
+  if (this.#restaurants.length === 0) {
+    if (listContainer) {
+      listContainer.textContent = 'No restaurants available.';
+    }
+    return;
+  }
+
+  this.#restaurants.forEach((restaurant) => {
+    const { lat, lon, name, cuisine, rating } = restaurant;  // Ensure that rating is part of the restaurant object
+
+    // Displaying the marker with the cuisine and rating
+    L.marker([lat, lon]).addTo(map)
+      .bindPopup(`<b>${name}</b><br><i>Cuisine: ${cuisine}</i><br><b>Rating: ${rating || 'N/A'}</b>`);  // Use 'N/A' if rating is not available
+
+    if (listContainer) {
+      const listItem = document.createElement('div');
+      listItem.className = 'restaurant-list-item';
+      listItem.textContent = `${name} (${cuisine}) - Rating: ${rating}`;  // Display the rating in the list
+      listItem.onclick = () => map.setView([lat, lon], this.zoomLevel);
+      listContainer.appendChild(listItem);
+    }
+  });
+
+  console.log('Rendered restaurant names, cuisines, ratings, and markers.');
+}
+
 
   updateLocation(location) {
     let selectedLat, selectedLon;
