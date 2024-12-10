@@ -1,11 +1,11 @@
 # Backend Updates
 
 For milestone 4, we implemented the following large features, as described in the Issues section of the repository:
-DB Integration for Saved Restaurants ([#125][i125])
-DB Integration for Geolocation/Filters ([#126][i126])
-Implement Login & Authentication ([#158][i158])
-Backend Integration for Rating System ([#160][i160])
-Server-Side Setup/Implementation for Restaurant Cards ([#162][i162])
+- DB Integration for Saved Restaurants ([#125][i125])
+- DB Integration for Geolocation/Filters ([#126][i126])
+- Implement Login & Authentication ([#158][i158])
+- Backend Integration for Rating System ([#160][i160])
+- Server-Side Setup/Implementation for Restaurant Cards ([#162][i162])
 
 [i125]: https://github.com/addie-p/Team20-Project/issues/125
 [i126]: https://github.com/addie-p/Team20-Project/issues/126
