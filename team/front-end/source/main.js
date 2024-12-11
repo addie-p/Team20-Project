@@ -2,7 +2,7 @@ import { NavBarComponent } from "./components/NavBarComponent/navbar.js";
 import { RestaurantCard } from "./components/RestaurantCardComponent/restaurant-card.js";
 import { GeolocationMapComponent } from "./components/geolocation/geolocation.js";
 let geolocationMap;
-
+localStorage.clear();
 
 // initialize main app
 const app = document.getElementById("app");
