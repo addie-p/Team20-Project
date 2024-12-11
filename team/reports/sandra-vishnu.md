@@ -55,3 +55,23 @@
 - **Task**: Updated sandra-vishnu.md reports file with milestone 3 information.
 - **Details**: Recorded significant commits that I made while working on the filter system feature's front end implementation during milestone 3.
 - **Link to Commit**: [Commit on updating personal reports file](https://github.com/addie-p/Team20-Project/commit/184cac0af0c66708177572c4c4248c58787d29a0)
+
+
+### December 9, 2024
+- **Task**: Began editing filter system for m4 and adding max distance filter
+- **Details**: First iteration of adjustments to applyFilters function in order for the cuisine, vegetarian, and price range filters to work accurately with restaurant cards pulling data from SQLite database. Tried implementing max distance filter so that it calculates distance from user's chosen location to each restaurant and displays only restaurants within the max distance.
+- **Link to Commit**: [Commit on first edits of filter system for m4](https://github.com/addie-p/Team20-Project/commit/38f0c8ccfa46de6ef0197b532bcbc569ba025665)
+
+
+### December 9, 2024
+- **Task**: Edited price dropdown filter to use dollar signs instead of numbers + fixed max distance filter for decimal inputs
+- **Details**: Edited code for price range dropdown filter so that the options are displayed as dollar signs ($, $$$, and $$$$) instead of 1, 2, 3, and 4. Made max distance filter work correctly for decimal values of kilometers.
+- **Link to Commit**: [Commit on editing price dropdown and max distance filter](https://github.com/addie-p/Team20-Project/commit/2670f3f232fc6ddd150f30f3e4d2981bb12ade58)
+
+
+### December 10, 2024
+- **Task**: Updating filter system to work with backend SQLite database
+- **Details**: Final commit to make it so filters are applied correctly on restaurants when fetched from tables in backend database.
+- **Link to Commit**: [Commit on filter system integration with SQLite database](https://github.com/addie-p/Team20-Project/commit/09c3775772ede0a2793a778ecfac3a30067532ea)
+
+
