@@ -1,11 +1,13 @@
 import { NavBarComponent } from '../NavBarComponent/navbar.js';
 export class PhotoUploadsFeature {
 
-    constructor() {
+    constructor({ restaurantId, restaurantName }) {
         this.db = null;
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
         this.loadCSS();
         this.initDatabase();
-    }
+    }    
 
     loadCSS() {
         const styleSheet = document.createElement("link");
@@ -27,54 +29,11 @@ export class PhotoUploadsFeature {
         request.onsuccess = function(event) {
             console.log('Database initialized');
             this.db = event.target.result;
-            this.loadSavedImage();
         }.bind(this);
 
         request.onerror = function(event) {
             console.error('Database failed to open', event.target.error);
         };
-    }
-
-    loadSavedImage() {
-        if (this.db) {
-            const transaction = this.db.transaction('images', 'readonly');
-            const store = transaction.objectStore('images');
-            const getRequest = store.getAll();
-
-            getRequest.onsuccess = () => {
-                const images = getRequest.result;
-                if (images.length > 0) {
-                    const latestImage = images[images.length - 1].image;
-                    this.displayImage(latestImage);
-                    //load restaurant too
-                    const latestRestaurant = images[images.length - 1].restaurant;
-                    const textInput = document.getElementById('restaurant');
-                    textInput.value = latestRestaurant;
-                }
-            };
-
-            getRequest.onerror = (err) => {
-                console.error('Error retrieving images from IndexedDB:', err);
-            };
-        } else {
-            console.error('Database is not initialized');
-        }
-    }
-
-    displayImage(imageSrc) {
-        const imagePreview = document.getElementById('imagePreview');
-        const imagePreviewText = document.getElementById('imagePreviewText');
-        
-        if (imagePreview) {
-            imagePreview.src = imageSrc;
-            imagePreview.style.display = 'block';
-            imagePreviewContainer.style.display = 'block';
-        }
-        
-        if (imagePreviewText) {
-            imagePreviewText.style.display = 'block';
-            imagePreviewContainer.style.display = 'block';
-        }
     }
 
 
@@ -83,67 +42,98 @@ export class PhotoUploadsFeature {
             console.error('Database not initialized');
             return;
         }
-
+    
         const transaction = this.db.transaction('images', 'readwrite');
         const store = transaction.objectStore('images');
-
+    
         const reader = new FileReader();
         reader.onload = function(e) {
-            const imageBlob = new Blob([e.target.result], { type: file.type });
-            const addRequest = store.add({ image: imageBlob, name: file.name, timestamp: Date.now() });
-
+            const imageBlob = e.target.result; 
+            const addRequest = store.add({
+                id: Date.now(),
+                restaurantId: this.restaurantId, 
+                image: imageBlob,
+                restaurant: this.restaurantName, 
+                timestamp: Date.now(),
+            });
+    
             addRequest.onsuccess = function() {
                 console.log('Image saved successfully.');
             };
-
+    
             addRequest.onerror = function() {
                 console.error('Failed to save image:', addRequest.error);
             };
-        };
-
+        }.bind(this);
+    
         reader.onerror = function() {
             console.error('Error reading file:', reader.error);
         };
-
-        reader.readAsArrayBuffer(file);
-    }
+    
+        reader.readAsDataURL(file);
+    }    
 
     clearAllImages() {
         if (this.db) {
             const transaction = this.db.transaction('images', 'readwrite');
             const store = transaction.objectStore('images');
-            const clearRequest = store.clear();
-
-            clearRequest.onsuccess = () => {
-                console.log('All images cleared from IndexedDB');
-                this.clearImagePreview();
-                const textInput = document.getElementById('restaurant');
-                textInput.value = '';
+            const getRequest = store.getAll();
+    
+            getRequest.onsuccess = () => {
+                const images = getRequest.result.filter(image => image.restaurantId === this.restaurantId); // Filter by restaurantId
+                const deletePromises = images.map(image => store.delete(image.id));
+    
+                Promise.all(deletePromises)
+                    .then(() => {
+                        console.log('All images for this restaurant cleared from IndexedDB');
+                        this.clearImagePreview();
+                        const textInput = document.getElementById('restaurant');
+                        textInput.value = '';
+                    })
+                    .catch(err => {
+                        console.error('Error clearing images for this restaurant:', err);
+                    });
             };
-
-            clearRequest.onerror = (err) => {
-                console.error('Error clearing images from IndexedDB:', err);
+    
+            getRequest.onerror = (err) => {
+                console.error('Error retrieving images from IndexedDB:', err);
             };
         } else {
             console.error('Database is not initialized');
         }
-    }
+    }    
 
     clearImagePreview() {
         const imagePreview = document.getElementById('imagePreview');
         const imagePreviewText = document.getElementById('imagePreviewText');
-        
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer'); // Add this
+    
         if (imagePreview) {
             imagePreview.src = '';
             imagePreview.style.display = 'none';
-            imagePreviewContainer.style.display = 'block';
         }
-        
-        if (imagePreviewText) {
+    
+        if (imagePreviewText && imagePreviewContainer) {
             imagePreviewText.style.display = 'none';
-            imagePreviewContainer.style.display = 'none';
+            imagePreviewContainer.style.display = 'none'; // Ensure container is hidden
         }
     }
+    
+    displayImage(imageSrc) {
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewText = document.getElementById('imagePreviewText');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer'); // Add this
+    
+        if (imagePreview) {
+            imagePreview.src = imageSrc;
+            imagePreview.style.display = 'block';
+        }
+    
+        if (imagePreviewText && imagePreviewContainer) {
+            imagePreviewText.style.display = 'block';
+            imagePreviewContainer.style.display = 'block';
+        }
+    }    
 
     render() {
         const full_container = document.createElement('div');
@@ -180,6 +170,8 @@ export class PhotoUploadsFeature {
         const textInput = document.createElement('input');
         textInput.type = 'text';
         textInput.id = 'restaurant';
+        textInput.value = this.restaurantName || ''; 
+       // textInput.disabled = true; // disable user input
         container.appendChild(textInput);
 
         // hidden file input
@@ -211,6 +203,8 @@ export class PhotoUploadsFeature {
             fileInput.click();
         });
 
+        let selectedFile = null;
+
         fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             const restaurantName = textInput.value.trim(); // Get text input value
@@ -222,6 +216,7 @@ export class PhotoUploadsFeature {
 
             if (file) {
                 const reader = new FileReader();
+                selectedFile = file;
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result; // set img source
                     imagePreview.style.display = 'block'; // make img visible
@@ -287,6 +282,58 @@ export class PhotoUploadsFeature {
         // image preview container
         container.appendChild(imagePreviewContainer);
 
+        // function to check if restaurant image already exists
+        const checkRestaurantImage = async (restaurantName) => {
+            try {
+                const response = await fetch(`http://localhost:3000/image/${encodeURIComponent(restaurantName)}`);
+        
+                if (response.ok) {
+                    // if restaurant image exists, load it in image preview
+                    console.log('Restaurant image exists!');
+                    const imageBlob = await response.blob();
+                    const file = new File([imageBlob], `${restaurantName}.jpg`, { type: imageBlob.type });
+
+                    // update and change the file input field
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+
+                    fileInput.files = dataTransfer.files;
+
+                    // trigger file input change event
+                    fileInput.dispatchEvent(new Event('change'));
+
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error checking restaurant image:', error);
+            }
+        };
+
+        // input listener for restaurant name text 
+        textInput.addEventListener('input', async function () {
+            const inputValue = this.value.trim();
+            if (inputValue) {
+                const exists = await checkRestaurantImage(inputValue.toLowerCase());
+                console.log(exists ? 'Image found!' : 'Image not found!');
+                // if restaurant image does not exist, make sure to clear image preview
+                if (!exists){
+                    if (imagePreview) {
+                        imagePreview.src = '';
+                        imagePreview.style.display = 'none';
+                        imagePreviewContainer.style.display = 'block';
+                    }
+                    
+                    if (imagePreviewText) {
+                        imagePreviewText.style.display = 'none';
+                        imagePreviewContainer.style.display = 'none';
+                    }
+                }
+                
+            }
+        });        
+
         //icon container for clear, submit, and back
         const iconContainer = document.createElement('div');
         iconContainer.style.display = 'flex'; 
@@ -317,17 +364,6 @@ export class PhotoUploadsFeature {
         submitIcon.style.width = '50px';
         submitIcon.style.height = '50px';
 
-        //event listener
-        submitIcon.addEventListener('click', () => {
-            console.log("submit icon clicked");
-            if (imagePreview.style.display === 'none'){
-                alert("Please upload an image and enter a restaurant before submitting.");
-                return;
-            }
-            alert("Successfully saved your image!");
-            this.clearImagePreview();
-        });
-
         // back icon
         const backIcon = document.createElement('img');
         backIcon.className = 'back-icon';
@@ -338,11 +374,71 @@ export class PhotoUploadsFeature {
         backIcon.style.width = '50px';
         backIcon.style.height = '50px';
 
-        //event listener
-        backIcon.addEventListener('click', () => {
-            console.log("back icon clicked");
-            window.location.href = "./rating.html";
+        // submit icon event listener
+        submitIcon.addEventListener('click', async () => {
+            console.log("submit icon clicked");
+            if (imagePreview.style.display === 'none'){
+                alert("Please upload an image and enter a restaurant before submitting.");
+                return;
+            }
+
+            if (!selectedFile) {
+                alert("No image selected. Please upload an image.");
+                return;
+            }
+            const restaurantName = textInput.value.trim();
+            if (!restaurantName) {
+                alert("Please enter a restaurant name.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", selectedFile);
+            formData.append("restaurant_name", restaurantName.toLowerCase());
+
+            // send POST request to upload photo to sqlite
+            try {
+                const response = await fetch("http://localhost:3000/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log("Upload successful:", result);
+                } else {
+                    console.error("Upload failed:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error during upload:", error);
+            }
+
+            alert("Successfully saved your image!");
+            this.clearAllImages();
+            // return to rating page
+            backIcon.dispatchEvent(new Event('click'));
         });
+
+        // back icon event listener
+        backIcon.addEventListener('click', () => {
+        console.log("back icon clicked");
+
+        // Get the current URL's query parameters
+        const queryParams = new URLSearchParams(window.location.search);
+        const restaurantId = queryParams.get('restaurantId');
+        const restaurantName = queryParams.get('restaurantName');
+
+        if (restaurantId && restaurantName) {
+            // Navigate back to the specific rating page for the restaurant
+            window.location.href = `./rating.html?restaurantId=${restaurantId}&restaurantName=${encodeURIComponent(restaurantName)}`;
+        } else if (document.referrer) {
+            // Fallback: If the query params aren't present, try using the referrer
+            window.location.href = document.referrer;
+        } else {
+            // If no query params or referrer, navigate to a default page
+            window.location.href = './dashboard.html';
+        }
+});
 
         iconContainer.appendChild(clearIcon);
         iconContainer.appendChild(submitIcon);
@@ -358,7 +454,5 @@ export class PhotoUploadsFeature {
 
         return full_container;
     }
-
     
 }
-
