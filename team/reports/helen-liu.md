@@ -95,3 +95,23 @@
 ### add navbar to ranking bracket page
 - render navbar in rating system page with a fuller container and modify css for the navbar to be width of full page while everything else on the page remains the same
 - link: https://github.com/addie-p/Team20-Project/commit/13f86144946d7347ea9086491a6b31b8f77712c0
+
+## Milestone 4
+
+### Main Feature Issue:
+- link: https://github.com/addie-p/Team20-Project/issues/178
+
+### Sub Issues:
+- #117 : Set up SQLite database, the images Sequelize table, and create /upload and /image/:restaurant_name routes with SQLite3, Express.js, and Multer to save and retrieve images
+- link: https://github.com/addie-p/Team20-Project/issues/117
+
+- #116 : Connect and use routes in front-end of the photo upload page to save user's uploaded images with a restaurant name
+- link: https://github.com/addie-p/Team20-Project/issues/116
+
+- #150 : Migrate photo server javascript into app's primary Server.js to avoid having to run on a different port after fixing app's Server.js to function properly in #120
+- link: https://github.com/addie-p/Team20-Project/issues/150
+- link: https://github.com/addie-p/Team20-Project/issues/120
+
+- #175, #180 : Connect and use routes in front-end of the photo upload page and rating system to page to track restaurant input field and retrieve the image of a restaurant if an image already exists/is saved according to the text
+- link: https://github.com/addie-p/Team20-Project/issues/175
+- link: https://github.com/addie-p/Team20-Project/issues/180
