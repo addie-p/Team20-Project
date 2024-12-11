@@ -86,10 +86,10 @@ Details: Completed the server-side implementation of the restaurants feature usi
 Link to Issue: https://github.com/addie-p/Team20-Project/issues/162
 
 Corresponding Sub-Issues:
-#118: Set up server-side architecture
-#120: Implement restaurants database using script
-#127: Implement liked restaurants database and sync
-#138: Render restaurants from database as cards
+- #118: Set up server-side architecture
+- #120: Implement restaurants database using script
+- #127: Implement liked restaurants database and sync
+- #138: Render restaurants from database as cards
 
 Bug Fixes:
 #177: Updating 'Liked' Status for Restaurants Table
@@ -108,9 +108,9 @@ Details: Set up the server-side structure for an authentication system and conne
 Link to Issue: https://github.com/addie-p/Team20-Project/issues/158
 
 Corresponding Sub-Issues:
-#132: Implement registering feature
-#133: Implement log-in feature
-#135: Connect log-in page to the rest of the website
+- #132: Implement registering feature
+- #133: Implement log-in feature
+- #135: Connect log-in page to the rest of the website
 
 Bug Fixes:
 #172: Protected Routes for Login
