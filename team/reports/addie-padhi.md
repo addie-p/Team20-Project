@@ -76,3 +76,46 @@ Details: Updated the second half of the features.md file with point values to de
 
 Link to Commit:
 - https://github.com/addie-p/Team20-Project/commit/1524f04e2e7f271114c2cc586de3daecd0a0f0f0
+
+### December 8th-9th, 2024 - Milestone 4 Updates
+
+Major feature: Server-Side Implementation for Restaurants
+
+Details: Completed the server-side implementation of the restaurants feature using an SQLite database and endpoint/route integration to manage restaurant data dynamically through the back-end.
+
+Link to Issue: https://github.com/addie-p/Team20-Project/issues/162
+
+Corresponding Sub-Issues:
+#118: Set up server-side architecture
+#120: Implement restaurants database using script
+#127: Implement liked restaurants database and sync
+#138: Render restaurants from database as cards
+
+Bug Fixes:
+#177: Updating 'Liked' Status for Restaurants Table
+
+Link to Major Commits (see all relevant commits made in history):
+- https://github.com/addie-p/Team20-Project/commit/2f478203e4702de8a5d44c52579d55d3090c9676
+- https://github.com/addie-p/Team20-Project/commit/b7ac8c6a46521dc85a5a082302b9d44dc528a349
+- https://github.com/addie-p/Team20-Project/commit/ab39cb70e6f3cc202108bb71dbe9bdbb91c5e078
+
+### December 10th-11th, 2024 - Milestone 4 Updates
+
+Major feature: Implement Part of Login/Authentication Feature
+
+Details: Set up the server-side structure for an authentication system and connected the frontend authentication pages to the backend through POST requests.
+
+Link to Issue: https://github.com/addie-p/Team20-Project/issues/158
+
+Corresponding Sub-Issues:
+#132: Implement registering feature
+#133: Implement log-in feature
+#135: Connect log-in page to the rest of the website
+
+Bug Fixes:
+#172: Protected Routes for Login
+
+Link to Major Commits (see all relevant commits made in history):
+- https://github.com/addie-p/Team20-Project/commit/750effbe2edcf15b5bed8ffdf15267479a202e0e
+- https://github.com/addie-p/Team20-Project/commit/4e12a140a390d741e2a527aa9e5cd953b4797e88
+- https://github.com/addie-p/Team20-Project/commit/fd8013dee6d19490301f26341c1955aa8523a77b
